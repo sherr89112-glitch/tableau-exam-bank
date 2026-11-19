@@ -1,0 +1,4031 @@
+# Tableau Desktop Specialist 題庫
+
+共 **305** 題。
+
+## 考試形式
+
+| 項目 | 內容 |
+|---|---|
+| 題數 | 45 |
+| 時間 | 60 分鐘 |
+| 通過門檻 | 70% |
+
+| 領域 | 權重 | 本題庫題數 |
+|---|---|---|
+| 連接與準備資料 Connecting to and Preparing Data | 25% | 65 |
+| 探索與分析資料 Exploring and Analyzing Data | 35% | 117 |
+| 分享洞察 Sharing Insights | 25% | 69 |
+| Tableau 概念 Understanding Tableau Concepts | 15% | 54 |
+
+
+---
+
+# 連接與準備資料　<small>Connecting to and Preparing Data　權重 25%</small>
+
+
+## Join / Relationship / Blending　（28 題）
+
+### 1. How can the logical layer be changed to the physical layer, or how do you define a join in the data source tab? (select all that apply)　**（複選）**
+
+> 要從邏輯層進到實體層（也就是定義 join）有哪些做法？（複選）
+
+- [x] **Double click on logical layer**
+- [x] **Right Click on Table -> Open**
+- [ ] Right Click on Table -> change to physical layer
+
+**解析：** 在邏輯層的表上「雙擊」或「右鍵 ▸ Open」都會展開實體層的 join/union 畫布，join 就在那裡定義。沒有「change to physical layer」這個選項。
+
+<sub>AllAboutDATA P2　·　[影片 1:55](https://youtu.be/TtChR0LBQtQ?t=115)</sub>
+
+### 2. Data Blending simulates ____ Join?
+
+> Data blending 的行為相當於哪一種 join？
+
+- [x] **Left**
+- [ ] Right
+- [ ] Inner
+- [ ] full outer
+
+**解析：** Blending 會保留主要資料來源的所有值，再從次要資料來源帶入對應的列——這正是 left join 的行為（主要＝左表）。次要來源沒有對應時顯示為 null。
+
+<sub>AllAboutDATA P2　·　[影片 2:43](https://youtu.be/TtChR0LBQtQ?t=163)</sub>
+
+### 3. What is true about Data Blending? (select all that apply)　**（複選）**
+
+> 關於 data blending，下列哪些敘述正確？（複選）
+
+- [x] **Fields in the blends must be aggregated first**
+- [x] **Blending apply sheet by sheet**
+- [x] **connect data from multiple data source**
+- [ ] Fields in the blend must be combined first
+
+**解析：** Blending 的三個特性：次要來源的欄位一定是彙總後才帶進視圖（所以會看到 AVG／SUM 包起來）、混合關係是「逐工作表」設定的（每張表可以不同）、而且它專門用於跨資料來源。欄位不需要事先合併。
+
+<sub>AllAboutDATA P2　·　[影片 3:25](https://youtu.be/TtChR0LBQtQ?t=205)</sub>
+
+### 4. What are the two characteristics of relationships? (Choose two.)　**（複選）**
+
+> relationship 有哪兩個特性？（複選）
+
+- [ ] Relationships will query every table in a data model regardless of whether the fields are in the visualization.
+- [x] **Relationships will query only the tables and fields needed to create a visualization.**
+- [ ] Relationships are only supported when using extracts.
+- [x] **Relationships are aware automatically of the native level of detail of logical tables.**
+
+**解析：** Relationship 是「延遲、依需求」查詢：只查視圖真正用到的表與欄位；而且它知道每張邏輯表本身的細分層級，所以不同粒度的表結合時不會產生重複列。它對 live 與 extract 都適用。
+
+<sub>AllAboutDATA P2　·　[影片 8:25](https://youtu.be/TtChR0LBQtQ?t=505)</sub>
+
+### 5. What are three reasons to use joins instead of relationships? (Choose three.)　**（複選）**
+
+> 有哪三個理由會選擇用 join 而不是 relationship？（複選）
+
+- [x] **You need to use a specific join type.**
+- [ ] You need to create an extract that will have multiple tables.
+- [x] **You need to use row-level security.**
+- [x] **You need to use a data model that supports shared dimensions.**
+- [ ] You need to connect to multiple databases.
+
+**解析：** 需要明確指定 join 型別（inner／left／right／full outer）、需要列層級安全性、或資料模型要共用維度時，就得回到實體層用 join。多表擷取與跨資料庫連線用 relationship 也做得到。
+
+<sub>AllAboutDATA P2　·　[影片 9:20](https://youtu.be/TtChR0LBQtQ?t=560)</sub>
+
+### 6. When should you use a relationship instead of a join for two data sets?
+
+> 兩份資料集在什麼情況下該用 relationship 而不是 join？
+
+- [ ] To use both data sets across multiple sheets in a visualization.
+- [ ] The data sets are in two separate tables within a single spreadsheet.
+- [x] **The data sets include similar data aggregated at different levels of detail.**
+- [ ] The data sets include similar data aggregated up to the highest level.
+
+**解析：** Relationship 最大的價值就在「粒度不同」的情況：它會各自以原本的細分層級查詢再對應，避免 join 造成的重複列與數值灌水。
+
+<sub>AllAboutDATA P2　·　[影片 10:20](https://youtu.be/TtChR0LBQtQ?t=620)</sub>
+
+### 7. When should you use Union to combine data?
+
+> 什麼情況下該用 union 合併資料？
+
+- [ ] When the data is at different level of details
+- [ ] When the data will be used to add new fields column.
+- [x] **When the data has same structure.**
+- [ ] When the data comes from different connections.
+
+**解析：** Union 是把結構相同的表往下疊（例如各月份、各分店的同格式資料表），欄位必須對得起來。要增加欄位是 join；粒度不同用 relationship。
+
+<sub>AllAboutDATA P2　·　[影片 11:20](https://youtu.be/TtChR0LBQtQ?t=680)</sub>
+
+### 8. Which one of the following is not a type of join in Tableau?
+
+> 下列哪一個不是 Tableau 的 join 類型？
+
+- [ ] Inner join
+- [ ] Left join
+- [ ] Right join
+- [x] **Top join**
+
+**解析：** Tableau 支援 inner、left、right、full outer 四種 join。「Top join」不存在——Top 是篩選器的功能（Top N），不是結合方式。
+
+<sub>AllAboutDATA P2　·　[影片 16:34](https://youtu.be/TtChR0LBQtQ?t=994)</sub>
+
+### 9. A teacher has a table named Class and a table named After-School. The Class table is on the left and the After-School table is on the right. Which type of join should you use to build a view that displays only the students in the class that attend the after-school program?
+
+> Class 表在左、After-School 表在右，要只顯示「同時出現在兩張表」的學生，該用哪種 join？
+
+- [ ] Full Outer
+- [x] **Inner**
+- [ ] Right
+- [ ] Left
+
+**解析：** 只要兩邊都有的記錄＝取交集＝inner join。Left 會把班上所有學生都留下、Right 會留下所有課後班學生、Full outer 兩邊全留。
+
+<sub>AllAboutDATA P2　·　[影片 18:40](https://youtu.be/TtChR0LBQtQ?t=1120)</sub>
+
+### 10. Which statements regarding unions is correct? (Select 2)　**（複選）**
+
+> 關於 union 的敘述，哪兩項正確？（複選）
+
+- [x] **Tables cannot be union from different databases**
+- [x] **The union columns need to have the same data type**
+- [ ] The columns must have the same names
+
+**解析：** Union 只能在同一個連線／資料庫內進行，而且對應欄位的資料型別要一致（字串對數值不會合併）。欄位名稱不必完全相同——名稱不同的欄位會被視為不同欄位並各自保留，可再手動合併（merge）。
+
+<sub>AllAboutDATA P2　·　[影片 20:30](https://youtu.be/TtChR0LBQtQ?t=1230)</sub>
+
+### 11. How many types of joins are available in Tableau?
+
+> Tableau 提供幾種 join 類型？
+
+- [ ] 3
+- [x] **4**
+- [ ] 5
+- [ ] 2
+
+**解析：** 四種：inner、left、right、full outer。在實體層拖入第二張表時，點兩表之間的文氏圖就會看到這四個選項。
+
+<sub>AllAboutDATA P2　·　[影片 21:20](https://youtu.be/TtChR0LBQtQ?t=1280)</sub>
+
+### 12. When should you use data blending to combine data?
+
+> 什麼情況下該用 data blending 來合併資料？
+
+- [ ] When the data has same structure but is for different time periods
+- [ ] When data is from the same connection
+- [ ] When the data will be used in multiple worksheets within a workbook
+- [x] **When using data sources that can not be combined with the default method of using a relationship**
+
+**解析：** Blending 是「最後手段」：當兩份資料無法用預設的 relationship 結合時才用它（跨資料來源、不同連線、粒度不同）。同一個連線內的資料應該用 relationship 或 join；結構相同只是期間不同，那是 union 的情境。
+
+<sub>AllAboutDATA P1　·　[影片 2:50](https://youtu.be/VF8HTkcnq7o?t=170)</sub>
+
+### 13. How many data sources can we blend in Tableau?
+
+> Tableau 的一次 blend 可以混合幾個資料來源？
+
+- [x] **Two**
+- [ ] Three
+- [ ] Four
+- [ ] Five
+
+**解析：** Blend 的架構是「一主一次」：一個 primary 資料來源加一個 secondary，兩份。工作表可以再連結更多次要來源，但每一組 blend 關係本身都是兩份資料的配對。
+
+<sub>AllAboutDATA P1　·　[影片 7:20](https://youtu.be/VF8HTkcnq7o?t=440)</sub>
+
+### 14. In a Relationship we need to define the following Join type —
+
+> 建立 relationship 時需要指定哪一種 join 型別？
+
+- [ ] Inner Join
+- [ ] Left Join
+- [ ] Right Join
+- [x] **It is not required to define a join type in a relationship**
+
+**解析：** Relationship 不需要你先決定 join 型別——這正是它跟 join 最大的差別。Tableau 會依視圖用到哪些欄位，在查詢時自動選擇適當的結合方式與粒度。要自己指定 join 型別得進到實體層。
+
+<sub>AllAboutDATA P1　·　[影片 7:50](https://youtu.be/VF8HTkcnq7o?t=470)</sub>
+
+### 15. Advantages to using relationships to combine tables: [select all that apply]　**（複選）**
+
+> 用 relationship 結合資料表有哪些優點？（複選）
+
+- [ ] Makes it easier to change the key fields used to combine the tables
+- [x] **Make it easier to analyse data across multiple tables at different levels of granularity**
+- [ ] Makes it easier to combine rows from one table with rows from another
+- [x] **Tables are only queried when fields from the tables are added to the viz**
+
+**解析：** Relationship 的兩大好處：能在同一個資料來源裡處理不同粒度的表而不會產生重複列，以及「延遲查詢」——只有視圖真的用到某張表的欄位時才去查它，效能較好。C 講的是 union（列的結合），不是 relationship 的賣點。
+
+<sub>AllAboutDATA P1　·　[影片 9:15](https://youtu.be/VF8HTkcnq7o?t=555)</sub>
+
+### 16. A union of two tables usually results in an ____.
+
+> 兩張表做 union 之後，通常會造成什麼結果？
+
+- [ ] Increase in the number of columns
+- [x] **Increase in the number of rows**
+- [ ] Decrease in the number of columns
+- [ ] Decrease in the number of rows
+
+**解析：** Union 是把結構相同的表「往下疊」，所以列數增加、欄位數不變。欄位變多的是 join。
+
+<sub>AllAboutDATA P1　·　[影片 13:25](https://youtu.be/VF8HTkcnq7o?t=805)</sub>
+
+### 17. When using a Blend, what is the color of a tick-mark on the primary and secondary data sources respectively?
+
+> 使用 blend 時，主要與次要資料來源上的勾號分別是什麼顏色？
+
+- [ ] Red, Blue
+- [ ] Orange, Blue
+- [ ] Blue, Red
+- [x] **Blue, Orange**
+
+**解析：** 主要資料來源顯示藍色勾號，次要資料來源顯示橘色勾號，橘色同時代表兩者之間的連結欄位。這個顏色慣例是判讀 blend 狀態的直接線索。
+
+<sub>AllAboutDATA P1　·　[影片 14:05](https://youtu.be/VF8HTkcnq7o?t=845)</sub>
+
+### 18. What is primarily used to connect Tableau to different data sources simultaneously?
+
+> 要同時連接不同資料來源，主要使用什麼？
+
+- [x] **Data blending**
+- [ ] Data extraction
+- [ ] Live connection
+- [ ] Server connection
+
+**解析：** Data blending 的官方定義就是「a method for combining data from multiple sources」——在同一張工作表混合兩個不同資料來源，並以連結欄位對應。Join / Relationship 通常用於同一個資料來源內；Extract 與 Live 是連線模式。
+
+<sub>Part 1　·　[影片 13:23](https://youtu.be/bF4sNorB0Uo?t=803)</sub>
+
+### 19. In Tableau, what is the result of blending multiple data sources?
+
+> 在 Tableau 中，混合（blend）多個資料來源的結果是什麼？
+
+- [ ] A new single data source is created
+- [x] **Related data from multiple sources is displayed together**
+- [ ] Data is summarized into a single table
+- [ ] Data integrity is automatically checked
+
+**解析：** Blending 不會產生新的資料來源，也不會把資料合併成一張表。它是在「視圖層級」把主要資料來源與次要資料來源以連結欄位對應後，各自查詢再把結果一起呈現。
+
+<sub>Part 16　·　[影片 3:29](https://youtu.be/-UVWgcG8_H0?t=209)</sub>
+
+### 20. True or False: You can join tables in Tableau using custom SQL queries.
+
+> 是非題：在 Tableau 中可以用自訂 SQL 查詢來結合資料表。
+
+- [x] **true**
+- [ ] false
+
+**解析：** true。在資料來源畫面的左側可拖入 New Custom SQL，直接撰寫 SQL（含 JOIN），Tableau 會把它當成一張虛擬資料表使用。
+
+<sub>Part 16　·　[影片 5:57](https://youtu.be/-UVWgcG8_H0?t=357)</sub>
+
+### 21. How does the 'Union' feature in Tableau help in data preparation?
+
+> Tableau 的「Union」功能在資料準備上有什麼作用？
+
+- [x] **It merges rows from multiple tables**
+- [ ] It merges columns from multiple tables
+- [ ] It blends data from multiple sources
+- [ ] It only displays rows that coincide between multiple tables
+
+**解析：** Union 是「往下疊」——把結構相同的多張表（例如各月份的工作表或多個 CSV）的「列」接在一起。Join 才是把「欄」接寬；Blending 是跨資料來源；只留相符列的是 inner join。
+
+<sub>Part 17　·　[影片 3:34](https://youtu.be/BRUG1D3Q0LA?t=214)</sub>
+
+### 22. Which type of join displays only records that have matching values in both tables?
+
+> 哪一種 join 只會顯示兩張表都有相符值的記錄？
+
+- [ ] Left join
+- [ ] Right join
+- [x] **Inner join**
+- [ ] Outer join
+
+**解析：** Inner join 只保留兩邊都找得到對應的列，任一邊沒有相符就整列捨棄。Left／Right join 會完整保留其中一邊；Full outer join 兩邊都保留並以 null 補齊。
+
+<sub>Part 19　·　[影片 2:20](https://youtu.be/ILR4SFuWdsg?t=140)　·　答案來自口述</sub>
+
+### 23. What type of join combines all records from two datasets and fills in nulls where there is no match?
+
+> 哪一種 join 會保留兩個資料集的所有記錄，沒有對應時以 null 填補？
+
+- [ ] Inner join
+- [ ] Left join
+- [ ] Right join
+- [x] **Full outer join**
+
+**解析：** Full outer join 同時保留左右兩邊所有列，任一邊沒有相符的記錄就以 null 補齊。Inner join 只留兩邊都有的；Left／Right join 只完整保留其中一邊。
+
+<sub>Part 2　·　[影片 10:53](https://youtu.be/OXphRDLlqag?t=653)</sub>
+
+### 24. _____ Occur at the physical layer while _____ occur at the logical layer
+
+> ＿＿ 發生在實體層（physical layer），而 ＿＿ 發生在邏輯層（logical layer）。
+
+- [x] **Joins, Relationships**
+- [ ] Relationships, Joins
+- [ ] Horizontals, Blanks
+- [ ] Measures, Dimensions
+
+**解析：** 2020.2 起的資料模型分兩層：邏輯層（Logical layer）放的是 Relationship（麵條線，彈性、依視圖決定實際查詢）；雙擊進入實體層（Physical layer）才是傳統的 Join 與 Union。
+
+<sub>Part 20　·　[影片 9:01](https://youtu.be/pNl1hF8ha48?t=541)</sub>
+
+### 25. The following image represents which feature in Tableau? (畫面圖示為兩個上下錯開、相接的方塊)
+
+> 畫面上這個圖示（兩個上下相接的方塊）代表 Tableau 的哪個功能？
+
+- [ ] Dual Axis Bar Chart
+- [x] **Union**
+- [ ] Horizontal Bar Chart
+- [ ] Column Alignment
+
+**解析：** 這是 Union（聯集）的圖示——兩個方塊上下相疊，正好象徵把多張表的列往下接在一起。
+
+<sub>Part 23　·　[影片 15:20](https://youtu.be/yg16dP_X0-A?t=920)</sub>
+
+### 26. How are relationships depicted in Tableau, and at which layer do they function?
+
+> Relationship 在 Tableau 中如何呈現？作用在哪一層？
+
+- [ ] Noodles, physical layer
+- [x] **Noodles, logical layer**
+- [ ] Venn diagrams, logical layer
+- [ ] Venn diagrams, physical layer
+
+**解析：** Relationship 在資料來源畫面上顯示為連接兩張表的「麵條線（noodle）」，作用於邏輯層。Venn 圖（交集示意）是實體層 Join 的呈現方式。
+
+<sub>Part 24　·　[影片 5:00](https://youtu.be/mkOb1zF1IDY?t=300)</sub>
+
+### 27. Which of the following can be used to create a join in Tableau? (select multiple)　**（複選）**
+
+> 下列哪些做法可以在 Tableau 中建立 join？（複選）
+
+- [x] **Right-click a logical table to open the join/union canvas in the physical layer**
+- [x] **Double-click a logical table to open the join/union canvas in the physical layer**
+- [ ] Right-click a physical table to open the join/union canvas in the logical layer
+- [ ] Double-click a physical table to open the join/union canvas in the logical layer
+
+**解析：** Join 發生在實體層，而進入實體層的方式是從邏輯層的表「往下鑽」——在邏輯表上按右鍵選 Open，或直接雙擊該邏輯表，都會打開 join/union canvas。反過來從實體表回到邏輯層去做 join 是不存在的操作（雙擊實體表只會變成重新命名）。
+
+<sub>Part 24　·　[影片 11:41](https://youtu.be/mkOb1zF1IDY?t=701)　·　答案來自口述</sub>
+
+### 28. Which data management features does Tableau offer to enhance analysis? (select multiple)　**（複選）**
+
+> Tableau 提供哪些資料管理功能來強化分析？（複選）
+
+- [x] **Data blending**
+- [x] **Data pivoting**
+- [x] **Data clustering**
+- [x] **Data joining**
+- [ ] Data cleansing
+
+**解析：** Blending（混合不同資料來源）、Pivoting（欄轉列）、Clustering（分群）、Joining（結合資料表）都是 Tableau Desktop 內建功能。Data cleansing（完整的資料清理流程）屬於 Tableau Prep 的範疇，Desktop 只做得到很基本的整理。
+
+<sub>Part 5　·　[影片 14:25](https://youtu.be/o9iadTiDmEM?t=865)</sub>
+
+
+## 中繼資料與資料來源篩選　（10 題）
+
+### 29. What are two methods for renaming a field in a visualization? (choose two)　**（複選）**
+
+> 重新命名欄位有哪兩種方法？（複選）
+
+- [x] **From the Data pane, use the field's drop-down menu and select Rename**
+- [ ] From the Data pane, right-click the field and select Replace References
+- [x] **From the Data pane, click and hold on the field until the name is editable**
+- [ ] From the Format menu, select Field Labels
+
+**解析：** 資料窗格裡用欄位的下拉選單選 Rename，或在欄位上按住不放直到名稱變成可編輯狀態。Replace References 是把參照指向另一個欄位、Field Labels 是格式設定，都不是重新命名。
+
+<sub>AllAboutDATA P2　·　[影片 4:10](https://youtu.be/TtChR0LBQtQ?t=250)</sub>
+
+### 30. You are building a view that includes Cost and Sale Price data. When you add the Cost field to the view, a prefix of $ is included. When you add the Sale Price field to the view, no prefix is included. But you want the $ prefix to be included for the Sale Price field, too. What should you do?
+
+> Cost 欄位帶有 $ 前綴、Sale Price 沒有，想讓 Sale Price 也顯示 $，該怎麼做？
+
+- [ ] Edit the attributes for the Sale Price field.
+- [ ] Create an alias for the Sale Price field.
+- [ ] Change the data type for the Sale Price field.
+- [x] **Edit the default properties for the Sale Price field.**
+
+**解析：** 數值的顯示格式屬於欄位的 Default Properties ▸ Number Format，設成貨幣即可，之後這個欄位在任何視圖都會帶 $。別名只適用於離散維度的成員、改資料型別不會加前綴。
+
+<sub>AllAboutDATA P2　·　[影片 14:40](https://youtu.be/TtChR0LBQtQ?t=880)</sub>
+
+### 31. You have made changes to the structure of a data set, such as renaming fields used in the view. This has resulted in broken references in your viz. What step should you take to fix the broken references?
+
+> 資料來源結構改變（例如欄位被改名）導致視圖出現參照失效，該怎麼修？
+
+- [ ] Close and reopen the worksheet.
+- [x] **Replace all references.**
+- [ ] Delete the renamed fields.
+- [ ] Reconnect to the data source
+
+**解析：** 在失效的欄位上按右鍵選 Replace References，把它指向新的欄位，所有用到它的工作表、計算與篩選會一次修正。刪掉欄位或重連都會讓工作表壞得更徹底。
+
+<sub>AllAboutDATA P2　·　[影片 15:40](https://youtu.be/TtChR0LBQtQ?t=940)</sub>
+
+### 32. Which of the following are stored in a .tds file? (Select 3)　**（複選）**
+
+> .tds 檔案會儲存下列哪三項？（複選）
+
+- [ ] Visualization
+- [x] **Metadata Edit**
+- [ ] Data Extract
+- [x] **Data Connection Info**
+- [x] **Calculated Field**
+
+**解析：** .tds 存的是「連線資訊 ＋ 你對這個來源做的中繼設定」：連線位址、中繼資料編輯（改名、預設屬性）、計算欄位，另外還有群組與集合。它不含視覺化（那在 .twb），也不含資料本身（那是 .hyper）。
+
+<sub>AllAboutDATA P2　·　[影片 19:40](https://youtu.be/TtChR0LBQtQ?t=1180)</sub>
+
+### 33. You want to provide additional information when hovering over a field in the Data pane. What should you configure for the field?
+
+> 想讓滑鼠停在資料窗格的欄位上時顯示補充說明，該設定什麼？
+
+- [ ] An alias
+- [ ] A header label
+- [x] **A default comment**
+- [ ] A hierarchy
+
+**解析：** 欄位右鍵 ▸ Default Properties ▸ Comment 寫的註解，會在滑鼠停留於該欄位時以提示顯示，常用來說明欄位定義或計算邏輯。
+
+<sub>AllAboutDATA P5　·　[影片 7:27](https://youtu.be/ZRxUYvQ0qw0?t=447)</sub>
+
+### 34. Data Source (.tds) contains only the information we need to connect to the data source, including the following: [select all that apply]　**（複選）**
+
+> .tds 資料來源檔包含哪些連線所需的資訊？（複選）
+
+- [x] **Data source type**
+- [x] **Groups, sets, calculated fields, bins**
+- [x] **Connection information specified on the data source page; for example, database server address, port, location of local files, tables**
+- [x] **Default field properties; for example, number formats, aggregation, and sort order**
+
+**解析：** 四個全選。.tds 存的是「怎麼連、以及你對這個來源做過的所有中繼設定」：連線型別與位址、自訂的群組／集合／計算欄位／bin、以及欄位的預設屬性（數值格式、預設彙總、排序）。它不含資料本身，那是 .hyper。
+
+<sub>AllAboutDATA P1　·　[影片 7:00](https://youtu.be/VF8HTkcnq7o?t=420)</sub>
+
+### 35. Choose the correct path to add a default comment for a field-
+
+> 替欄位加上預設註解（comment）的正確路徑是？
+
+- [x] **Right click a field in the Data pane-> Default Properties-> Comment**
+- [ ] Right click a field in the Data pane-> Aggregation -> Default Properties-> Comment
+- [ ] Right click a field in the Data pane -> Comment
+- [ ] Right click a field in the Data pane-> Describe-> Comment
+
+**解析：** Comment 屬於欄位的 Default Properties，所以路徑是右鍵 ▸ Default Properties ▸ Comment。加上註解後，滑鼠停在欄位上就會顯示說明，是團隊共用活頁簿時很實用的中繼資料。
+
+<sub>AllAboutDATA P1　·　[影片 12:55](https://youtu.be/VF8HTkcnq7o?t=775)</sub>
+
+### 36. Valid use case of managing metadata? [Select all Apply]　**（複選）**
+
+> 管理中繼資料的有效用途有哪些？（複選）
+
+- [x] **To view all hidden fields**
+- [x] **To see the fieldname in original data source**
+- [x] **To see the table a field belongs to**
+- [ ] To clean & automatically fix the issue
+
+**解析：** 中繼資料管理（資料來源頁的 Manage metadata 檢視）讓你看到被隱藏的欄位、欄位在來源中的原始名稱、以及欄位屬於哪張表。它是「檢視與整理定義」，不會自動清理或修正資料問題——那要靠 Tableau Prep。
+
+<sub>AllAboutDATA P1　·　[影片 14:35](https://youtu.be/VF8HTkcnq7o?t=875)</sub>
+
+### 37. How can you look at the underlying data in your workbook or visualization? (select multiple)　**（複選）**
+
+> 要查看活頁簿／視覺化背後的基礎資料（underlying data），可以怎麼做？（複選）
+
+- [ ] Use the Download Data option in the Data pane
+- [x] **Use the View Data option in the Data pane**
+- [x] **Use the View Data option by right-clicking a mark**
+- [ ] Use the Download Data option by right-clicking a mark
+- [x] **Use the View Data option in the Analysis toolbar menu**
+
+**解析：** 檢視基礎資料的入口有三個：資料窗格右上角的 View Data 圖示、在標記上按右鍵選 View Data、以及功能表 Analysis ▸ View Data。Tableau Desktop 沒有「Download Data」這個選項（那是 Server／Cloud 網頁版才有的下載功能）。
+
+<sub>Part 11　·　[影片 0:05](https://youtu.be/yvlR98Sxc-w?t=5)　·　答案來自口述</sub>
+
+### 38. Which feature in Tableau enables you to repoint references to a column
+
+> 哪個功能可以讓你把欄位的參照重新指向另一個欄位？
+
+- [ ] Swap Field
+- [ ] Refactor
+- [x] **Replace References**
+- [ ] Replace() function
+
+**解析：** Replace References 用於換資料來源或欄位改名後：在欄位上按右鍵選 Replace References，所有用到舊欄位的工作表、計算與篩選都會一次改指向新欄位，不必逐一修正。
+
+<sub>Part 19　·　[影片 9:59](https://youtu.be/ILR4SFuWdsg?t=599)</sub>
+
+
+## Extract vs Live　（9 題）
+
+### 39. When should you use an extract instead of a live connection?
+
+> 什麼情況下應該用 extract 而不是 live 連線？
+
+- [x] **When connections to a database are very slow**
+- [ ] When you plan to use Tableau Prep Builder
+- [ ] When maximum security is required for the data
+- [ ] When data sources are hosted on-premises
+
+**解析：** 官方列出的 extract 好處是：能處理極大量資料、查詢效能比直連來源好、開啟部分原生來源不支援的功能、以及可離線使用。連線很慢正是典型的改用 extract 時機。（注意：影片這題標的答案是 B「打算使用 Tableau Prep Builder」，與官方說明不符，這裡依官方文件更正為 A。）
+
+<sub>AllAboutDATA P2　·　[影片 7:10](https://youtu.be/TtChR0LBQtQ?t=430)</sub>
+
+### 40. What is the difference between Live and Extract connections? [select all that apply]　**（複選）**
+
+> Live 與 Extract 連線的差別有哪些？（複選）
+
+- [x] **Live allows real-time data while extracts are kind of batch which needs to be refreshed from time to time to get the updated data**
+- [x] **Live Connection takes more time to load data than Extract Connection**
+- [ ] Live Connection does not slow down operational queries which results in fetching data quickly
+- [ ] Both the connection takes same time to work with and they do not have any functional difference
+
+**解析：** Live 直接查來源，看到的是即時資料；Extract 是排程更新的批次快照。也因為 Live 每次都查完整來源，載入比 Extract 慢——所以 C（Live 不會拖慢查詢）與 D（兩者沒差別）都是錯的。
+
+<sub>AllAboutDATA P1　·　[影片 5:25](https://youtu.be/VF8HTkcnq7o?t=325)</sub>
+
+### 41. Why the direct connection to the extract is not recommended? [select all that apply]　**（複選）**
+
+> 為什麼不建議直接連到 extract 檔？（複選）
+
+- [x] **The table names will be different**
+- [x] **The extract cannot be refreshed**
+- [x] **The data model and relationships will be lost**
+- [ ] The extract cannot be removed once it is connected directly
+
+**解析：** 直接連 .hyper 檔會失去原本資料來源的中繼資訊：資料表名稱會變成擷取時的內部命名、資料模型與 relationship 不會被保留，而且沒有原始連線也就無法再重新整理。只有 D 是編造的。
+
+<sub>AllAboutDATA P1　·　[影片 6:10](https://youtu.be/VF8HTkcnq7o?t=370)</sub>
+
+### 42. What are options available while creating extract? [Select all apply]　**（複選）**
+
+> 建立 extract 時有哪些可用的選項？（複選）
+
+- [x] **Filters**
+- [x] **Aggregation**
+- [x] **Hide Unused Fields**
+- [x] **History**
+
+**解析：** 四個全選。Extract Data 對話框可以：加篩選器只取部分資料、依可見維度彙總、隱藏未使用欄位以縮小檔案，以及設定累加更新（增量更新的歷程）。這些都是控制擷取檔大小與效能的手段。
+
+<sub>AllAboutDATA P1　·　[影片 16:00](https://youtu.be/VF8HTkcnq7o?t=960)</sub>
+
+### 43. Which data connection type in Tableau provides the most up-to-date information?
+
+> 哪一種資料連線類型能提供最即時的資訊？
+
+- [x] **Live connection**
+- [ ] Data extract
+- [ ] Published data source
+- [ ] Cloud data
+
+**解析：** Live connection 每次互動都直接向來源查詢，看到的永遠是當下最新的資料。Extract 是排程更新的快照；Published data source 與 Cloud data 講的是資料放在哪裡，不決定即時性。
+
+<sub>Part 10　·　[影片 10:24](https://youtu.be/dlLVylmVvXo?t=624)</sub>
+
+### 44. Which of the following can be used to work with data offline?
+
+> 下列哪一個可以讓你離線使用資料？
+
+- [ ] Live Connection
+- [x] **Extract**
+- [ ] Tableau Server
+- [ ] Tableau Cloud
+
+**解析：** Extract 把資料存成本地 .hyper 檔，斷網也能繼續分析。Live connection 需要連得到來源；Server 與 Cloud 都需要網路。
+
+<sub>Part 22　·　[影片 4:14](https://youtu.be/c_4BgvRwX_k?t=254)</sub>
+
+### 45. Which of the following best describes Incremental Refreshes?
+
+> 下列哪一項最能描述「增量更新（Incremental Refresh）」？
+
+- [ ] they are the same as using an extract
+- [x] **they only add fresh rows as compared to the previous refresh**
+- [ ] they should only be used with 1M + rows
+- [ ] they reload all data in the extract
+
+**解析：** 增量更新只把「比上次更新更新的列」加進擷取檔（依你指定的識別欄位，例如日期或 ID 判斷），不會重新載入全部資料——那是 Full Refresh。
+
+<sub>Part 26　·　[影片 8:46](https://youtu.be/HsO2vO-7UF4?t=526)</sub>
+
+### 46. What feature should be used to ensure that a workbook data reflects the most current data available in a database?
+
+> 要確保活頁簿的資料永遠反映資料庫中最新的資料，應該使用什麼？
+
+- [ ] Server sync
+- [x] **Live connection**
+- [ ] Scheduled extracts
+- [ ] Data source filters
+
+**解析：** Live connection 每次操作都直接查詢來源資料庫，看到的一定是最新資料。Scheduled extract 只在排程時間點更新，中間會有時間差；Data source filter 是篩選、Server sync 不是 Tableau 的功能名稱。
+
+<sub>Part 3　·　[影片 5:49](https://youtu.be/W_HTXbbiEPI?t=349)</sub>
+
+### 47. What are the primary benefits of using data extracts in Tableau? (select multiple)　**（複選）**
+
+> 在 Tableau 使用資料擷取（extract）的主要好處有哪些？（複選）
+
+- [x] **Faster loading times**
+- [x] **Offline data access**
+- [ ] Real-time updates
+- [ ] Enhanced security
+- [x] **Ability to use COUNTD**
+
+**解析：** Extract 把資料存成本地的 .hyper 檔：查詢更快、可離線使用，而且部分來源（例如某些不支援 COUNTD 的連接器）在轉成 extract 之後才能使用 COUNTD 等函數。Real-time updates 反而是 extract 的缺點；安全性由權限管理決定，不是 extract 的功能。
+
+<sub>Part 4　·　[影片 8:10](https://youtu.be/pLl-ekr4jTY?t=490)</sub>
+
+
+## 資料來源與連線　（7 題）
+
+### 48. You need to display the complete list of potential data connections when you connect to a server. What action should you perform?
+
+> 連接伺服器時要看到完整的連線類型清單，該怎麼做？
+
+- [ ] Select Connecting to Data.
+- [ ] Select More under To a File.
+- [x] **Select More under To a Server.**
+- [ ] Select File on the menu, and then select New.
+
+**解析：** 開始頁的 Connect 面板分成 To a File 與 To a Server 兩區，各只列出常用項目；點 To a Server 下方的 More… 才會展開完整的伺服器連接器清單。
+
+<sub>AllAboutDATA P2　·　[影片 5:24](https://youtu.be/TtChR0LBQtQ?t=324)</sub>
+
+### 49. When creating a data source, how can you add additional connections to different databases?
+
+> 建立資料來源時，要再加入其他資料庫的連線該怎麼做？
+
+- [ ] From the drop-down menu of the current connection, select Edit Connection.
+- [x] **From the Connections pane, select Add.**
+- [ ] From the Data menu, select New Data Source.
+- [ ] From the File menu, select New.
+
+**解析：** 資料來源頁左側的 Connections 窗格有一個 Add，用它在「同一個資料來源」裡加入第二個連線，就能做跨資料庫的 join。Data ▸ New Data Source 建立的是另一個獨立的資料來源。
+
+<sub>AllAboutDATA P2　·　[影片 6:11](https://youtu.be/TtChR0LBQtQ?t=371)</sub>
+
+### 50. Select the correct pathway to edit the data source -
+
+> 編輯資料來源的正確路徑是？
+
+- [x] **Data Menu -> Select a Data source -> Edit Data Source**
+- [ ] Data Menu -> Select a Data source -> Extract Data
+- [ ] Data Menu -> Select a Data source -> View Data
+- [ ] Data Menu -> Select a Data source -> Edit Data Source Filters
+
+**解析：** Data 選單 ▸ 選取該資料來源 ▸ Edit Data Source，會回到資料來源頁去改連線、join 或欄位設定。另外三個路徑都存在，但做的是別的事：建立擷取、檢視資料列、編輯資料來源篩選器。
+
+<sub>AllAboutDATA P1　·　[影片 9:50](https://youtu.be/VF8HTkcnq7o?t=590)</sub>
+
+### 51. What role does 'Custom SQL' play in Tableau?
+
+> 「Custom SQL」在 Tableau 中扮演什麼角色？
+
+- [x] **It allows users to write their own SQL queries for data sources**
+- [ ] It automates data transformations
+- [ ] It provides templates for common queries
+- [ ] It enhances data security
+
+**解析：** Custom SQL 讓你直接撰寫 SQL 來定義資料來源，適合需要複雜 join、子查詢或資料庫端運算的情境。缺點是可能影響效能，且無法使用某些最佳化。
+
+<sub>Part 18　·　[影片 7:30](https://youtu.be/GjrnbInnBaI?t=450)</sub>
+
+### 52. To connect Tableau to a CSV data source, which type of connection should you use?
+
+> 要連接 CSV 檔案，應該選哪一種連線類型？
+
+- [ ] Raw File
+- [ ] Microsoft Excel
+- [x] **Text**
+- [ ] CSV
+
+**解析：** 連線清單中沒有「CSV」這個項目——CSV 屬於 Text file（文字檔），選 Text file 後即可開啟 .csv、.txt、.tsv 等分隔檔。這題考的是連接器的正式名稱。
+
+<sub>Part 26　·　[影片 4:26](https://youtu.be/HsO2vO-7UF4?t=266)</sub>
+
+### 53. How can Tableau interact with web data in real-time?
+
+> Tableau 要即時取用網路資料，該用什麼方式？
+
+- [x] **Through Web Data Connectors**
+- [ ] Via live data feeds
+- [ ] Using data extracts
+- [ ] Through story points
+
+**解析：** Web Data Connector（WDC）是 Tableau 專門用來連接 REST API、JSON、XML 等網路資料來源的機制，可即時抓取。Extract 是離線快照、Story points 與資料連線無關。
+
+<sub>Part 3　·　[影片 4:31](https://youtu.be/W_HTXbbiEPI?t=271)</sub>
+
+### 54. Which types of data sources can Tableau connect to directly? (select multiple)　**（複選）**
+
+> Tableau 可以直接連接哪些類型的資料來源？（複選）
+
+- [x] **SQL databases**
+- [x] **Web data connectors**
+- [x] **Local files**
+- [ ] Microsoft Access 97
+- [x] **Cloud data**
+
+**解析：** SQL 資料庫、Web Data Connector、本機檔案（Excel／CSV／文字檔）、雲端資料來源都在原生連接器清單中。Microsoft Access 97 是被淘汰的舊版本，現代 Tableau 不支援，是干擾選項。
+
+<sub>Part 3　·　[影片 8:41](https://youtu.be/W_HTXbbiEPI?t=521)</sub>
+
+
+## 資料型別與欄位角色　（7 題）
+
+### 55. What are the two examples of a date value? (Choose two.)　**（複選）**
+
+> 下列哪兩個是有效的日期值寫法？（複選）
+
+- [x] **January 1 1995**
+- [ ] December
+- [ ] Wednesday
+- [x] **2020-05-01**
+
+**解析：** 完整日期需要年月日三個部分：「January 1 1995」與「2020-05-01」都指到某一天。只寫「December」或「Wednesday」是日期的一部分（月份／星期），無法構成一個日期值。
+
+<sub>AllAboutDATA P6　·　[影片 9:00](https://youtu.be/iWdxDSnmi90?t=540)</sub>
+
+### 56. Data types available for dimensions (Select All Apply)　**（複選）**
+
+> 維度可以是哪些資料型別？（複選）
+
+- [x] **Boolean**
+- [ ] Number
+- [ ] sum
+- [x] **Geograhic**
+
+**解析：** 維度可以是布林值與地理值（也可以是字串、日期）。Sum 是彙總方式不是資料型別；Number 型別的欄位通常會被歸為度量。
+
+<sub>AllAboutDATA P10　·　[影片 13:20](https://youtu.be/lsiczrhapcs?t=800)</sub>
+
+### 57. Number of decimal points supported by Tableau
+
+> Tableau 支援幾位小數？
+
+- [ ] 8
+- [x] **16**
+- [ ] 24
+- [ ] 32
+
+**解析：** Tableau 的浮點數精度支援到 16 位小數。
+
+<sub>AllAboutDATA P10　·　[影片 15:12](https://youtu.be/lsiczrhapcs?t=912)</sub>
+
+### 58. From the below data types select the ones that cannot be continuous (Select two options)　**（複選）**
+
+> 下列哪兩種資料型別「不能」是連續的？（複選）
+
+- [ ] Number (whole)
+- [x] **Strings**
+- [x] **Boolean**
+- [ ] Date
+
+**解析：** 字串與布林值沒有數值上的連續性，只能是離散。數值與日期都可以在離散與連續之間切換。
+
+<sub>AllAboutDATA P10　·　[影片 18:00](https://youtu.be/lsiczrhapcs?t=1080)</sub>
+
+### 59. Choose the correct path to change the data type for a field in the view -
+
+> 在視圖中變更欄位資料型別的正確路徑是？
+
+- [ ] Right click the field in the Data pane -> Change Data Type -> Data Types -> Choose the appropriate data type
+- [x] **Right click the field in the Data pane -> Change Data Type -> Choose the appropriate data type**
+- [ ] Right click the field in the Data pane -> Data Types -> Choose the appropriate data type
+- [ ] Right click the field in the Data pane -> Choose the appropriate data type
+
+**解析：** 資料窗格中的欄位按右鍵 ▸ Change Data Type ▸ 直接選型別，兩層就到。其他選項多插了一層不存在的 Data Types 子選單，或少了 Change Data Type 這一層。
+
+<sub>AllAboutDATA P1　·　[影片 12:15](https://youtu.be/VF8HTkcnq7o?t=735)</sub>
+
+### 60. When user connect to tableau, the data fields in their data set are automatically assigned a ____ and ____ ?
+
+> 連接資料後，Tableau 會自動指派給每個欄位哪兩樣東西？
+
+- [x] **TYPE & ROLE**
+- [ ] DataType & Value
+- [ ] Role & Type
+- [ ] Dimension & Measures
+
+**解析：** 順序是先 type 後 role：Tableau 先判斷資料型別（字串／數值／日期／布林），再依型別指派角色（維度或度量）。A 與 C 內容相同但順序相反，考的就是這個先後。
+
+<sub>AllAboutDATA P1　·　[影片 15:05](https://youtu.be/VF8HTkcnq7o?t=905)</sub>
+
+### 61. Which of the following are valid data types in Tableau?　**（複選）**
+
+> 下列哪些是 Tableau 的有效資料型別？（複選）
+
+- [x] **Number (whole)**
+- [x] **Date**
+- [x] **String**
+- [x] **Spatial**
+- [ ] Money
+
+**解析：** Tableau 的資料型別有：Number (whole)、Number (decimal)、Date、Date & Time、String、Boolean、Geographic values、Cluster Group、Spatial。Money 不是型別，只是數值欄位的「顯示格式（currency）」。
+
+<sub>Part 21　·　[影片 7:39](https://youtu.be/M8KSQg1illA?t=459)</sub>
+
+
+## 資料清理（Pivot / Split / 別名）　（4 題）
+
+### 62. A field named Product has a format of ID-Name-Description. You plan to separate the field into two fields and use a hyphen ("-") as a separator. What action will result in only one new field that contains Description?
+
+> Product 欄位格式為 ID-Name-Description，想用「-」分隔且只產生一個含 Description 的新欄位，該怎麼做？
+
+- [ ] A custom split on "-" and the first column of the Product field
+- [ ] A default split on the Product field
+- [ ] A custom split on "-" and all columns of the Product field
+- [x] **A custom split on "-" and the last column of the Product field**
+
+**解析：** Custom Split 可以指定「從左邊算第幾欄」或「從右邊算第幾欄」。Description 在最後，所以選以「-」分隔並取最後一欄，就只會多出一個欄位。選 all columns 會一次拆出三個欄位。
+
+<sub>AllAboutDATA P2　·　[影片 12:37](https://youtu.be/TtChR0LBQtQ?t=757)</sub>
+
+### 63. Aliases cannot be created for the following — [select all that apply]　**（複選）**
+
+> 哪些欄位「無法」建立別名（alias）？（複選）
+
+- [ ] Discrete dimension
+- [x] **Continuous dimension**
+- [x] **Measures**
+- [x] **Dates**
+
+**解析：** 別名是替「離散維度的成員」換一個顯示名稱，所以只有離散維度可以。連續欄位、度量、日期都是連續值，沒有可命名的成員清單，因此都不能設別名。
+
+<sub>AllAboutDATA P1　·　[影片 10:40](https://youtu.be/VF8HTkcnq7o?t=640)</sub>
+
+### 64. True or False: Tableau Desktop can be used as a step by step ETL tool to combine, shape and clean data.
+
+> 是非題：Tableau Desktop 可以當成逐步式的 ETL 工具來合併、整形與清理資料。
+
+- [ ] true
+- [x] **false**
+
+**解析：** false。Tableau Desktop 只有基本的資料整理（pivot、split、重新命名、資料來源篩選）。真正逐步式、可視化流程的 ETL 工具是 Tableau Prep Builder，那才是設計來做 clean / shape / combine 的產品。
+
+<sub>Part 3　·　[影片 5:31](https://youtu.be/W_HTXbbiEPI?t=331)</sub>
+
+### 65. True or False: Tableau's data interpreter can clean and reshape messy data sourced from SQL databases.
+
+> 是非題：Tableau 的 Data Interpreter 可以清理並重整來自 SQL 資料庫的雜亂資料。
+
+- [ ] true
+- [x] **false**
+
+**解析：** false。Data Interpreter 只適用於「以檔案為基礎」的來源——Excel、CSV、PDF、Google Sheets，用來移除標題裝飾列、合併儲存格等。連接 SQL 資料庫時這個選項根本不會出現。
+
+<sub>Part 8　·　[影片 5:37](https://youtu.be/IPHdPbrkbDY?t=337)</sub>
+
+
+---
+
+# 探索與分析資料　<small>Exploring and Analyzing Data　權重 35%</small>
+
+
+## 圖表類型與 Show Me　（27 題）
+
+### 66. You have a Bar Chart with 2 Dimensions in the column shelf and 1 measure in row shelf. How to convert the view into stacked bar chart?
+
+> Columns 有兩個維度、Rows 有一個度量的長條圖，要變成堆疊長條圖該怎麼做？
+
+- [ ] Drag measures to Label mark.
+- [x] **Drag Dimension to Color mark.**
+- [ ] Swap Dimension with Measures.
+- [ ] Drag Measures to Size mark.
+
+**解析：** 把其中一個維度從 Columns 移到 Marks 的 Color，長條就會依該維度分段堆疊。堆疊長條的本質就是「一個維度決定長度、另一個維度決定顏色分段」。
+
+<sub>AllAboutDATA P3　·　[影片 3:14](https://youtu.be/XSkPENGfpUs?t=194)</sub>
+
+### 67. You create a dual axis chart that shows sales and profit over time. What should you do to distinguish sales from profit? (Choose two.)　**（複選）**
+
+> 雙軸圖同時顯示 sales 與 profit，要讓兩者容易區分該怎麼做？（複選）
+
+- [ ] Adjust the time frame displayed.
+- [x] **Change the mark types of sales and profit.**
+- [ ] Adjust the aggregations for sales and profit to be different.
+- [x] **Change the color of sales and profit.**
+
+**解析：** 雙軸圖的兩個度量各有自己的 Marks 卡，可以分別設定標記類型（例如一個長條、一個折線）與顏色，這是最直接的區分方式。改時間範圍或改彙總方式都會改變資料本身，不是區分手段。
+
+<sub>AllAboutDATA P3　·　[影片 4:47](https://youtu.be/XSkPENGfpUs?t=287)</sub>
+
+### 68. You need to create a scatter plot chart that displays the relationship between two measures. What should you do first?
+
+> 要做出呈現兩個度量關係的散佈圖，第一步該做什麼？
+
+- [x] **Add one measure to Rows and the other to Columns.**
+- [ ] Add both measures to Rows and a dimension to Columns.
+- [ ] Disaggregate each measure.
+- [ ] Add both measures to Columns and a dimension to Rows.
+
+**解析：** 散佈圖的定義就是兩個度量各占一軸：一個放 Rows、一個放 Columns。之後再加維度到 Detail 才會把單一標記拆成多個點。
+
+<sub>AllAboutDATA P3　·　[影片 5:41](https://youtu.be/XSkPENGfpUs?t=341)</sub>
+
+### 69. If there is a Dimension in the Column shelf and measures in the rows shelf, and you need to build a stacked bar chart, what should be done?
+
+> Columns 有維度、Rows 有度量，要做堆疊長條圖該怎麼做？
+
+- [x] **Drag Dimension in color**
+- [ ] Drag Dimension in label
+- [ ] Drag Measure into column
+- [ ] Drag Dimension into rows
+
+**解析：** 再拖一個維度到 Color，長條就會依該維度分段堆疊。這與第 2 題是同一個概念的不同問法。
+
+<sub>AllAboutDATA P3　·　[影片 8:36](https://youtu.be/XSkPENGfpUs?t=516)</sub>
+
+### 70. With the Marks card drop-down menu set to Automatic, a line chart will be created whenever you place what on the Rows shelf and the Columns shelf?
+
+> Marks 設為 Automatic 時，Rows 與 Columns 放什麼會自動產生折線圖？
+
+- [ ] Measures on one shelf, and a date dimension on the other
+- [ ] Zero or more dimensions on one shelf, and 2 or more measures on the other
+- [ ] Zero or more measures on one shelf, and 2 or more dimensions on the other
+- [x] **A date dimension followed by a continuous measure on one shelf**
+
+**解析：** Automatic 判斷折線圖的條件是「日期維度 ＋ 連續度量」的組合：日期在一軸形成連續的時間軸，度量在另一軸，Tableau 就會把點連成線。
+
+<sub>AllAboutDATA P3　·　[影片 9:20](https://youtu.be/XSkPENGfpUs?t=560)</sub>
+
+### 71. What kind of chart do we use to see trends?
+
+> 要觀察趨勢應該用哪一種圖表？
+
+- [x] **Line Chart**
+- [ ] Bar Chart
+- [ ] Pie Chart
+- [ ] Treemap
+
+**解析：** 折線圖沿時間軸把資料點連起來，是呈現趨勢與走向的標準選擇。
+
+<sub>AllAboutDATA P3　·　[影片 11:20](https://youtu.be/XSkPENGfpUs?t=680)</sub>
+
+### 72. How many fields are required to create a Side-by-side Bar chart and Side-by-side Line Chart?
+
+> 建立並排長條圖與並排折線圖需要幾個欄位？
+
+- [ ] 2
+- [x] **3**
+- [ ] 4
+- [ ] 5
+
+**解析：** Show Me 的並排長條圖需要 1 個以上維度加 1 個以上度量，實際最少三個欄位（兩個維度 ＋ 一個度量）：一個維度分欄、一個維度並排、度量決定長度。
+
+<sub>AllAboutDATA P3　·　[影片 12:00](https://youtu.be/XSkPENGfpUs?t=720)</sub>
+
+### 73. How many categories is ideal to show in a Pie chart?
+
+> 圓餅圖最適合顯示幾個類別？
+
+- [x] **2-5 categories**
+- [ ] 1-3 categories
+- [ ] 3-5 categories
+- [ ] 1-5 categories
+
+**解析：** 圓餅圖切片一多就難以比較角度，最佳實務是 2–5 個類別；超過就該改用長條圖。
+
+<sub>AllAboutDATA P3　·　[影片 12:40](https://youtu.be/XSkPENGfpUs?t=760)</sub>
+
+### 74. How many Measures are required to create a Scatter Plot?
+
+> 建立散佈圖需要幾個度量？
+
+- [ ] 1
+- [x] **2**
+- [ ] 3
+- [ ] No Measures Required
+
+**解析：** 散佈圖需要兩個度量，分別放在 X 軸與 Y 軸，才能表達兩者的關係。
+
+<sub>AllAboutDATA P3　·　[影片 15:39](https://youtu.be/XSkPENGfpUs?t=939)</sub>
+
+### 75. What is the default shape of a Tree Map?
+
+> 樹狀圖的預設形狀是什麼？
+
+- [x] **Rectangle**
+- [ ] Square
+- [ ] Circle
+- [ ] Triangle
+
+**解析：** 樹狀圖以巢狀的長方形（rectangle）填滿畫布，面積代表度量大小。
+
+<sub>AllAboutDATA P3　·　[影片 15:47](https://youtu.be/XSkPENGfpUs?t=947)</sub>
+
+### 76. Can we use the Dual Axis option on Dimensions?
+
+> Dual Axis（雙軸）可以用在維度上嗎？
+
+- [ ] Yes
+- [x] **No**
+
+**解析：** 依影片答案為 No。雙軸是把第二個「軸」疊上來，而軸只有連續欄位才會產生，一般離散維度不會有軸。（嚴格說連續日期這類欄位也能形成雙軸，所以這題問法偏簡化。）
+
+<sub>AllAboutDATA P3　·　[影片 16:00](https://youtu.be/XSkPENGfpUs?t=960)</sub>
+
+### 77. What is the default shape of a Heat Map?
+
+> 熱圖的預設形狀是什麼？
+
+- [ ] Rectangle
+- [x] **Square**
+- [ ] Circle
+- [ ] Triangle
+
+**解析：** Tableau 的 heat map 預設以正方形（square）標記排成格狀，再用大小與顏色編碼數值。
+
+<sub>AllAboutDATA P3　·　[影片 16:30](https://youtu.be/XSkPENGfpUs?t=990)</sub>
+
+### 78. Can we create a Line Chart without a Date Field?
+
+> 沒有日期欄位可以做折線圖嗎？
+
+- [x] **Yes**
+- [ ] No
+
+**解析：** 依官方文件更正為 Yes。Tableau 說明「You can create a line chart with discrete or continuous dimensions」——只要軸上是可形成順序的欄位（連續數值也可以），把標記類型設為 Line 就能連成線，並非非日期不可。（影片這題標的答案是 No，那是就 Show Me 的自動判定而言。）
+
+<sub>AllAboutDATA P3　·　[影片 16:45](https://youtu.be/XSkPENGfpUs?t=1005)</sub>
+
+### 79. Why do we use a Bar Chart?
+
+> 什麼情況下使用長條圖？
+
+- [ ] Moving Average
+- [ ] Percentage of Total
+- [ ] Time Series Analysis
+- [x] **Categories Analysis**
+
+**解析：** 長條圖用長度比較各類別的數值，是類別分析的標準圖表。移動平均與占比是表計算、時間序列是折線圖。
+
+<sub>AllAboutDATA P4　·　[影片 19:42](https://youtu.be/dNbDqCba5SA?t=1182)</sub>
+
+### 80. To display data over time, which chart type is most effective in Tableau?
+
+> 要呈現隨時間變化的資料，哪種圖表最有效？
+
+- [x] **Line chart**
+- [ ] Bar chart
+- [ ] Pie chart
+- [ ] Scatter plot
+
+**解析：** Tableau 官方文件對折線圖的說明是「useful when you want to see trends over time」。看到 over time / trend 就選折線圖。Bar chart 適合類別比較、Pie chart 適合部分與整體、Scatter plot 適合看兩個度量的相關性。
+
+<sub>Part 1　·　[影片 5:55](https://youtu.be/bF4sNorB0Uo?t=355)</sub>
+
+### 81. What is the main benefit of using a Gantt chart in Tableau?
+
+> 在 Tableau 使用甘特圖的主要好處是什麼？
+
+- [x] **Tracking time durations**
+- [ ] Comparing categories
+- [ ] Visualizing part-to-whole relationships
+- [ ] Highlighting variations
+
+**解析：** 甘特圖用長條的「長度」表示一段持續時間，並沿時間軸排列，最適合追蹤事件的期間與進度（例如出貨天數、專案排程）。它需要一個日期維度加上表示持續時間的度量。
+
+<sub>Part 10　·　[影片 4:04](https://youtu.be/dlLVylmVvXo?t=244)</sub>
+
+### 82. Which of the following can be used to overlay 2 independent axes on the same pane?
+
+> 下列哪一個可以把兩個獨立的軸疊在同一個窗格上？
+
+- [x] **Dual axis**
+- [ ] Double axis
+- [ ] Dual pane
+- [ ] Polynomial chart
+
+**解析：** Dual axis（雙軸）把第二個度量以獨立的軸疊在同一個窗格，右鍵該度量選 Dual Axis 即可；若要兩軸刻度一致再選 Synchronize Axis。其餘三個名詞在 Tableau 中不存在。
+
+<sub>Part 12　·　[影片 4:35](https://youtu.be/1y2xUj7SzDQ?t=275)</sub>
+
+### 83. What type of visualization is best suited for analyzing the distribution of data within individual categories?
+
+> 要分析各個類別「內部」的資料分布，哪一種視覺化最適合？
+
+- [x] **Box-and-whisker plot**
+- [ ] Line chart
+- [ ] Pie chart
+- [ ] Scatter plot
+
+**解析：** 盒鬚圖以中位數、四分位數、鬚線與離群值呈現一組資料的分布形狀，把它按類別並排就能比較各類別內部的分散程度。折線圖看趨勢、圓餅圖看占比、散佈圖看兩個度量的關係。
+
+<sub>Part 12　·　[影片 11:00](https://youtu.be/1y2xUj7SzDQ?t=660)</sub>
+
+### 84. In which scenario is a packed bubble chart most effectively used?
+
+> 打包泡泡圖（packed bubble chart）在哪種情境最有效？
+
+- [ ] Comparing parts of a whole
+- [ ] Displaying trends over time
+- [x] **Illustrating volume differences**
+- [ ] Analyzing geographical data
+
+**解析：** 泡泡圖用「大小」表示度量值，最適合一眼比較各類別的量體差異。它不適合表達部分與整體（那是圓餅／堆疊長條）、也不呈現時間趨勢或地理位置。建立它需要一個維度加一個以上的度量。
+
+<sub>Part 14　·　[影片 8:50](https://youtu.be/ITywjhHzhNk?t=530)　·　答案來自口述</sub>
+
+### 85. What type of chart is most appropriate for displaying the relationship between two quantitative variables?
+
+> 要呈現兩個量化變數之間的關係，哪種圖表最合適？
+
+- [x] **Scatter plot**
+- [ ] Line chart
+- [ ] Bar chart
+- [ ] Pie chart
+
+**解析：** 散佈圖把兩個度量分別對應到 X 與 Y 軸，每個標記代表一筆資料，是檢視兩個量化變數關係（相關性、群聚、離群值）的標準圖表。
+
+<sub>Part 15　·　[影片 12:53](https://youtu.be/9TUyKYiHgv4?t=773)</sub>
+
+### 86. It's best practice to use pie charts with _____ categories
+
+> 最佳實務上，圓餅圖適合用在幾個類別？
+
+- [ ] 4-10
+- [ ] 2-3
+- [x] **2-5**
+- [ ] 7-12
+
+**解析：** 圓餅圖只有在類別很少（約 2–5 個）時才好讀；切片一多，角度差異就難以辨識，這時應改用長條圖。
+
+<sub>Part 20　·　[影片 4:27](https://youtu.be/pNl1hF8ha48?t=267)</sub>
+
+### 87. Which of the following can be used to display multiple measures on the same line chart/time series?
+
+> 下列哪一個可以在同一張折線圖／時間序列上顯示多個度量？
+
+- [ ] Blended axis
+- [x] **Dual axis**
+- [ ] Duplicate axis
+- [ ] Omni axis
+
+**解析：** Dual axis 讓第二個度量使用自己的軸並疊在同一個窗格上（需要時可 Synchronize Axis 對齊刻度）。Blended axis（Measure Values 共用一軸）雖然也能同圖顯示多度量，但本題影片給的答案是 Dual axis。
+
+<sub>Part 21　·　[影片 10:33](https://youtu.be/M8KSQg1illA?t=633)</sub>
+
+### 88. In a box plot, what does the box represent?
+
+> 在盒鬚圖中，中間的「盒子」代表什麼？
+
+- [ ] The minimum value of the data
+- [ ] The median of the middle half of the data points
+- [ ] The mean value of the data
+- [x] **The interquartile range**
+
+**解析：** 盒子的上下緣是第三四分位數（Q3）與第一四分位數（Q1），中間那條線是中位數；盒子本身涵蓋的範圍就是四分位距（IQR = Q3 − Q1），也就是中間 50% 的資料。
+
+<sub>Part 24　·　[影片 11:42](https://youtu.be/mkOb1zF1IDY?t=702)</sub>
+
+### 89. If you want to display a vertical bar chart. You should drag a measure to the _____
+
+> 想做出「直立」的長條圖，應該把度量拖到哪裡？
+
+- [x] **Rows shelf**
+- [ ] Columns shelf
+- [ ] Bars shelf
+- [ ] Marks Card
+
+**解析：** 直立長條圖的高度是數值，所以度量要放在 Rows（Y 軸），維度放 Columns。若把度量放到 Columns 就會變成橫向長條圖。Bars shelf 不存在。
+
+<sub>Part 25　·　[影片 4:57](https://youtu.be/3Pmo6cngxRE?t=297)</sub>
+
+### 90. Which chart types are optimal for showing trends over time in Tableau? (select multiple)　**（複選）**
+
+> 哪些圖表類型最適合呈現隨時間變化的趨勢？（複選）
+
+- [x] **Line chart**
+- [ ] Bar chart
+- [ ] Pie chart
+- [x] **Area chart**
+- [ ] Scatter plot
+
+**解析：** 折線圖是時間趨勢的首選；區域圖（Area chart）本質上是填滿的折線圖，同樣沿時間軸呈現趨勢，還能表達累積量。長條圖適合類別比較、圓餅圖表達部分與整體、散佈圖看兩個度量的相關性。
+
+<sub>Part 4　·　[影片 4:26](https://youtu.be/pLl-ekr4jTY?t=266)</sub>
+
+### 91. Which types of visualizations effectively compare parts of a whole? (select multiple)　**（複選）**
+
+> 哪些視覺化類型能有效比較「部分與整體」？（複選）
+
+- [x] **Pie chart**
+- [x] **Tree map**
+- [ ] Line chart
+- [ ] Bar chart
+- [x] **Stacked bar chart**
+
+**解析：** 圓餅圖、樹狀圖、堆疊長條圖都是把一個整體切成若干部分來呈現占比。折線圖是趨勢、一般長條圖是類別間比較，都不是部分對整體。
+
+<sub>Part 5　·　[影片 8:40](https://youtu.be/o9iadTiDmEM?t=520)</sub>
+
+### 92. What allows for the analysis of relationships between numerical values in Tableau?
+
+> 在 Tableau 中，什麼可以用來分析數值之間的關聯性？
+
+- [x] **Scatter plot**
+- [ ] Pie chart
+- [ ] Bar chart
+- [ ] Line chart
+
+**解析：** 散佈圖把兩個度量分別放在 X／Y 軸，是檢視兩個數值變數相關性（正相關、負相關、離群值）的標準做法，還可加上趨勢線量化關係。
+
+<sub>Part 7　·　[影片 6:01](https://youtu.be/Dh5A77lHet4?t=361)</sub>
+
+
+## 計算欄位　（22 題）
+
+### 93. What options are available in a parameter? [Select All Apply]　**（複選）**
+
+> 參數（parameter）的允許值有哪些選項？（複選）
+
+- [x] **All**
+- [x] **Range**
+- [ ] Selected
+- [x] **List**
+
+**解析：** 參數的 Allowable values 有三種：All（任意值）、List（清單）、Range（範圍）。沒有叫 Selected 的選項。
+
+<sub>AllAboutDATA P4　·　[影片 16:40](https://youtu.be/dNbDqCba5SA?t=1000)</sub>
+
+### 94. A parameter is used to replace a constant value in: [Select All Apply]　**（複選）**
+
+> 參數可以用來取代下列哪些地方的固定值？（複選）
+
+- [x] **Calculated Field**
+- [x] **Reference line**
+- [x] **Set**
+- [ ] Group
+- [x] **Bins**
+
+**解析：** 參數可以驅動計算欄位裡的常數、參考線的位置、集合的 Top N 門檻、以及 bin 的組距大小。只有 Group 不行——群組是靜態指定成員，沒有可參數化的數值。
+
+<sub>AllAboutDATA P4　·　[影片 17:10](https://youtu.be/dNbDqCba5SA?t=1030)</sub>
+
+### 95. Can we use the Multi-Select option in a Parameter?
+
+> 參數可以做多選嗎？
+
+- [ ] Yes
+- [x] **No**
+
+**解析：** 不行。參數控制項只有滑桿與輸入框等單值形式（一次只能有一個值），要多選得用篩選器或集合。
+
+<sub>AllAboutDATA P4　·　[影片 17:40](https://youtu.be/dNbDqCba5SA?t=1060)</sub>
+
+### 96. While writing Calculated fields, which color represents parameters?
+
+> 撰寫計算欄位時，參數以什麼顏色顯示？
+
+- [ ] Red
+- [x] **Violet**
+- [ ] Blue
+- [ ] Green
+
+**解析：** 計算編輯器的語法上色：函數是藍色、欄位是橘色、參數是紫色（violet）、註解是灰色。看到紫色就知道那是參數而不是欄位。
+
+<sub>AllAboutDATA P4　·　[影片 18:20](https://youtu.be/dNbDqCba5SA?t=1100)</sub>
+
+### 97. What is the value of FIND('TABLEAU', 'TU')?
+
+> FIND('TABLEAU', 'TU') 的結果是什麼？
+
+- [ ] 1
+- [ ] TRUE
+- [ ] FALSE
+- [x] **0**
+
+**解析：** FIND 回傳子字串出現的起始位置，找不到時回傳 0。'TABLEAU' 裡沒有連續的 'TU'（T 後面是 A），所以是 0。注意 FIND 回傳數字不是布林值。
+
+<sub>AllAboutDATA P6　·　[影片 4:40](https://youtu.be/iWdxDSnmi90?t=280)</sub>
+
+### 98. You have the following string value: Sales Data. Which calculated field produces an output of Sales?
+
+> 字串為「Sales Data」，哪個計算欄位會輸出「Sales」？
+
+- [ ] LEFT ("Sales Data")
+- [x] **LEFT ("Sales Data", 5)**
+- [ ] LTRIM ("Sales Data")
+- [ ] RTRIM ("Sales Data")
+
+**解析：** LEFT(字串, 位數) 取左邊指定字數，「Sales」剛好 5 個字元。LEFT 必須帶第二個參數；LTRIM／RTRIM 只是去掉前後空白。
+
+<sub>AllAboutDATA P6　·　[影片 7:00](https://youtu.be/iWdxDSnmi90?t=420)</sub>
+
+### 99. What is the output of ABS(-10)?
+
+> ABS(-10) 的結果是什麼？
+
+- [ ] -10
+- [x] **10**
+- [ ] 9
+- [ ] 11
+
+**解析：** ABS 取絕對值，去掉正負號，所以 -10 變成 10。
+
+<sub>AllAboutDATA P6　·　[影片 10:00](https://youtu.be/iWdxDSnmi90?t=600)</sub>
+
+### 100. What is the output of FLOOR(7.2345)?
+
+> FLOOR(7.2345) 的結果是什麼？
+
+- [x] **7**
+- [ ] 8
+- [ ] 7.3
+- [ ] 7.23
+
+**解析：** FLOOR 無條件捨去到最接近的較小整數，7.2345 → 7。
+
+<sub>AllAboutDATA P6　·　[影片 12:45](https://youtu.be/iWdxDSnmi90?t=765)</sub>
+
+### 101. What is the output of ROUND(7.2345)?
+
+> ROUND(7.2345) 的結果是什麼？
+
+- [x] **7**
+- [ ] 8
+- [ ] 7.3
+- [ ] 7.23
+
+**解析：** ROUND 不指定小數位時四捨五入到整數，7.2345 → 7。若寫 ROUND(7.2345, 2) 才會得到 7.23。
+
+<sub>AllAboutDATA P6　·　[影片 13:10](https://youtu.be/iWdxDSnmi90?t=790)</sub>
+
+### 102. What is the output of CEILING(7.2345)?
+
+> CEILING(7.2345) 的結果是什麼？
+
+- [ ] 7
+- [x] **8**
+- [ ] 7.3
+- [ ] 7.23
+
+**解析：** CEILING 無條件進位到最接近的較大整數，7.2345 → 8。與 FLOOR 剛好相反。
+
+<sub>AllAboutDATA P6　·　[影片 13:35](https://youtu.be/iWdxDSnmi90?t=815)</sub>
+
+### 103. Is the ZN function used to replace Null value with Zero?
+
+> ZN 函數是用來把 Null 換成 0 嗎？
+
+- [x] **Yes**
+- [ ] No
+
+**解析：** 是。ZN(expression) 在數值為 Null 時回傳 0，否則回傳原值，常用來避免 Null 讓後續計算整個變成 Null。
+
+<sub>AllAboutDATA P6　·　[影片 14:00](https://youtu.be/iWdxDSnmi90?t=840)</sub>
+
+### 104. Do LEFT and LTRIM return the same value?
+
+> LEFT 與 LTRIM 會回傳相同的結果嗎？
+
+- [ ] Yes
+- [x] **No**
+
+**解析：** 不一樣。LEFT 是「從左邊取 N 個字元」，LTRIM 是「去掉左邊的空白」，兩者用途完全不同。
+
+<sub>AllAboutDATA P6　·　[影片 14:25](https://youtu.be/iWdxDSnmi90?t=865)</sub>
+
+### 105. What is the output of CONTAINS('Tableau', 'le')?
+
+> CONTAINS('Tableau', 'le') 的結果是什麼？
+
+- [x] **True**
+- [ ] 4
+- [ ] False
+- [ ] 5
+
+**解析：** CONTAINS 回傳布林值：'Tableau' 裡含有 'le'（Tab-le-au），所以是 True。要取得位置得用 FIND。
+
+<sub>AllAboutDATA P6　·　[影片 14:50](https://youtu.be/iWdxDSnmi90?t=890)</sub>
+
+### 106. Which date function is used to increment the specified date?
+
+> 哪個日期函數用來將指定日期往後推移？
+
+- [ ] DATENAME
+- [ ] DATEPARSE
+- [x] **DATEADD**
+- [ ] DATEPART
+
+**解析：** DATEADD('month', 3, [Order Date]) 會把日期加上指定的間隔。DATEPART 取出某個部分的數值、DATENAME 取出名稱字串、DATEPARSE 把字串轉成日期。
+
+<sub>AllAboutDATA P6　·　[影片 16:40](https://youtu.be/iWdxDSnmi90?t=1000)</sub>
+
+### 107. What is the output of DATEDIFF()?
+
+> DATEDIFF() 回傳什麼型別的值？
+
+- [x] **Integer value**
+- [ ] Date value
+- [ ] Float value
+- [ ] String value
+
+**解析：** DATEDIFF 回傳兩個日期相差幾個單位（天、月、年…），是整數。
+
+<sub>AllAboutDATA P6　·　[影片 20:40](https://youtu.be/iWdxDSnmi90?t=1240)</sub>
+
+### 108. Does TODAY() return the current Date and time?
+
+> TODAY() 會回傳目前的日期「和時間」嗎？
+
+- [ ] Yes
+- [x] **No**
+
+**解析：** 不會。TODAY() 只回傳日期，要連時間一起取得須用 NOW()。這是兩者最常考的差別。
+
+<sub>AllAboutDATA P6　·　[影片 21:00](https://youtu.be/iWdxDSnmi90?t=1260)</sub>
+
+### 109. What is the output of MAKEDATE(2023,01,01)?
+
+> MAKEDATE(2023,01,01) 的結果是什麼？
+
+- [ ] 2023-01-01
+- [x] **01/01/2023**
+- [ ] 2023-01-01
+- [ ] 01-01-2023
+
+**解析：** MAKEDATE(年, 月, 日) 會組出一個日期值，畫面上依預設日期格式顯示為 01/01/2023。
+
+<sub>AllAboutDATA P6　·　[影片 21:40](https://youtu.be/iWdxDSnmi90?t=1300)</sub>
+
+### 110. Which of the following is not a type of calculation in Tableau?
+
+> 下列哪一個不是 Tableau 的計算類型？
+
+- [ ] Date Calculation
+- [ ] Number Calculations
+- [ ] String Calculation
+- [x] **Text Calculation**
+
+**解析：** Tableau 的函數分類是 Number、String、Date、Type Conversion、Aggregate、Logical、Table Calculation、LOD 等，沒有「Text Calculation」這個名稱（字串類叫 String）。
+
+<sub>AllAboutDATA P6　·　[影片 22:00](https://youtu.be/iWdxDSnmi90?t=1320)</sub>
+
+### 111. The function STDEV (expression) returns the statistical standard deviation of all values in all the expressions based on a sample of the population.
+
+> 是非題：STDEV 回傳的是以「樣本」為基礎的標準差。
+
+- [ ] False
+- [x] **True**
+
+**解析：** True。STDEV 是樣本標準差；若要計算整個母體的標準差要用 STDEVP。同樣的區別也出現在 VAR 與 VARP。
+
+<sub>AllAboutDATA P6　·　[影片 22:21](https://youtu.be/iWdxDSnmi90?t=1341)</sub>
+
+### 112. Which function do you use to convert a numeric field into a string field in Tableau?
+
+> 在 Tableau 中要把數值欄位轉成字串欄位，用哪個函數？
+
+- [ ] STRING()
+- [x] **STR()**
+- [ ] VARCHAR()
+- [ ] CAST()
+
+**解析：** STR() 是 Tableau 的型別轉換函數（同族還有 INT()、FLOAT()、DATE()、BOOL()）。STRING()、VARCHAR()、CAST() 是 SQL 的寫法，Tableau 計算欄位不支援。
+
+<sub>Part 11　·　[影片 6:32](https://youtu.be/yvlR98Sxc-w?t=392)</sub>
+
+### 113. What can be used to take the difference between 2 measures?
+
+> 要計算兩個度量之間的差，可以用什麼？
+
+- [x] **A Calculated Field**
+- [ ] The Analytics Pane
+- [ ] Parameter
+- [ ] A Global Variable
+
+**解析：** 計算欄位（例如 [Sales] - [Profit]）是做欄位間算術的標準方式。Analytics 窗格只加參考線／趨勢線等分析物件；Parameter 是使用者輸入的單一值；Tableau 沒有 global variable 這個東西。
+
+<sub>Part 13　·　[影片 5:21](https://youtu.be/aUds-njz53o?t=321)</sub>
+
+### 114. What is a calculated field?
+
+> 什麼是計算欄位（calculated field）？
+
+- [ ] The number of marks in a visualization
+- [x] **A field created by applying custom formulas to existing data**
+- [ ] A Quick Table Calculation
+- [ ] A field used to display metadata about the dataset
+
+**解析：** 計算欄位是你自己寫公式、以既有欄位為基礎產生的新欄位（例如 Profit Ratio = SUM([Profit])/SUM([Sales])），建立後會出現在資料窗格，可像一般欄位一樣使用。
+
+<sub>Part 25　·　[影片 9:23](https://youtu.be/3Pmo6cngxRE?t=563)</sub>
+
+
+## Marks Card　（10 題）
+
+### 115. In which chart can you not change size? (In which chart does the Size mark not work?)
+
+> 哪一種圖表無法調整大小（Size 標記沒有作用）？
+
+- [ ] Pie chart
+- [ ] Treemap
+- [x] **heatmap**
+- [ ] Box-Whisker Plot
+
+**解析：** 依影片給的答案為 heatmap。注意本組第 13 題卻說 heatmap 用 Size 與 Color 兩個標記呈現資料，兩題互相矛盾；Tableau 的 Show Me 裡 heat map 確實會用到 Size。實際考試若遇到，建議以「Highlight Table（只用顏色）」的概念理解這題。
+
+<sub>AllAboutDATA P3　·　[影片 2:23](https://youtu.be/XSkPENGfpUs?t=143)</sub>
+
+### 116. The Shape option is available for which two views? (Choose two.)　**（複選）**
+
+> Shape（形狀）標記可用於哪兩種視圖？（複選）
+
+- [x] **Scatter plots**
+- [x] **Side-by-side circles**
+- [ ] Tree maps
+- [ ] Packed bubbles
+
+**解析：** Shape 標記只在標記類型為 Shape／Circle 這類點狀圖時才有作用，散佈圖與並排圓點都屬於這類。Tree map 與 packed bubble 的標記形狀由圖表本身決定（方塊、圓形），不能改。
+
+<sub>AllAboutDATA P3　·　[影片 13:10](https://youtu.be/XSkPENGfpUs?t=790)</sub>
+
+### 117. Heatmap uses ______ & ______ to display data?
+
+> 熱圖用哪兩個標記屬性來呈現資料？
+
+- [ ] Shape & Size
+- [x] **Size & Color**
+- [ ] Only Size
+- [ ] Label & Size
+
+**解析：** Tableau 的 heat map 以 Size 表示一個度量、Color 表示另一個度量（或同一個），因此需要兩個標記屬性。只用顏色的那種叫 Highlight Table。
+
+<sub>AllAboutDATA P3　·　[影片 13:20](https://youtu.be/XSkPENGfpUs?t=800)</sub>
+
+### 118. To best improve the display of a scatter plot that has overlapping shapes, you should adjust the ______ of the marks.
+
+> 散佈圖標記重疊時，調整標記的什麼最能改善顯示？
+
+- [x] **mark size**
+- [ ] mark borders
+- [ ] color opacity
+- [ ] color palette
+
+**解析：** 依影片答案為縮小標記大小，讓重疊的點分開。（實務上調整不透明度或加上標記邊框也是常見做法，本題以影片給的答案為準。）
+
+<sub>AllAboutDATA P4　·　[影片 9:00](https://youtu.be/dNbDqCba5SA?t=540)</sub>
+
+### 119. Which mark type is used in a highlight table?
+
+> Highlight table 使用哪一種標記類型？
+
+- [ ] Area
+- [x] **Square**
+- [ ] Polygon
+- [ ] Text
+
+**解析：** Highlight table 是以 Square 標記排成格狀，再用顏色深淺標示數值大小。若標記類型是 Text，那就是一般的交叉表。
+
+<sub>AllAboutDATA P4　·　[影片 9:30](https://youtu.be/dNbDqCba5SA?t=570)</sub>
+
+### 120. What is the purpose of the marks card in Tableau?
+
+> Marks card 的用途是什麼？
+
+- [ ] To adjust the formatting of a chart or graph.
+- [ ] To display a list of available charts and graphs.
+- [ ] To apply filters to a chart or graph.
+- [x] **To define the visual encoding of a chart or graph.**
+
+**解析：** Marks card 決定資料如何被「視覺編碼」：顏色、大小、形狀、標籤、細節、提示框，以及標記類型本身。
+
+<sub>AllAboutDATA P7　·　[影片 18:50](https://youtu.be/MJ36LDTBQ2Y?t=1130)</sub>
+
+### 121. In which section of the Marks card can you adjust the transparency of colors?
+
+> Marks card 的哪一個區塊可以調整顏色透明度？
+
+- [x] **Color**
+- [ ] Size
+- [ ] Label
+- [ ] Detail
+
+**解析：** 只有 Color 下拉裡有 Opacity（不透明度）滑桿，可從 0–100% 調整。Size 只能調標記大小、Label 只能設標籤顯示與重疊、Detail 只影響標記的細分層級，都沒有透明度設定。
+
+<sub>Part 1　·　[影片 0:07](https://youtu.be/bF4sNorB0Uo?t=7)</sub>
+
+### 122. Which Tableau feature allows the visualization of data changes over time through animation?
+
+> 哪個 Tableau 功能可用動畫呈現資料隨時間的變化？
+
+- [x] **Pages shelf**
+- [ ] Filters shelf
+- [ ] Stories
+- [ ] Analytics pane
+
+**解析：** 把日期欄位拖到 Pages shelf，右側會出現播放控制器，可逐年／逐月前進或自動播放，形成動畫。Filters 只是篩選、Stories 是把多張圖組成敘事頁、Analytics pane 提供趨勢線／預測／叢集等分析功能。
+
+<sub>Part 1　·　[影片 10:50](https://youtu.be/bF4sNorB0Uo?t=650)</sub>
+
+### 123. In Tableau, which shelf is used to control the starting point of a path in a visualization?
+
+> 在 Tableau 中，哪個 shelf 用來控制視覺化中路徑的起點？
+
+- [ ] Pages shelf
+- [x] **Path shelf**
+- [ ] Filters shelf
+- [ ] Tooltip shelf
+
+**解析：** Path 是 Marks card 上的一個屬性（線圖與多邊形才會出現），用來決定標記連線的順序與起點，常用於流動圖、路徑地圖。Tooltip shelf 這個名詞不存在（Tooltip 也是 Marks card 的屬性）。
+
+<sub>Part 2　·　[影片 5:54](https://youtu.be/OXphRDLlqag?t=354)</sub>
+
+### 124. The Pages shelf allows which of the following? (select multiple)　**（複選）**
+
+> Pages shelf 可以做到下列哪些事？（複選）
+
+- [ ] A way to page through SQL records
+- [x] **A way to jump to a specific page**
+- [x] **A way to manually iterate through pages**
+- [x] **A way to automatically iterate through pages**
+- [ ] A way to size the dashboard dimensions based on devices
+
+**解析：** Pages shelf 產生的控制器可以直接跳到特定頁（下拉選單）、用箭頭手動逐頁前進，也可以按播放鍵自動播放形成動畫。它與 SQL 分頁無關；依裝置調整尺寸是儀表板的 Device Preview／Layout 功能。
+
+<sub>Part 8　·　[影片 9:38](https://youtu.be/IPHdPbrkbDY?t=578)</sub>
+
+
+## 排序與群組　（10 題）
+
+### 125. What are the valid ways to group data? [Select All Apply]　**（複選）**
+
+> 建立群組（group）有哪些有效做法？（複選）
+
+- [x] **Using Label in the View**
+- [ ] From Analytic Pane
+- [x] **From Dimension Shelf**
+- [x] **From Mark in the View**
+
+**解析：** 三個入口：在視圖中選取標題（label／header）後按迴紋針、在資料窗格的維度上按右鍵 ▸ Create ▸ Group、以及在視圖中框選標記後建立群組。Analytics 窗格只放參考線與模型，不能建群組。
+
+<sub>AllAboutDATA P4　·　[影片 7:36](https://youtu.be/dNbDqCba5SA?t=456)</sub>
+
+### 126. Which statement accurately describes creating a group by selecting headers in a view?
+
+> 在視圖中選取標題來建立群組，哪個敘述正確？
+
+- [ ] The grouped dimension is added to Color.
+- [ ] A newly created group only exists in the current view.
+- [x] **A new group updates the aliases from the selected headers.**
+- [ ] The grouped dimension replaces the original dimension field on Rows or Columns.
+
+**解析：** 從標題建立的群組會沿用被選成員的名稱作為群組別名。群組是資料來源層級的欄位（會出現在資料窗格，不只存在當前視圖），也不會自動被丟到 Color 或取代原欄位。
+
+<sub>AllAboutDATA P4　·　[影片 8:25](https://youtu.be/dNbDqCba5SA?t=505)</sub>
+
+### 127. Is Group used only for Dimensions?
+
+> Group 只能用在維度上嗎？
+
+- [ ] Yes
+- [x] **No**
+
+**解析：** 依影片答案為 No。群組主要用於合併維度成員，但度量也能先轉成離散再分組，所以「只能用於維度」的說法不成立。
+
+<sub>AllAboutDATA P4　·　[影片 9:57](https://youtu.be/dNbDqCba5SA?t=597)</sub>
+
+### 128. From which locations can you sort a visualization? [Select All Apply]　**（複選）**
+
+> 可以從哪些位置對視覺化排序？（複選）
+
+- [ ] The Analysis menu
+- [ ] Tooltip on the Marks card
+- [x] **An axis**
+- [ ] The Worksheet menu
+- [x] **A field label**
+- [x] **A header**
+
+**解析：** 視圖上有三個排序入口：座標軸上的排序圖示、欄位標籤（field label）旁的排序按鈕、以及標題（header）上的排序圖示。Analysis／Worksheet 選單裡沒有排序指令，Tooltip 更不是排序位置。
+
+<sub>AllAboutDATA P5　·　[影片 5:01](https://youtu.be/ZRxUYvQ0qw0?t=301)</sub>
+
+### 129. Different types of "Sort by" options available in Tableau
+
+> Tableau 的「Sort by」有哪幾種排序依據？
+
+- [ ] Field
+- [ ] Manual
+- [ ] Nested
+- [ ] Data Source Order
+- [ ] Alphabetic
+- [x] **All**
+
+**解析：** 全部都是：排序對話框的 Sort By 提供 Data Source Order、Alphabetic、Field、Manual，巢狀排序（Nested）則是在視圖中對子層級排序時的行為，所以答案是 All。
+
+<sub>AllAboutDATA P5　·　[影片 5:30](https://youtu.be/ZRxUYvQ0qw0?t=330)</sub>
+
+### 130. What are the "Sort by" options not available in Tableau?
+
+> 下列哪一個「不是」Tableau 的排序依據？
+
+- [ ] Field
+- [ ] Nested
+- [ ] Manual
+- [x] **Numeric**
+
+**解析：** 沒有叫 Numeric 的排序選項——要依數值排序是選 Field 再指定該度量與彙總方式。
+
+<sub>AllAboutDATA P5　·　[影片 6:00](https://youtu.be/ZRxUYvQ0qw0?t=360)</sub>
+
+### 131. There are 4 Regions [East, West, North, South]. How can we sort them in [North, East, South, West] order?
+
+> 四個區域要排成 North, East, South, West 這種自訂順序，該用哪種排序？
+
+- [x] **Manual Sort**
+- [ ] Nested Sort
+- [ ] Alphabetic Sort
+- [ ] Field Sort
+
+**解析：** 任意指定的順序只能用 Manual（手動）排序——在排序對話框裡直接拖曳成員調整位置，或在視圖中拖動標題。
+
+<sub>AllAboutDATA P5　·　[影片 6:40](https://youtu.be/ZRxUYvQ0qw0?t=400)</sub>
+
+### 132. How to clear all Sort at a time?
+
+> 要一次清除所有排序該怎麼做？
+
+- [ ] Right Click on field -> Sort -> Clear Sort
+- [ ] Right Click on field -> Clear Sort
+- [x] **Click on Worksheet Menu -> Clear Sort**
+
+**解析：** Worksheet 選單的 Clear ▸ Sorts 會一次移除工作表上所有排序。在單一欄位上按右鍵只能清掉那個欄位的排序。
+
+<sub>AllAboutDATA P5　·　[影片 7:10](https://youtu.be/ZRxUYvQ0qw0?t=430)</sub>
+
+### 133. What occurs in a bar chart when grouping by labels in the view?
+
+> 在視圖中依標籤建立群組時，長條圖會發生什麼事？
+
+- [ ] The selected members will have the same color, while the rest will have different colors
+- [ ] Grouping by labels is not allowed
+- [ ] The view remains unchanged, but a group is created in the Dimensions shelf
+- [x] **A new bar is generated, consolidating all members within the group**
+
+**解析：** 在視圖中選取多個成員按 Group（迴紋針）後，這些成員會合併成一個新成員，畫面上原本的多根長條會合併成一根，數值加總。
+
+<sub>Part 24　·　[影片 9:31](https://youtu.be/mkOb1zF1IDY?t=571)</sub>
+
+### 134. What does the "Group" feature in Tableau Desktop allow?
+
+> Tableau Desktop 的「Group」功能可以做什麼？
+
+- [x] **Grouping members of dimensions together**
+- [ ] Grouping users together
+- [ ] Grouping visualizations together
+- [ ] To cluster data automatically
+
+**解析：** Group 把同一個維度中的多個成員合併成一個新成員，例如把幾個州合併成「West」，或把拼寫不一致的類別合併。使用者群組是 Server 端的權限概念；自動分群是 Clustering。
+
+<sub>Part 9　·　[影片 4:49](https://youtu.be/kQuGn_QuNII?t=289)</sub>
+
+
+## 篩選器 Filters　（10 題）
+
+### 135. Which of the following is true about Context Filter? [Select All Apply]　**（複選）**
+
+> 關於 context filter，下列哪些正確？（複選）
+
+- [x] **It is Independent Filter**
+- [ ] Can be Rearranged in Filter Shelf
+- [x] **Grey in Color**
+- [ ] Access by user.
+
+**解析：** Context filter 會先獨立執行並產生暫存子集，其他一般篩選器都在它之後運作，所以它本身是「獨立」的；在 Filters 架上它會顯示為灰色以示區別。內容篩選器會被提到架子最上方，不能任意重新排序。
+
+<sub>AllAboutDATA P4　·　[影片 14:20](https://youtu.be/dNbDqCba5SA?t=860)</sub>
+
+### 136. What options will appear when a discrete dimension is used in a filter? [Select all Apply]　**（複選）**
+
+> 用離散維度做篩選時會出現哪些選項頁籤？（複選）
+
+- [x] **Single value**
+- [x] **Multiple search**
+- [x] **wildcard**
+- [ ] range of values
+
+**解析：** 離散維度的篩選器提供單選清單、多選清單與萬用字元比對。Range of values（範圍滑桿）只有連續欄位才會出現。
+
+<sub>AllAboutDATA P4　·　[影片 15:00](https://youtu.be/dNbDqCba5SA?t=900)</sub>
+
+### 137. What options will appear when continuous measures are used in a filter? [Select All Apply]　**（複選）**
+
+> 用連續度量做篩選時會出現哪些選項？（複選）
+
+- [ ] single value
+- [ ] multiple search
+- [x] **AtMost**
+- [x] **Range of values**
+- [ ] special
+
+**解析：** 連續度量的篩選器是數值範圍式的：Range of values（介於）、At least（至少）、At most（至多）、Special（null 相關）。單選／多選清單與萬用字元是離散欄位才有的。
+
+<sub>AllAboutDATA P4　·　[影片 15:50](https://youtu.be/dNbDqCba5SA?t=950)</sub>
+
+### 138. Context Filter executes first, then Extract filter executes -
+
+> 是非題：context filter 會先執行，然後才輪到 extract filter。
+
+- [ ] Yes
+- [x] **No**
+
+**解析：** 順序相反。篩選器的執行順序是：Extract filter ▸ Data source filter ▸ Context filter ▸ Dimension filter ▸ Measure filter ▸ Table calc filter。Extract filter 最早，因為它在產生擷取檔時就先把資料濾掉了。
+
+<sub>AllAboutDATA P4　·　[影片 18:50](https://youtu.be/dNbDqCba5SA?t=1130)</sub>
+
+### 139. What options are available when we pass a Date Field in the filter shelf? [Select all apply]　**（複選）**
+
+> 把日期欄位拖到篩選架時，會出現哪些選項？（複選）
+
+- [x] **Relative Date**
+- [x] **Date Of Range**
+- [x] **Special**
+- [ ] Range of values
+- [ ] Starting Day
+
+**解析：** 日期篩選對話框提供 Relative dates（相對日期，如過去 3 個月）、Range of dates（日期區間）與 Special（null／全部）。「Starting Day」不是選項名稱。
+
+<sub>AllAboutDATA P4　·　[影片 19:17](https://youtu.be/dNbDqCba5SA?t=1157)</sub>
+
+### 140. Filter options of discrete dimensions are - [Select All Apply]　**（複選）**
+
+> 離散維度的篩選器有哪些頁籤？（複選）
+
+- [x] **General**
+- [ ] Special
+- [ ] Atleast
+- [x] **Condition**
+
+**解析：** 離散維度的篩選對話框有 General、Wildcard、Condition、Top 四個頁籤。Special 與 At least 是連續欄位篩選才會出現的選項。
+
+<sub>AllAboutDATA P4　·　[影片 20:12](https://youtu.be/dNbDqCba5SA?t=1212)</sub>
+
+### 141. What does enabling "Highlighting" in Tableau do?
+
+> 在 Tableau 中啟用「Highlighting（強調）」會做什麼？
+
+- [ ] It colors data points to emphasize differences
+- [ ] It filters out unselected data
+- [x] **It creates a focus on relevant marks**
+- [ ] It modifies data transparency
+
+**解析：** Highlight 把相關的標記保持原本顏色、其他標記變淡，讓注意力集中在相關資料上——但資料仍然全部留在視圖裡。這與 Filter（真的把資料移除）是關鍵差別。
+
+<sub>Part 17　·　[影片 12:07](https://youtu.be/BRUG1D3Q0LA?t=727)</sub>
+
+### 142. The following image illustrates which of the following? (select multiple) (畫面為 Filter [Year of Order Date] 對話框，General 分頁列出 2019/2020/2021/2022 供勾選)　**（複選）**
+
+> 畫面上的篩選器對話框（Year of Order Date，可勾選 2019–2022）代表下列哪些概念？（複選）
+
+- [x] **Date Part**
+- [x] **Filter**
+- [x] **Discrete Date**
+- [ ] Continuous Date
+- [ ] Continuous Years
+
+**解析：** 對話框標題是 Filter，欄位是 Year of Order Date（Date Part，只取年份這個部分），而且以「一格一格可勾選的成員清單」呈現——這正是離散日期（Discrete Date）的樣子。連續日期的篩選器會是可拖曳的範圍滑桿。
+
+<sub>Part 23　·　[影片 7:39](https://youtu.be/yg16dP_X0-A?t=459)</sub>
+
+### 143. What allows users to create dynamic and interactive filters in Tableau?
+
+> 在 Tableau 中，什麼可以建立動態且可互動的篩選？
+
+- [x] **Parameters**
+- [ ] Extracts
+- [ ] Criteria Shelf
+- [ ] Highlight Actions
+
+**解析：** Parameter 是使用者可調整的變數，搭配計算欄位當篩選條件，就能做出動態互動篩選（例如自選門檻值、自選要看的度量）。Criteria Shelf 根本不存在；Highlight Action 只是高亮不是篩選。
+
+<sub>Part 5　·　[影片 15:04](https://youtu.be/o9iadTiDmEM?t=904)</sub>
+
+### 144. What is the main advantage of using context filters in Tableau?
+
+> 使用 context filter（內容篩選器）的主要優點是什麼？
+
+- [ ] They aggregate data for faster processing
+- [ ] They filter data at the extract layer
+- [x] **They create dependent filters**
+- [ ] They create independent filters
+
+**解析：** Context filter 會先執行並產生一個暫存子集，其他篩選器（尤其是 Top N 與 FIXED LOD 之外的篩選）都在這個子集上運作，因此形成「相依」關係——這正是要讓 Top N 只在特定範圍內計算時的標準做法。
+
+<sub>Part 7　·　[影片 16:55](https://youtu.be/Dh5A77lHet4?t=1015)</sub>
+
+
+## 參考線／趨勢線／預測　（8 題）
+
+### 145. Valid ways to add total in a worksheet　**（複選）**
+
+> 在工作表加入總計有哪些有效做法？（複選）
+
+- [x] **From Analytic Pane**
+- [ ] From Worksheet Menu
+- [x] **From Analysis Menu**
+- [ ] From Format Menu
+
+**解析：** 兩個入口：Analytics 窗格把 Totals 拖進視圖，或功能表 Analysis ▸ Totals ▸ Show Column/Row Grand Totals。Worksheet 與 Format 選單裡沒有這個功能。
+
+<sub>AllAboutDATA P5　·　[影片 11:53](https://youtu.be/ZRxUYvQ0qw0?t=713)</sub>
+
+### 146. Forecasting is only possible with at least one measure?
+
+> 是非題：預測至少需要一個度量才能執行。
+
+- [x] **True**
+- [ ] False
+
+**解析：** True。預測需要一個日期維度加上至少一個要預測的度量，兩者缺一不可。
+
+<sub>AllAboutDATA P5　·　[影片 12:50](https://youtu.be/ZRxUYvQ0qw0?t=770)</sub>
+
+### 147. Technique used for Forecasting
+
+> Tableau 的預測使用哪一種技術？
+
+- [x] **Exponential Smoothing**
+- [ ] Binomial
+- [ ] Polynomial
+
+**解析：** Tableau 的預測採用指數平滑法（exponential smoothing），會考慮趨勢與季節性並給出信賴區間。Polynomial 是趨勢線的模型之一，不是預測法。
+
+<sub>AllAboutDATA P5　·　[影片 13:20](https://youtu.be/ZRxUYvQ0qw0?t=800)</sub>
+
+### 148. Which is not a Trend Model?
+
+> 下列哪一個不是趨勢線模型？
+
+- [ ] Exponential
+- [ ] Linear
+- [ ] Power
+- [x] **Binomial Distribution**
+
+**解析：** Tableau 的趨勢線模型有 Linear、Logarithmic、Exponential、Power、Polynomial 五種。Binomial Distribution（二項分布）不在其中。
+
+<sub>AllAboutDATA P5　·　[影片 15:00](https://youtu.be/ZRxUYvQ0qw0?t=900)</sub>
+
+### 149. What options appear when you drag a Reference line into the view? [Select All Apply]　**（複選）**
+
+> 把參考線拖進視圖時會出現哪些範圍選項？（複選）
+
+- [x] **Cell**
+- [x] **Table**
+- [ ] View
+- [x] **Pane**
+
+**解析：** 參考線可以套用在 Table、Pane、Cell 三種範圍上，拖進視圖時就會看到這三個放置目標。View 不是參考線的範圍單位。
+
+<sub>AllAboutDATA P5　·　[影片 15:10](https://youtu.be/ZRxUYvQ0qw0?t=910)</sub>
+
+### 150. What options appear when you drag a Trend line into the view?
+
+> 把趨勢線拖進視圖時會出現哪些範圍選項？
+
+- [ ] Cell
+- [ ] Table
+- [ ] View
+- [x] **None of them**
+
+**解析：** 趨勢線沒有 Table／Pane／Cell 的範圍選擇——拖進去時出現的是模型類型（Linear、Logarithmic、Exponential、Power、Polynomial），所以以上皆非。
+
+<sub>AllAboutDATA P5　·　[影片 15:30](https://youtu.be/ZRxUYvQ0qw0?t=930)</sub>
+
+### 151. Which Tableau capability is specifically designed for in-depth temporal data analysis?
+
+> 哪個 Tableau 功能是專為深入的時間性資料分析而設計的？
+
+- [x] **Forecasting**
+- [ ] Constant lines
+- [ ] Clustering
+- [ ] Data blending
+
+**解析：** Forecasting（預測）以指數平滑法分析時間序列，往未來延伸並給出信賴區間，是唯一針對「時間」設計的分析功能。Constant line 只是一條固定值線、Clustering 依度量分群、Data blending 是合併資料來源。
+
+<sub>Part 2　·　[影片 9:29](https://youtu.be/OXphRDLlqag?t=569)</sub>
+
+### 152. What can be found in the "Analytics" pane?　**（複選）**
+
+> 「Analytics」窗格中可以找到哪些項目？（複選）
+
+- [x] **Totals**
+- [x] **Box plot**
+- [x] **Constant Line**
+- [ ] Gantt Bar
+- [ ] Histogram
+
+**解析：** Analytics 窗格提供 Summarize（Constant Line、Average Line、Median with Quartiles、Box Plot、Totals）、Model（Average with CI、Trend Line、Forecast、Cluster）、Custom（Reference Line／Band／Distribution Band）。Gantt Bar 與 Histogram 是圖表類型，出現在 Marks 下拉或 Show Me，不在 Analytics 窗格。
+
+<sub>Part 5　·　[影片 11:52](https://youtu.be/o9iadTiDmEM?t=712)</sub>
+
+
+## 地圖　（7 題）
+
+### 153. What should you do first to build the map?
+
+> 要建立地圖，第一步該做什麼？
+
+- [ ] Drag Country field on the Marks card.
+- [ ] Drag Latitude to the Columns shelf and Longitude to the Rows shelf.
+- [x] **Drag Latitude to the Rows shelf and Longitude to the Columns shelf.**
+- [ ] Drag Region Field Detail on the Marks card.
+
+**解析：** 緯度（Latitude）是南北方向，要放 Rows（Y 軸）；經度（Longitude）是東西方向，放 Columns（X 軸）。放反了地圖會整個轉 90 度。
+
+<sub>AllAboutDATA P3　·　[影片 8:45](https://youtu.be/XSkPENGfpUs?t=525)</sub>
+
+### 154. While assigning geographic role to a field, Tableau adds two fields to the Measures area of the Data pane:
+
+> 指派地理角色給欄位時，Tableau 會在度量區自動新增哪兩個欄位？
+
+- [x] **Latitude and Longitude**
+- [ ] Meridian and Longitude
+- [ ] Meridian and Latitude
+- [ ] Only Meridian
+
+**解析：** Tableau 會產生 Latitude (generated) 與 Longitude (generated) 兩個度量，用來把地理成員畫到地圖上。Meridian（子午線）不是 Tableau 產生的欄位，是干擾選項。
+
+<sub>AllAboutDATA P1　·　[影片 11:30](https://youtu.be/VF8HTkcnq7o?t=690)</sub>
+
+### 155. Which Tableau tool is used for geographic analysis of data? (select multiple)　**（複選）**
+
+> 哪些 Tableau 工具可用於資料的地理分析？（複選）
+
+- [x] **Symbol maps**
+- [ ] Heat maps
+- [ ] Line charts
+- [ ] Pie charts
+- [x] **Maps**
+
+**解析：** Show Me 中與地理相關的是 Symbol map（在地圖上以標記大小／顏色呈現）與 Map（填色地圖 filled map）。Heat map 在 Tableau 指的是用顏色深淺呈現的交叉表，不是地理工具。
+
+<sub>Part 10　·　[影片 7:45](https://youtu.be/dlLVylmVvXo?t=465)</sub>
+
+### 156. True or False: You can change the Geographic Role property of a given dimension
+
+> 是非題：可以更改某個維度的「地理角色」屬性。
+
+- [x] **True**
+- [ ] False
+
+**解析：** true。在欄位上按右鍵 ▸ Geographic Role，即可指定或改成 City、State/Province、Country/Region、Zip Code、Airport 等角色，也可以設為 None 取消。
+
+<sub>Part 26　·　[影片 2:27](https://youtu.be/HsO2vO-7UF4?t=147)</sub>
+
+### 157. True or False: Tableau Desktop allows users to create custom geographic regions.
+
+> 是非題：Tableau Desktop 允許使用者建立自訂的地理區域。
+
+- [x] **true**
+- [ ] false
+
+**解析：** true。可以把多個地理成員（例如幾個州）框選後 Group 成自訂區域（例如 West Region），也可以匯入自訂地理編碼或空間檔（shapefile／GeoJSON）來定義自己的區域。
+
+<sub>Part 4　·　[影片 5:32](https://youtu.be/pLl-ekr4jTY?t=332)</sub>
+
+### 158. True or False: Tableau can automatically detect geographic data based on field names like "City" or "Country".
+
+> 是非題：Tableau 能依據欄位名稱（例如 City 或 Country）自動辨識地理資料。
+
+- [x] **true**
+- [ ] false
+
+**解析：** true。Tableau 會依欄位名稱自動指派地理角色並產生 Latitude／Longitude（generated）。若沒有自動判斷正確，也可以手動指定 Geographic Role。
+
+<sub>Part 6　·　[影片 8:25](https://youtu.be/xy1RoS0HRWc?t=505)</sub>
+
+### 159. Which feature should be used in Tableau to automatically categorize geographical data based on names?
+
+> 要讓 Tableau 依名稱自動辨識並分類地理資料，該用什麼功能？
+
+- [x] **Geocoding**
+- [ ] Data extraction
+- [ ] Spatial files
+- [ ] Mapping
+
+**解析：** Geocoding（地理編碼）是 Tableau 內建的地理角色辨識：欄位命名為 City／State／Country 等時會自動指派地理角色並產生經緯度。Spatial file 是自帶幾何資訊的檔案，不是「依名稱自動分類」。
+
+<sub>Part 9　·　[影片 10:18](https://youtu.be/kQuGn_QuNII?t=618)</sub>
+
+
+## Sets / Hierarchies　（7 題）
+
+### 160. What are two use cases for creating hierarchies from the Data pane? (Choose two.)　**（複選）**
+
+> 從資料窗格建立階層的兩個用途是什麼？（複選）
+
+- [x] **To organize related fields together**
+- [x] **To add drilldown functionality for fields**
+- [ ] To create faster-performing queries
+- [ ] To concatenate all fields into a single field
+
+**解析：** 階層做兩件事：把相關的維度組織成一組，以及讓視圖出現 +／− 可以逐層鑽取。它不會加快查詢，也不是把欄位串接起來。
+
+<sub>AllAboutDATA P4　·　[影片 7:55](https://youtu.be/dNbDqCba5SA?t=475)</sub>
+
+### 161. Can we create sets on Measures?
+
+> 可以在度量上建立集合（set）嗎？
+
+- [ ] Yes
+- [x] **No**
+
+**解析：** 不行。集合是「維度成員的子集」，在度量上按右鍵 ▸ Create 看不到 Set 選項。要依度量值挑成員，做法是在維度的集合裡用 Top 或 Condition 條件搭配該度量。
+
+<sub>AllAboutDATA P4　·　[影片 10:50](https://youtu.be/dNbDqCba5SA?t=650)</sub>
+
+### 162. What are the valid ways to create a set? [Select All Apply]　**（複選）**
+
+> 建立集合（set）有哪些有效做法？（複選）
+
+- [x] **Using Label in the View**
+- [ ] From Analytic Pane
+- [x] **From Dimension Shelf**
+- [x] **From Mark in the View**
+
+**解析：** 與建立群組同樣三個入口：視圖中的標題、資料窗格的維度右鍵 ▸ Create ▸ Set、以及框選視圖中的標記後建立集合。Analytics 窗格一樣不行。
+
+<sub>AllAboutDATA P4　·　[影片 13:45](https://youtu.be/dNbDqCba5SA?t=825)</sub>
+
+### 163. _____ is essential for drilling down into hierarchical levels of data in Tableau.
+
+> ＿＿＿ 是在 Tableau 中往下鑽取階層資料的關鍵。
+
+- [x] **Tree map**
+- [ ] Pie chart
+- [ ] Gantt chart
+- [ ] Packed bubble chart
+
+**解析：** Tree map 需要「一個以上 dimension ＋ 一到兩個 measure」。把 Category 與 Sub-Category 一起放進去時，會用巢狀方塊呈現兩層階層：一眼看出上層占比，再往下看細項。其餘三者都無法乾淨表達階層。
+
+<sub>Part 1　·　[影片 7:38](https://youtu.be/bF4sNorB0Uo?t=458)</sub>
+
+### 164. What role do hierarchies play in Tableau?
+
+> 階層（hierarchy）在 Tableau 中扮演什麼角色？
+
+- [x] **Organizing data into levels**
+- [ ] Aggregating data for security
+- [ ] Filtering data across dashboards
+- [ ] Simplifying data entry
+
+**解析：** 階層把相關的維度依層級組織起來（例如 Country ▸ State ▸ City，或 Category ▸ Sub-Category），在視圖上就會出現 +／− 按鈕，可以逐層展開往下鑽取。
+
+<sub>Part 15　·　[影片 4:27](https://youtu.be/9TUyKYiHgv4?t=267)</sub>
+
+### 165. Which of the following can be used with a parameter to dynamically control the top N members based on a measure?
+
+> 哪一個可以搭配參數，依度量動態控制前 N 名的成員？
+
+- [ ] Groups
+- [ ] Bins
+- [ ] Hierarchy
+- [x] **Sets**
+
+**解析：** Set 的 Top 分頁可以直接綁定參數（例如 Top [N] by SUM(Sales)），使用者調整參數，集合成員就跟著變。Group 是靜態合併成員、Bin 是數值分組、Hierarchy 是階層。
+
+<sub>Part 21　·　[影片 6:46](https://youtu.be/M8KSQg1illA?t=406)</sub>
+
+### 166. Which feature in Tableau helps to reduce data noise based on measure values?
+
+> 哪個 Tableau 功能可依度量值來降低資料雜訊？
+
+- [ ] Filter
+- [ ] Sets
+- [ ] Highlighting
+- [x] **Clustering**
+
+**解析：** Clustering（分群）在 Analytics 窗格中，會依度量值把相近的標記自動分群，把雜亂的散點整理成幾個有意義的群組。Filter 是把資料拿掉、Set 是自訂成員集合、Highlighter 只是視覺強調。
+
+<sub>Part 5　·　[影片 5:05](https://youtu.be/o9iadTiDmEM?t=305)</sub>
+
+
+## 表計算 Table Calculations　（7 題）
+
+### 167. When viewing quick table calculations, such as Percent Difference From, that use a value in the previous column, what will be the first data value in the visualization?
+
+> 使用「與前一欄比較」類的快速表計算（例如 Percent Difference From）時，第一個資料值會是什麼？
+
+- [ ] Zero (0)
+- [x] **Null**
+- [ ] Duplicated from the nearest column
+- [ ] The current value
+
+**解析：** 第一個位置沒有「前一個值」可以比較，所以結果是 Null（畫面上留白）。這也是為什麼差異類表計算的第一欄總是空的。
+
+<sub>AllAboutDATA P5　·　[影片 10:55](https://youtu.be/ZRxUYvQ0qw0?t=655)</sub>
+
+### 168. Which is not a Table Calculation type?
+
+> 下列哪一個不是表計算的類型？
+
+- [x] **Standard deviation**
+- [ ] Rank
+- [ ] YOY Growth
+- [ ] Percentile
+
+**解析：** 標準差是彙總函數（在度量的 Measure 選單裡），不是表計算。Rank、YOY Growth、Percentile 都在快速表計算清單中。
+
+<sub>AllAboutDATA P5　·　[影片 11:30](https://youtu.be/ZRxUYvQ0qw0?t=690)</sub>
+
+### 169. The view is showing a line chart over time. If we want to display percentage of growth over year, which table calculation will be used?
+
+> 折線圖顯示時間趨勢，要呈現「年成長率」該用哪個表計算？
+
+- [ ] Percentile
+- [x] **YOY Growth**
+- [ ] Compound growth rate
+- [ ] Percent difference
+
+**解析：** Year over Year Growth 就是專門算「與去年同期相比的成長百分比」，是快速表計算的內建選項。
+
+<sub>AllAboutDATA P5　·　[影片 12:20](https://youtu.be/ZRxUYvQ0qw0?t=740)</sub>
+
+### 170. Scope of Table Calculation is [Select All Apply]　**（複選）**
+
+> 表計算的計算範圍（scope）有哪些？（複選）
+
+- [x] **Cell**
+- [ ] Row Level
+- [x] **Pane**
+- [x] **Table**
+
+**解析：** 表計算的定址範圍是 Table、Pane、Cell 三種（各自還有 across／down 的變化）。Row Level 是列層級計算，屬於一般計算欄位，不是表計算的範圍。
+
+<sub>AllAboutDATA P5　·　[影片 14:52](https://youtu.be/ZRxUYvQ0qw0?t=892)</sub>
+
+### 171. You need to show how Internet Usage values change from year-to-year as a percentage. Which quick table calculation should you apply to the Internet Usage field?
+
+> 要以百分比呈現數值逐年的變化，該套用哪個快速表計算？
+
+- [ ] Percentile
+- [ ] Difference
+- [ ] Compound growth rate
+- [x] **Percent difference**
+
+**解析：** Percent Difference From 會算出與前一個值相比的變化百分比，正是「逐年變化百分比」。Difference 給的是絕對差值而非百分比。
+
+<sub>AllAboutDATA P5　·　[影片 15:40](https://youtu.be/ZRxUYvQ0qw0?t=940)</sub>
+
+### 172. Which of the following can best be used to compute percent of total?
+
+> 要計算「占總計的百分比」，下列哪一個最適合？
+
+- [ ] Reference line
+- [ ] LOD expression
+- [x] **Quick table calculation**
+- [ ] Ad-hoc calculation
+
+**解析：** 在度量上按右鍵 ▸ Quick Table Calculation ▸ Percent of Total，一步就完成。LOD 雖然也能算出同樣結果，但要自己寫運算式、費時且複雜；Reference line 只是畫線；Ad-hoc calculation 不是 Tableau 的正式名詞。
+
+<sub>Part 14　·　[影片 6:38](https://youtu.be/ITywjhHzhNk?t=398)</sub>
+
+### 173. True or False: Running Total is a Quick Table Calculation
+
+> 是非題：Running Total（累計總和）屬於快速表計算。
+
+- [x] **True**
+- [ ] False
+
+**解析：** true。在度量欄位上按右鍵 ▸ Quick Table Calculation 就能看到 Running Total、Difference、Percent Difference、Percent of Total、Rank、Percentile、Moving Average、YTD Total 等預設選項。
+
+<sub>Part 19　·　[影片 2:17](https://youtu.be/ILR4SFuWdsg?t=137)</sub>
+
+
+## Bins 與直方圖　（5 題）
+
+### 174. How many Measures are required to create a Histogram?
+
+> 建立直方圖需要幾個度量？
+
+- [x] **1**
+- [ ] 2
+- [ ] 3
+- [ ] No Measures Required
+
+**解析：** 直方圖只需要一個度量：Tableau 會把它切成 bin 當作 X 軸，Y 軸則是每個 bin 的計數。所以 Show Me 的直方圖條件是「1 個 measure」。
+
+<sub>AllAboutDATA P3　·　[影片 10:51](https://youtu.be/XSkPENGfpUs?t=651)</sub>
+
+### 175. Is a Bin created automatically when we use the histogram chart?
+
+> 使用直方圖時會自動建立 bin 嗎？
+
+- [x] **Yes**
+- [ ] No
+
+**解析：** 是。從 Show Me 選直方圖時，Tableau 會自動替該度量產生一個「<欄位名> (bin)」欄位並放到 Columns，之後可右鍵 Edit 調整組距。
+
+<sub>AllAboutDATA P3　·　[影片 16:15](https://youtu.be/XSkPENGfpUs?t=975)</sub>
+
+### 176. Can we create Bins on Dimensions?
+
+> 可以在維度上建立 bin 嗎？
+
+- [ ] Yes
+- [x] **No**
+
+**解析：** 不行。Bin 是把「連續數值」切成等距區間，只有數值型的度量（或數值型欄位）才有 Create ▸ Bins 這個選項；一般文字維度按右鍵看不到它。
+
+<sub>AllAboutDATA P4　·　[影片 10:20](https://youtu.be/dNbDqCba5SA?t=620)</sub>
+
+### 177. True or False: A histogram in Tableau automatically creates bins based on the underlying data distribution.
+
+> 是非題：Tableau 建立直方圖時會依資料分布自動產生 bin。
+
+- [x] **true**
+- [ ] false
+
+**解析：** 選一個 measure 後從 Show Me 點 Histogram，Tableau 會自動在資料窗格產生一個「<欄位名> (bin)」欄位。之後可右鍵 Edit 調整 bin size，或改成參數驅動。
+
+<sub>Part 1　·　[影片 4:45](https://youtu.be/bF4sNorB0Uo?t=285)</sub>
+
+### 178. What is the primary function of 'Bins' in Tableau?
+
+> Tableau 中「Bins」的主要功能是什麼？
+
+- [x] **To group data into equal intervals**
+- [ ] To filter out unwanted data
+- [ ] To organize data hierarchically
+- [ ] To classify qualitative data
+
+**解析：** Bin 把連續的數值度量切成等距的區間（例如每 10 元一組），是製作直方圖的基礎。它處理的是量化資料，不是質化／類別資料。
+
+<sub>Part 18　·　[影片 4:12](https://youtu.be/GjrnbInnBaI?t=252)</sub>
+
+
+## LOD 運算式　（4 題）
+
+### 179. ______ are used to run complex queries involving many dimensions.
+
+> ＿＿＿ 用來執行牽涉多個維度的複雜查詢。
+
+- [ ] Calculations
+- [x] **LOD Expressions**
+- [ ] Functions
+- [ ] Operators
+
+**解析：** LOD（Level of Detail）運算式讓你指定計算要在哪些維度的層級上進行，正是處理多維度複雜彙總的工具。
+
+<sub>AllAboutDATA P6　·　[影片 20:18](https://youtu.be/iWdxDSnmi90?t=1218)</sub>
+
+### 180. What is the correct syntax of Fixed LOD?
+
+> FIXED LOD 的正確語法是哪一個？
+
+- [x] **{FIXED [Region] : SUM([Sales])}**
+- [ ] {FIXED,[Region] : SUM([Sales])}
+- [ ] {FIXED [Region] : SUM([Sales])
+- [ ] {FIXED [Region]} : {SUM([Sales])}
+
+**解析：** 格式是 {FIXED 維度 : 彙總運算式}——整段用大括號包住，維度與運算式之間用冒號分隔，維度之間才用逗號。
+
+<sub>AllAboutDATA P6　·　[影片 21:18](https://youtu.be/iWdxDSnmi90?t=1278)</sub>
+
+### 181. True or False: Tableau's LOD expressions cannot aggregate data beyond the visualization level.
+
+> 是非題：Tableau 的 LOD 運算式無法在超出視圖層級的細分度上彙總資料。
+
+- [ ] true
+- [x] **false**
+
+**解析：** false。LOD 的存在意義正是「跳脫視圖層級」：FIXED 完全忽略視圖細分度、INCLUDE 加入更細的維度、EXCLUDE 移除視圖中的維度，三者都能在與視圖不同的層級上彙總。
+
+<sub>Part 16　·　[影片 8:36](https://youtu.be/-UVWgcG8_H0?t=516)</sub>
+
+### 182. What is the primary purpose of using Level of Detail (LOD) expressions in Tableau?
+
+> 在 Tableau 使用 LOD（Level of Detail）運算式的主要目的是什麼？
+
+- [ ] To increase data granularity
+- [ ] To enhance visualization speed
+- [x] **To bypass the normal aggregation level**
+- [ ] To secure data
+
+**解析：** LOD 運算式（FIXED／INCLUDE／EXCLUDE）讓計算跳脫視圖預設的彙總層級。例如視圖已依 Sub-Category 分組，仍可用 {FIXED [Category]: SUM([Sales])} 取得 Category 層級的總和，而不受視圖細分度限制。
+
+<sub>Part 2　·　[影片 3:56](https://youtu.be/OXphRDLlqag?t=236)</sub>
+
+
+---
+
+# 分享洞察　<small>Sharing Insights　權重 25%</small>
+
+
+## 格式化與版面　（25 題）
+
+### 183. Different ways to show mark label in the view? [Select all apply]　**（複選）**
+
+> 要顯示標記標籤（mark label）有哪些做法？（複選）
+
+- [x] **Drag field to text of mark card**
+- [x] **From analysis menu -> show mark label**
+- [ ] From worksheet menu -> show mark label
+- [ ] Clicking show mark label on the toolbar.
+
+**解析：** 兩個入口：把欄位拖到 Marks 卡的 Text（或 Label），或功能表 Analysis ▸ Show Mark Labels。Worksheet 選單沒有這個項目，工具列上的按鈕也不是標記標籤的開關。
+
+<sub>AllAboutDATA P7　·　[影片 7:37](https://youtu.be/MJ36LDTBQ2Y?t=457)</sub>
+
+### 184. You need to access options to change a dimension's color palette. In addition to the Marks card, what else can you use?
+
+> 除了 Marks card 之外，還可以從哪裡更改維度的色盤？
+
+- [ ] Edit in Shelf
+- [ ] Edit Caption
+- [ ] The Format menu
+- [x] **The Color legend**
+
+**解析：** 視圖右側的色彩圖例（Color legend）雙擊或按下拉選 Edit Colors，就能改整個色盤與個別成員的顏色。Format 選單處理的是字型、框線、對齊這類格式，不是色盤。
+
+<sub>AllAboutDATA P7　·　[影片 8:10](https://youtu.be/MJ36LDTBQ2Y?t=490)</sub>
+
+### 185. How can you access options to apply bold formatting to an axis in the view?
+
+> 要把視圖中座標軸的文字設為粗體，該怎麼進入設定？
+
+- [ ] Select Text on the Marks card.
+- [ ] Select Field Labels on the Format menu.
+- [ ] Right-click on the Field and select Format.
+- [x] **Right-click on the axis.**
+
+**解析：** 直接在座標軸上按右鍵選 Format，右側會開啟該軸的格式窗格，可調字型與粗體。
+
+<sub>AllAboutDATA P7　·　[影片 8:40](https://youtu.be/MJ36LDTBQ2Y?t=520)</sub>
+
+### 186. What are multiple ways to access bolding options for the text in a tooltip?　**（複選）**
+
+> 要把提示框（tooltip）中的文字設為粗體，有哪些做法？（複選）
+
+- [ ] Hover over a mark and press CTRL+B.
+- [ ] Hover over a mark and press ALT+F.
+- [x] **Right-click on the Field and select Format.**
+- [x] **Select Worksheet on the menu, and then select Tooltip.**
+- [x] **Select Tooltip on the Marks card.**
+- [x] **Select Format on the menu, and then select Font.**
+
+**解析：** 進入提示框編輯器的路徑有：Marks 卡上的 Tooltip、Worksheet ▸ Tooltip、欄位右鍵 ▸ Format，以及 Format ▸ Font 統一設定字型。滑鼠停在標記上按快捷鍵並不會開啟格式設定。
+
+<sub>AllAboutDATA P7　·　[影片 9:20](https://youtu.be/MJ36LDTBQ2Y?t=560)</sub>
+
+### 187. Does Tableau allow you to add custom color?
+
+> Tableau 可以自訂顏色嗎？
+
+- [x] **Yes**
+- [ ] No
+
+**解析：** 可以。除了在 Edit Colors 裡挑選或輸入十六進位色碼，也能編輯 Preferences.tps 檔加入自訂色盤。
+
+<sub>AllAboutDATA P7　·　[影片 10:00](https://youtu.be/MJ36LDTBQ2Y?t=600)</sub>
+
+### 188. Which statements are correct? (Select 2)　**（複選）**
+
+> 下列哪兩個敘述正確？（複選）
+
+- [x] **Use shapes for categorical values**
+- [ ] Use shapes for quantitative values
+- [ ] Use bars for categorical values
+- [x] **Use bars for quantitative values**
+- [ ] Use a maximum of different 7 shapes
+
+**解析：** 形狀用來區分類別（質化）資料，長度／長條用來表達數量（量化）資料——這是視覺編碼的基本原則：形狀不適合表達大小，長條不適合表達類別身分。
+
+<sub>AllAboutDATA P7　·　[影片 10:40](https://youtu.be/MJ36LDTBQ2Y?t=640)</sub>
+
+### 189. You want to set up a custom colour palette which is available in every workbook. Where should you set it up?
+
+> 想讓自訂色盤在每個活頁簿都能使用，該在哪裡設定？
+
+- [ ] Marks card in the workbook
+- [ ] Marks card in the server
+- [x] **Preference.tps in your Tableau Desktop repository**
+- [ ] Preference.tps on Tableau Server
+
+**解析：** 自訂色盤要寫進 My Tableau Repository 底下的 Preferences.tps，重啟 Tableau 後所有活頁簿都能選到。在 Marks 卡上改顏色只影響當前視圖。
+
+<sub>AllAboutDATA P7　·　[影片 12:35](https://youtu.be/MJ36LDTBQ2Y?t=755)</sub>
+
+### 190. If a field with continuous values is dragged to Color marks, what color palette will we get?
+
+> 把連續值的欄位拖到 Color 標記，會得到哪一種色盤？
+
+- [x] **Diverging color palette**
+- [ ] Sequential color palette
+- [ ] Continuous color palette
+- [ ] Discrete palette
+
+**解析：** 依影片答案為 diverging（雙向）色盤。（實務上連續欄位預設多半是單色漸層的 sequential 色盤，含正負值時才會用 diverging，本題以影片給的答案為準。）
+
+<sub>AllAboutDATA P7　·　[影片 13:28](https://youtu.be/MJ36LDTBQ2Y?t=808)</sub>
+
+### 191. Valid ways to italicize tooltip content in Tableau? [Select All Apply]　**（複選）**
+
+> 要把提示框內容設為斜體，有哪些有效做法？（複選）
+
+- [x] **From worksheet menu**
+- [x] **From format Menu**
+- [x] **From Mark card - Tooltip option**
+- [ ] From analysis menu
+
+**解析：** Worksheet ▸ Tooltip、Format ▸ Font、以及 Marks 卡的 Tooltip 都能進入提示框的文字格式設定。Analysis 選單管的是分析功能，與格式無關。
+
+<sub>AllAboutDATA P7　·　[影片 13:50](https://youtu.be/MJ36LDTBQ2Y?t=830)</sub>
+
+### 192. Default duration time for Animations is
+
+> 動畫的預設持續時間是多久？
+
+- [ ] 0.2 second
+- [x] **0.3 second**
+- [ ] 0.4 second
+- [ ] 0.5 second
+
+**解析：** Format ▸ Animations 的預設 Duration 是 0.3 秒（Medium）。可調整為更快或更慢。
+
+<sub>AllAboutDATA P7　·　[影片 14:20](https://youtu.be/MJ36LDTBQ2Y?t=860)</sub>
+
+### 193. What are the true statements about Animation?　**（複選）**
+
+> 關於動畫，下列哪些敘述正確？（複選）
+
+- [x] **It can be turned on for specific sheet only**
+- [x] **Sequential animations take more time but make complex changes clear by presenting them step by step**
+- [x] **It is possible to turn on animations for entire workbook.**
+
+**解析：** 三個都對。動畫可以只對單一工作表開啟、也可以整本活頁簿開啟；動畫型態分 Simultaneous（同時）與 Sequential（循序），循序較慢但能把複雜變化一步步呈現。
+
+<sub>AllAboutDATA P7　·　[影片 15:00](https://youtu.be/MJ36LDTBQ2Y?t=900)</sub>
+
+### 194. What does the highlighter marker/icon do in Tableau? (工具列上的螢光筆圖示)
+
+> 工具列上的螢光筆圖示有什麼作用？
+
+- [x] **Toggle highlight on/off**
+- [ ] Hide
+- [ ] Filter
+- [ ] Clear values
+
+**解析：** 那是 Highlight 的開關，按下後選取的標記會保持原色、其餘變淡，用來聚焦而不移除資料。
+
+<sub>AllAboutDATA P7　·　[影片 15:40](https://youtu.be/MJ36LDTBQ2Y?t=940)</sub>
+
+### 195. Can we copy the formatting of one worksheet to another worksheet?
+
+> 可以把一張工作表的格式複製到另一張嗎？
+
+- [x] **Yes**
+- [ ] No
+
+**解析：** 可以。在工作表頁籤上按右鍵選 Copy Formatting，再到目標工作表按右鍵選 Paste Formatting。
+
+<sub>AllAboutDATA P7　·　[影片 15:58](https://youtu.be/MJ36LDTBQ2Y?t=958)</sub>
+
+### 196. How to show Summary of a view in Tableau?
+
+> 要顯示視圖的摘要資訊（Summary）該怎麼做？
+
+- [x] **Click on Worksheet menu -> Show Summary**
+- [ ] Click on Analysis Menu -> Show Summary
+- [ ] Right on view name -> show Summary
+- [ ] Right click on the field -> show Summary
+
+**解析：** Worksheet ▸ Show Summary 會開啟摘要卡，顯示目前視圖的筆數、總和、平均、最小最大值等統計。
+
+<sub>AllAboutDATA P7　·　[影片 17:40](https://youtu.be/MJ36LDTBQ2Y?t=1060)</sub>
+
+### 197. What two methods can you use to change the font of a worksheet title?　**（複選）**
+
+> 要更改工作表標題的字型，有哪兩種做法？（複選）
+
+- [ ] Select Format on the menu, and then select Title and Caption.
+- [x] **Select Format on the menu, and then select Font.**
+- [x] **Double-click the title in a particular view and use the dialog box.**
+- [ ] Right-click the title in a view, and then select format Title.
+
+**解析：** 兩種：Format ▸ Font 統一調整字型，或直接雙擊標題開啟編輯對話框在裡面改。
+
+<sub>AllAboutDATA P7　·　[影片 20:54](https://youtu.be/MJ36LDTBQ2Y?t=1254)</sub>
+
+### 198. What are the types of Device preview options available in Tableau?　**（複選）**
+
+> Tableau 的裝置預覽（Device preview）有哪些類型？（複選）
+
+- [x] **Default**
+- [x] **Desktop**
+- [x] **Phone**
+- [ ] Laptop
+
+**解析：** 儀表板的 Device Preview 提供 Default、Desktop、Tablet、Phone 四種版面。沒有 Laptop 這個裝置類型。
+
+<sub>AllAboutDATA P8　·　[影片 17:03](https://youtu.be/1ZcDwpIFRqg?t=1023)</sub>
+
+### 199. What is the correct way to apply one font to the entire Workbook at a time?
+
+> 要一次把同一種字型套用到整本活頁簿，正確做法是？
+
+- [ ] Format > Format Font
+- [ ] Format > Title and Caption
+- [ ] Format > Field Labels
+- [x] **Format > Workbook**
+
+**解析：** Format ▸ Workbook 開啟活頁簿層級的格式設定，改一次就套用到所有工作表；其他選項都只影響當前工作表的局部。
+
+<sub>AllAboutDATA P8　·　[影片 18:10](https://youtu.be/1ZcDwpIFRqg?t=1090)</sub>
+
+### 200. What are the possible methods to improve the font readability? (Select three options)　**（複選）**
+
+> 要提升字體可讀性有哪三種做法？（複選）
+
+- [x] **Make the Font as bold**
+- [x] **Increase the Font Size**
+- [ ] Make use of Underline
+- [x] **Make use of a brighter Color**
+
+**解析：** 加粗、放大、用對比更明顯的顏色都能提升可讀性。底線反而會干擾文字辨識，不是建議做法。
+
+<sub>AllAboutDATA P8　·　[影片 25:50](https://youtu.be/1ZcDwpIFRqg?t=1550)</sub>
+
+### 201. We need to make the title on a Dashboard Italic. Which is the menu we need to select?
+
+> 要把儀表板標題設成斜體，該從哪裡進入？
+
+- [ ] Show dashboard title
+- [x] **Right-click the Dashboard title > Select Edit Title**
+- [ ] Dashboard Tab
+- [ ] Layout Tab
+
+**解析：** 在儀表板標題上按右鍵選 Edit Title，會開啟文字編輯對話框，裡面就能設定斜體、字型與大小。
+
+<sub>AllAboutDATA P8　·　[影片 26:40](https://youtu.be/1ZcDwpIFRqg?t=1600)</sub>
+
+### 202. We need to apply bold text formatting to the Rows or Columns separately i.e. independent of each other. Which is the best approach for it?
+
+> 要讓 Rows 與 Columns 的文字格式各自獨立設定（例如只把其中一邊變粗體），最好的做法是？
+
+- [ ] Text on Marks card
+- [x] **Rows tab or Columns tab on Format Font Pane**
+- [ ] Sheets tab on Format Font Pane
+- [ ] Worksheet Menu > Font
+
+**解析：** Format ▸ Font 開啟的格式窗格上方有 Sheet／Rows／Columns 三個頁籤，切到 Rows 或 Columns 就能各自設定，不會互相影響。
+
+<sub>AllAboutDATA P8　·　[影片 27:35](https://youtu.be/1ZcDwpIFRqg?t=1655)</sub>
+
+### 203. What are the dashboard size options available in Tableau? [Select all apply]　**（複選）**
+
+> 儀表板的尺寸選項有哪些？（複選）
+
+- [x] **Fixed**
+- [ ] Custom zise
+- [x] **Automatic**
+- [x] **Range**
+
+**解析：** 三種：Fixed size（固定尺寸）、Automatic（隨視窗自動調整）、Range（在最小與最大之間縮放）。沒有叫 Custom size 的獨立選項。
+
+<sub>AllAboutDATA P8　·　[影片 31:00](https://youtu.be/1ZcDwpIFRqg?t=1860)</sub>
+
+### 204. Floating option allows to overlap the sheets in the dashboard
+
+> 是非題：Floating（浮動）可以讓儀表板中的工作表互相重疊。
+
+- [x] **True**
+- [ ] False
+
+**解析：** True。Tiled（並排）物件會自動排開不重疊；Floating 物件則可以自由放置並疊在其他物件之上。
+
+<sub>AllAboutDATA P8　·　[影片 31:25](https://youtu.be/1ZcDwpIFRqg?t=1885)</sub>
+
+### 205. Which statement accurately describes adding a dashboard layout for a mobile device?
+
+> 關於為行動裝置加入儀表板版面，哪個敘述正確？
+
+- [x] **Dashboards designed in portrait mode are optimal for viewing on a phone.**
+- [ ] Dashboard device layout changes will be saved between workbooks.
+- [ ] Only workbooks published to Tableau Online support mobile layouts.
+- [ ] Dashboard changes made for one device layout apply to other device layouts.
+
+**解析：** 手機是直向持握，所以直向（portrait）版面最適合手機檢視。每個裝置版面是各自獨立的，改了其中一個不會影響其他版面，也不會跨活頁簿保存。
+
+<sub>AllAboutDATA P8　·　[影片 31:30](https://youtu.be/1ZcDwpIFRqg?t=1890)</sub>
+
+### 206. True or False: Tableau Animations can be turned off
+
+> 是非題：Tableau 的動畫效果可以關閉。
+
+- [x] **True**
+- [ ] False
+
+**解析：** true。Format ▸ Animations 可以針對整本活頁簿或個別工作表開關動畫，也能調整動畫時長與型態（同時／循序）。
+
+<sub>Part 22　·　[影片 2:01](https://youtu.be/c_4BgvRwX_k?t=121)</sub>
+
+### 207. Which pane enables users to manage the layout and design of multiple dashboards in Tableau?
+
+> 哪個窗格可以管理儀表板的版面與設計？
+
+- [ ] Dashboard
+- [x] **Layout**
+- [ ] Data
+- [ ] Story
+
+**解析：** 在儀表板編輯畫面左側有 Dashboard 與 Layout 兩個分頁：Dashboard 分頁放工作表與物件，Layout 分頁則控制選取項目的位置、尺寸、內距、邊界、背景等版面設定。
+
+<sub>Part 7　·　[影片 9:31](https://youtu.be/Dh5A77lHet4?t=571)</sub>
+
+
+## 儀表板 Dashboards　（11 題）
+
+### 208. What is a tooltip in Tableau?
+
+> Tableau 的 tooltip 是什麼？
+
+- [ ] A way to group related dimensions together.
+- [ ] A way to limit the data displayed in a chart or table.
+- [x] **A way to provide additional information about data points in a visualization.**
+- [ ] A way to create a custom calculation in a chart or table.
+
+**解析：** 提示框是滑鼠停在標記上時顯示的補充資訊，可放欄位值、說明文字，甚至嵌入另一張工作表（Viz in Tooltip）。
+
+<sub>AllAboutDATA P7　·　[影片 18:20](https://youtu.be/MJ36LDTBQ2Y?t=1100)</sub>
+
+### 209. Dashboard is a collection of ______
+
+> 儀表板是什麼的集合？
+
+- [ ] Several workbook
+- [x] **Several Worksheet**
+- [ ] Several story point
+
+**解析：** 儀表板把多張工作表排在同一個畫面上，再加上篩選器、圖例、文字等物件並讓它們互相連動。
+
+<sub>AllAboutDATA P8　·　[影片 2:58](https://youtu.be/1ZcDwpIFRqg?t=178)</sub>
+
+### 210. How to duplicate a sheet?
+
+> 要複製一張工作表該怎麼做？
+
+- [ ] Go to worksheet menu -> Duplicate
+- [x] **Right click on sheet tab -> Duplicate**
+- [ ] Go to Dashboard menu -> Duplicate
+- [ ] None of the above
+
+**解析：** 在下方的工作表頁籤上按右鍵選 Duplicate，會複製出一張內容相同的新工作表。
+
+<sub>AllAboutDATA P8　·　[影片 3:30](https://youtu.be/1ZcDwpIFRqg?t=210)</sub>
+
+### 211. Select the Objects that are available in a Tableau Dashboard. (Select all apply)　**（複選）**
+
+> 哪些是 Tableau 儀表板可用的物件？（複選）
+
+- [x] **Vertical Container**
+- [x] **Web Page**
+- [ ] Video
+- [x] **Extension**
+- [ ] URL Link
+- [x] **Data story**
+
+**解析：** 儀表板物件包含 Horizontal／Vertical 容器、Text、Image、Web Page、Blank、Navigation、Download、Extension、Data Story。沒有 Video 物件，也沒有叫「URL Link」的物件（要連外部網址是用 Go to URL 動作）。
+
+<sub>AllAboutDATA P8　·　[影片 31:15](https://youtu.be/1ZcDwpIFRqg?t=1875)</sub>
+
+### 212. True or False: In dashboards, only one sheet can be displayed at a time.
+
+> 是非題：在儀表板中一次只能顯示一張工作表。
+
+- [ ] true
+- [x] **false**
+
+**解析：** false。儀表板的用途正是把多張工作表同時排在一起，再加上篩選器、圖例、文字、圖片、網頁等物件，並讓它們透過 action 互相連動。
+
+<sub>Part 12　·　[影片 6:52](https://youtu.be/1y2xUj7SzDQ?t=412)</sub>
+
+### 213. Which of the following are valid dashboard objects? (select multiple)　**（複選）**
+
+> 下列哪些是有效的儀表板物件？（複選）
+
+- [x] **Vertical**
+- [x] **Download**
+- [x] **Blank**
+- [ ] Parameter
+- [ ] Menu Bar
+
+**解析：** 儀表板 Objects 區塊包含：Horizontal、Vertical、Text、Image、Web Page、Blank、Navigation、Download、Extension、Ask Data。Parameter 是以「控制項」形式從工作表加入，不算物件；Menu Bar 不存在。
+
+<sub>Part 13　·　[影片 9:25](https://youtu.be/aUds-njz53o?t=565)</sub>
+
+### 214. How can "Viz in Tooltip" feature enhance a Tableau dashboard?
+
+> 「Viz in Tooltip」如何提升儀表板的效果？
+
+- [x] **By providing additional context on hover**
+- [ ] By speeding up dashboard performance
+- [ ] By reducing the need for extra sheets
+- [ ] By launching a wizard to help create tooltips
+
+**解析：** 滑鼠停在標記上時，提示框直接顯示一張以該標記為條件的迷你圖表，讓使用者不必離開目前視圖就取得更多脈絡。它反而會增加查詢負擔，不會加快效能。
+
+<sub>Part 17　·　[影片 7:58](https://youtu.be/BRUG1D3Q0LA?t=478)</sub>
+
+### 215. What does the 'Viz in Tooltip' feature in Tableau allow?
+
+> Tableau 的「Viz in Tooltip」功能可以做什麼？
+
+- [x] **Embedding visualizations within tooltips**
+- [ ] Embedding entire workbooks within tooltips
+- [ ] Linking to external websites
+- [ ] Embedding dashboard previews within tooltips
+
+**解析：** Viz in Tooltip 讓你把「另一張工作表」嵌進提示框裡：滑鼠停在某個標記上時，提示框會顯示以該標記為篩選條件的迷你圖表。嵌入的是單一 worksheet，不是整本 workbook，也不是儀表板預覽。
+
+<sub>Part 3　·　[影片 3:20](https://youtu.be/W_HTXbbiEPI?t=200)</sub>
+
+### 216. Which element is NOT directly editable within a Tableau dashboard?
+
+> 哪一個元素「無法」在儀表板中直接編輯？
+
+- [x] **Data source**
+- [ ] Filter configurations
+- [ ] Container placement
+- [ ] Mark Colors
+
+**解析：** 資料來源必須回到 Data Source 分頁去修改（換連線、加 join、改資料型別）。篩選器設定、容器排版、標記顏色都可以在儀表板畫面上直接調整。
+
+<sub>Part 6　·　[影片 7:06](https://youtu.be/xy1RoS0HRWc?t=426)</sub>
+
+### 217. Which Tableau feature would you use to create a detailed tooltip that includes visuals?
+
+> 要做出包含圖表的詳細提示框，該用哪個功能？
+
+- [x] **Viz in Tooltip**
+- [ ] Tooltips
+- [ ] Dynamic tooltips
+- [ ] Embedded charts
+
+**解析：** Viz in Tooltip 是專門的功能：在 Tooltip 編輯視窗插入 <Sheet name="..."> 就能把另一張工作表嵌進提示框。一般 Tooltip 只能放文字與欄位值。
+
+<sub>Part 6　·　[影片 12:35](https://youtu.be/xy1RoS0HRWc?t=755)</sub>
+
+### 218. True or False: You can embed external websites in Tableau dashboards.
+
+> 是非題：可以在 Tableau 儀表板中嵌入外部網站。
+
+- [x] **true**
+- [ ] false
+
+**解析：** true。儀表板物件清單中有 Web Page 物件，把網址拖進去即可嵌入外部網頁；還能搭配 URL action 讓網頁內容隨著使用者點選的標記動態改變。
+
+<sub>Part 9　·　[影片 1:37](https://youtu.be/kQuGn_QuNII?t=97)</sub>
+
+
+## 儀表板動作 Actions　（10 題）
+
+### 219. To send the information between sheets ______ are used.
+
+> 要在工作表之間傳遞資訊，使用什麼？
+
+- [ ] URL Action
+- [ ] Highlight Action
+- [x] **Filter Action**
+- [ ] None
+
+**解析：** Filter action 把來源工作表選取的值當成條件送到目標工作表，是儀表板中跨表連動最常用的方式。
+
+<sub>AllAboutDATA P8　·　[影片 4:00](https://youtu.be/1ZcDwpIFRqg?t=240)</sub>
+
+### 220. Types of Action available in Tableau?
+
+> Tableau 有哪些動作（action）類型？
+
+- [ ] Filter Action
+- [ ] Highlight Action
+- [ ] Go to URL
+- [ ] Go to Sheet
+- [ ] Change Parameter/Change Set Values
+- [x] **All of the Above**
+
+**解析：** 以上皆是。Dashboard ▸ Actions 可建立 Filter、Highlight、Go to URL、Go to Sheet、Change Parameter、Change Set Values 六種。
+
+<sub>AllAboutDATA P8　·　[影片 18:40](https://youtu.be/1ZcDwpIFRqg?t=1120)</sub>
+
+### 221. Action Run options can be set to? [Select all apply]　**（複選）**
+
+> 動作的觸發方式（Run action on）可以設定成哪些？（複選）
+
+- [x] **Hover**
+- [x] **Select**
+- [x] **Menu**
+- [ ] Highlight
+
+**解析：** 三種觸發方式：Hover（滑過）、Select（點選）、Menu（從提示框選單）。Highlight 是動作的「類型」而不是觸發方式。
+
+<sub>AllAboutDATA P8　·　[影片 23:58](https://youtu.be/1ZcDwpIFRqg?t=1438)</sub>
+
+### 222. What best describes a Filter Action in a Dashboard?
+
+> 哪個敘述最能描述儀表板中的 Filter Action？
+
+- [ ] Displays a Hyperlink that user can click to access additional information online
+- [ ] Displays a card by which the user can adjust the filter selection in the Dashboard
+- [x] **Target sheet is filtered based on the selection in the Source sheet**
+- [ ] Used to highlight data in the view when user hovers over data points
+
+**解析：** Filter action 的核心行為：在來源工作表選取標記，目標工作表就依該選取值被篩選。第一個描述是 URL action、最後一個是 highlight action。
+
+<sub>AllAboutDATA P8　·　[影片 25:00](https://youtu.be/1ZcDwpIFRqg?t=1500)</sub>
+
+### 223. Select the best options that describe dashboard actions (Select three options)　**（複選）**
+
+> 哪三個敘述正確描述了儀表板動作？（複選）
+
+- [ ] Can be used to link sheets to other sheets in any workbook
+- [x] **Can have multiple Source and Target Sheets**
+- [x] **The Run action on can be set to Hover, Select or Menu**
+- [x] **Can be set to Filter, Highlight, or Go to URL**
+
+**解析：** 動作可以指定多張來源與目標工作表、觸發方式有 Hover／Select／Menu、類型包含 Filter／Highlight／Go to URL。但動作只能連結「同一本活頁簿」內的工作表，不能跨活頁簿。
+
+<sub>AllAboutDATA P8　·　[影片 30:35](https://youtu.be/1ZcDwpIFRqg?t=1835)</sub>
+
+### 224. What does a URL action on a Dashboard do?
+
+> 儀表板上的 URL action 有什麼作用？
+
+- [ ] Displays a drop-down list with a filter option the user can click
+- [x] **Open a webpage of a web-based resource from an action on the source sheet**
+- [ ] Used to connect to Web-based data to create a data source
+- [ ] Used to filter data between two views on a Dashboard
+
+**解析：** URL action 讓使用者點選標記時開啟指定網址，網址還能帶入該標記的欄位值。它不是資料連線方式，也不是篩選。
+
+<sub>AllAboutDATA P9　·　[影片 6:00](https://youtu.be/5sQje-6Bf34?t=360)</sub>
+
+### 225. What allows the dynamic control of multiple visualization elements simultaneously in Tableau? (select multiple)　**（複選）**
+
+> 在 Tableau 中，什麼能同時動態控制多個視覺化元件？（複選）
+
+- [x] **Parameters**
+- [x] **Filters**
+- [x] **Calculated fields**
+- [x] **Actions**
+- [x] **Highlight actions**
+
+**解析：** 五個全選。典型組合是：Parameter（例如年份）→ Calculated field 判斷 → 當成 Filter 並 Apply to Worksheets 套用到多張表；Actions（含 Highlight actions）則能在儀表板中跨工作表連動高亮或篩選。
+
+<sub>Part 1　·　[影片 16:40](https://youtu.be/bF4sNorB0Uo?t=1000)</sub>
+
+### 226. Which type of dashboard actions are generally available? (select multiple)　**（複選）**
+
+> 儀表板動作（dashboard actions）一般有哪些類型？（複選）
+
+- [ ] Refresh Extract
+- [x] **Highlight**
+- [ ] Tooltip Hover
+- [x] **Filter**
+- [x] **Change Parameter**
+
+**解析：** Dashboard ▸ Actions 中可建立的類型是 Filter、Highlight、Go to URL、Go to Sheet、Change Parameter、Change Set Values。Refresh Extract 是資料更新作業、Tooltip Hover 不是動作類型（hover 只是動作的觸發方式之一）。
+
+<sub>Part 13　·　[影片 7:38](https://youtu.be/aUds-njz53o?t=458)</sub>
+
+### 227. True or False: Sheets can be used as filters for other sheets on a Dashboard
+
+> 是非題：在儀表板上，一張工作表可以當作其他工作表的篩選器。
+
+- [x] **True**
+- [ ] False
+
+**解析：** true。點選工作表右上角的「Use as Filter」漏斗圖示，或建立 Filter action，就能讓使用者在一張圖上點選標記，同步篩選儀表板上的其他工作表。
+
+<sub>Part 22　·　[影片 10:19](https://youtu.be/c_4BgvRwX_k?t=619)</sub>
+
+### 228. Which of the following actions can be used to direct a user to a web page?
+
+> 哪一個動作（action）可以把使用者導向網頁？
+
+- [ ] Go to web page
+- [x] **Go to URL**
+- [ ] Go to hyperlink
+- [ ] Go to website
+
+**解析：** Tableau 的動作類型正式名稱是 Go to URL。設定後點選標記就會開啟指定網址，網址還能用欄位值動態組成（例如帶入客戶名稱去搜尋）。
+
+<sub>Part 23　·　[影片 4:17](https://youtu.be/yg16dP_X0-A?t=257)</sub>
+
+
+## 發佈到 Server / Cloud　（9 題）
+
+### 229. Where do we publish workbooks/Dashboard?
+
+> 活頁簿／儀表板要發佈到哪裡？
+
+- [ ] Tableau desktop
+- [x] **Tableau Server**
+- [ ] Tableau Reader
+
+**解析：** Tableau Server（或 Tableau Cloud）是發佈目的地。Desktop 是製作工具，Reader 只能開啟本機的 .twbx 檔。
+
+<sub>AllAboutDATA P8　·　[影片 17:40](https://youtu.be/1ZcDwpIFRqg?t=1060)</sub>
+
+### 230. What is the function of the "Server" menu in Tableau Desktop?
+
+> Tableau Desktop 的「Server」選單有什麼功能？
+
+- [ ] To configure data connections
+- [x] **To manage publishing settings**
+- [ ] To administer server settings
+- [ ] To access server logs
+
+**解析：** Desktop 的 Server 選單用來登入 Server／Cloud，以及發佈活頁簿或資料來源、建立擷取更新排程等發佈相關設定。真正的伺服器管理與日誌要在 Server 的網頁管理介面或 tsm 指令。
+
+<sub>Part 11　·　[影片 8:50](https://youtu.be/yvlR98Sxc-w?t=530)</sub>
+
+### 231. What is the benefit of embedding a Tableau dashboard into a web page?
+
+> 把 Tableau 儀表板嵌入網頁的好處是什麼？
+
+- [ ] Increases data security
+- [ ] Enhances user interaction
+- [ ] Simplifies data management
+- [x] **Expands data accessibility**
+
+**解析：** 嵌入網頁的重點是「讓更多人更容易看到」——使用者不必登入 Tableau 介面，直接在既有的入口網站或內部網站就能看到儀表板，擴大了資料的觸及範圍。它並不會提升安全性。
+
+<sub>Part 15　·　[影片 7:50](https://youtu.be/9TUyKYiHgv4?t=470)</sub>
+
+### 232. True or False: Tableau's version control capabilities allow for the tracking and restoring of previous workbook versions.
+
+> 是非題：Tableau 的版本控制功能可以追蹤並還原先前的活頁簿版本。
+
+- [x] **true**
+- [ ] false
+
+**解析：** true。發佈到 Tableau Server／Cloud 的活頁簿會保留修訂歷程（Revision History），可以檢視、下載或還原到先前版本（保留幾版由管理員設定）。
+
+<sub>Part 15　·　[影片 9:28](https://youtu.be/9TUyKYiHgv4?t=568)</sub>
+
+### 233. True or False: Tableau allows users to publish and share dashboards via Tableau Public without any data limit.
+
+> 是非題：Tableau 允許使用者透過 Tableau Public 發佈與分享儀表板，且沒有任何資料量限制。
+
+- [ ] true
+- [x] **false**
+
+**解析：** false。Tableau Public 有明確限制：每個資料來源的資料列數上限（1,500 萬列），而且所有內容都會公開在網路上，無法設為私人。
+
+<sub>Part 2　·　[影片 6:54](https://youtu.be/OXphRDLlqag?t=414)</sub>
+
+### 234. What functionality does Tableau Server provide for collaborating on visualizations? (select multiple)　**（複選）**
+
+> Tableau Server 提供哪些協作視覺化的功能？（複選）
+
+- [x] **Comments**
+- [x] **Sharing links**
+- [x] **Version history**
+- [x] **Data-driven Alerts**
+- [x] **Subscribing to views**
+
+**解析：** 五個全選。Tableau Server 的協作功能包含：在視圖上留言、分享連結、活頁簿版本歷程（可回復舊版）、資料驅動警示（數值超過門檻時寄信），以及訂閱視圖（定期收到快照）。
+
+<sub>Part 4　·　[影片 11:20](https://youtu.be/pLl-ekr4jTY?t=680)</sub>
+
+### 235. True or False: Tableau Server or Tableau Cloud is required to publish and share dashboards with others.
+
+> 是非題：要發佈並與他人分享儀表板，必須要有 Tableau Server 或 Tableau Cloud。
+
+- [x] **true**
+- [ ] false
+
+**解析：** true（依本題影片給的答案）。真正在組織內「發佈」並讓別人以互動方式檢視儀表板，需要 Tableau Server 或 Tableau Cloud 作為發佈目的地。注意：Tableau Public 也能公開分享，但那會把資料公開到網路上，不算組織內的正式發佈途徑。
+
+<sub>Part 4　·　[影片 12:36](https://youtu.be/pLl-ekr4jTY?t=756)</sub>
+
+### 236. Which method is recommended for sharing a dashboard with offline users?
+
+> 要把儀表板分享給沒有網路（離線）的使用者，建議用哪種方式？
+
+- [ ] Publishing to Tableau Server
+- [x] **Sharing via Tableau Reader**
+- [ ] Emailing as a PDF
+- [ ] Embedding in a web page
+
+**解析：** Tableau Reader 是免費的桌面應用程式，可開啟 .twbx 封裝活頁簿並保留完整互動（篩選、提示框），完全不需連線。Server／嵌入網頁都要連線；PDF 則失去互動性。
+
+<sub>Part 7　·　[影片 2:12](https://youtu.be/Dh5A77lHet4?t=132)</sub>
+
+### 237. What does publishing a workbook to Tableau Public allow? (select multiple)　**（複選）**
+
+> 把活頁簿發佈到 Tableau Public 可以做到哪些事？（複選）
+
+- [x] **Sharing via link**
+- [x] **Embedding in websites**
+- [ ] Offline Access
+- [ ] Setting Subscriptions
+- [ ] Refreshing Data Extracts
+
+**解析：** Tableau Public 提供公開連結與網頁嵌入碼。它不支援離線存取、不支援訂閱（那是 Server／Cloud 的功能），資料重新整理也受限（僅部分連接器可自動更新）。
+
+<sub>Part 9　·　[影片 7:57](https://youtu.be/kQuGn_QuNII?t=477)</sub>
+
+
+## 匯出與列印　（8 題）
+
+### 238. In which situation should you save a workbook as a PDF document?
+
+> 什麼情況下應該把活頁簿存成 PDF？
+
+- [ ] Users have Tableau Desktop but not Tableau Reader.
+- [ ] You want document users to be able to filter and sort the views.
+- [ ] Analysis does not require a live connection to a data source.
+- [x] **You need to maintain local hard copies of the views.**
+
+**解析：** PDF 是靜態快照，適合需要留存或列印紙本的情境。它不能互動（無法篩選排序），所以想保留互動性應該給 .twbx 讓對方用 Tableau Reader 開。
+
+<sub>AllAboutDATA P9　·　[影片 4:02](https://youtu.be/5sQje-6Bf34?t=242)</sub>
+
+### 239. From a Tableau Dashboard we need to export an image. Which path should we use?
+
+> 要從儀表板匯出圖片，該走哪個路徑？
+
+- [ ] Dashboard Menu > Copy Image
+- [x] **Dashboard Menu > Export Image**
+- [ ] Format Menu > Copy Formatting
+- [ ] File Menu > Save As
+
+**解析：** 儀表板畫面下的 Dashboard 選單有 Export Image，可存成 PNG／JPEG 等圖檔。Copy Image 只是複製到剪貼簿。
+
+<sub>AllAboutDATA P9　·　[影片 4:40](https://youtu.be/5sQje-6Bf34?t=280)</sub>
+
+### 240. Invalid format of exporting is
+
+> 下列哪一個「不是」有效的匯出格式？
+
+- [x] **Export as workbook**
+- [ ] Export as Image
+- [ ] Export as data
+- [ ] None of the above
+
+**解析：** Worksheet ▸ Export 提供 Image、Data、Crosstab to Excel。「Export as workbook」不存在——要產生活頁簿檔案是用 File ▸ Save As。
+
+<sub>AllAboutDATA P9　·　[影片 5:20](https://youtu.be/5sQje-6Bf34?t=320)</sub>
+
+### 241. When exporting a worksheet as an image in Tableau, which of the following formats are available? [Select all Apply]　**（複選）**
+
+> 把工作表匯出成圖片時，有哪些格式可選？（複選）
+
+- [x] **.BMP**
+- [x] **.PNG**
+- [x] **.SVG**
+- [x] **.JPEG**
+
+**解析：** 四種都可以：Worksheet ▸ Export ▸ Image 的存檔類型包含 PNG、BMP、JPEG 與 EMF／SVG 這類向量格式。
+
+<sub>AllAboutDATA P9　·　[影片 6:40](https://youtu.be/5sQje-6Bf34?t=400)</sub>
+
+### 242. Which of the following are valid ways to copy a worksheet?
+
+> 複製工作表的有效做法是哪一個？
+
+- [ ] By simply click ctrl + V
+- [ ] Click on analysis menu -> Copy -> image
+- [ ] Click on worksheet menu -> copy -> image
+- [x] **Right click on the worksheet viz -> Copy**
+
+**解析：** 在視圖上按右鍵選 Copy 即可複製。Analysis 選單沒有 Copy；Worksheet 選單的 Copy 是複製影像或資料而非工作表本身。
+
+<sub>AllAboutDATA P9　·　[影片 7:20](https://youtu.be/5sQje-6Bf34?t=440)</sub>
+
+### 243. We need to save a Workbook in Tableau as a PDF. We need to use
+
+> 要把活頁簿存成 PDF，該用哪個路徑？
+
+- [ ] Presentation mode in the Toolbar
+- [x] **File > Print to PDF**
+- [ ] Worksheet -> Export -> PDF
+- [ ] File > Save As
+
+**解析：** File ▸ Print to PDF 會把選定的工作表輸出成 PDF。Worksheet ▸ Export ▸ Image 的清單裡沒有 PDF。
+
+<sub>AllAboutDATA P9　·　[影片 8:51](https://youtu.be/5sQje-6Bf34?t=531)</sub>
+
+### 244. We need to save a Workbook in Tableau as a Powerpoint. We need to use
+
+> 要把活頁簿存成 PowerPoint，該用哪個路徑？
+
+- [ ] Presentation mode in the Toolbar
+- [x] **File > Print to Powerpoint**
+- [ ] Worksheet -> Export -> Powerpoint
+- [ ] File > Save As
+
+**解析：** 依影片答案為 File 選單下的 PowerPoint 輸出。（新版 Tableau 的正式名稱是 File ▸ Export As PowerPoint，位置相同、名稱略有出入。）
+
+<sub>AllAboutDATA P9　·　[影片 9:20](https://youtu.be/5sQje-6Bf34?t=560)</sub>
+
+### 245. True or False: Tableau Desktop cannot export visualizations directly to PDF format.
+
+> 是非題：Tableau Desktop 無法直接把視覺化匯出成 PDF。
+
+- [ ] true
+- [x] **false**
+
+**解析：** 陷阱題。Worksheet ▸ Export ▸ Image 只提供 PNG／BMP／EMF／JPEG，看起來像不能出 PDF；但 File ▸ Print（列印對話框左下角的 PDF）就能直接存成 PDF。所以「不能匯出 PDF」這個敘述是錯的 → false。
+
+<sub>Part 1　·　[影片 15:15](https://youtu.be/bF4sNorB0Uo?t=915)</sub>
+
+
+## Story 故事　（4 題）
+
+### 246. What is a story in Tableau?
+
+> Tableau 的 story 是什麼？
+
+- [x] **A story is a sheet that contains a sequence of worksheets or dashboards that work together to convey information.**
+- [ ] Stories can be used to show how facts are connected. Provide context.
+
+**解析：** Story 本身是一種工作表，裡面依序放入工作表或儀表板（story point），用來把資料按敘事順序串起來說明。
+
+<sub>AllAboutDATA P7　·　[影片 20:20](https://youtu.be/MJ36LDTBQ2Y?t=1220)</sub>
+
+### 247. A story point can contain either only Worksheet or only Dashboard but not both.
+
+> 是非題：一個 story point 只能放工作表或儀表板其中一種，不能兩者都放。
+
+- [x] **True**
+- [ ] False
+
+**解析：** True。每個 story point 承載一張工作表或一個儀表板，不能在同一個 story point 裡同時放兩者。要並列多張圖，做法是先做成儀表板再放進 story point。
+
+<sub>AllAboutDATA P8　·　[影片 27:20](https://youtu.be/1ZcDwpIFRqg?t=1640)</sub>
+
+### 248. Which Tableau capability is used to sequence a narrative of visualizations for presentation purposes?
+
+> 哪個 Tableau 功能可以把多個視覺化排成有順序的敘事，用於簡報？
+
+- [ ] Dashboards
+- [x] **Stories**
+- [ ] Workbooks
+- [ ] Reports
+
+**解析：** 官方定義：story 是「a sequence of visualizations that work together to convey information」。每個 story point 可以是工作表或儀表板，串起來就是一段有順序的資料敘事。Dashboard 是同時並列、Workbook 是整份檔案、Reports 不是 Tableau 的物件名稱。
+
+<sub>Part 16　·　[影片 8:40](https://youtu.be/-UVWgcG8_H0?t=520)　·　答案來自口述</sub>
+
+### 249. What Tableau feature allows you to switch between different views or dashboards dynamically as a user?
+
+> 哪個 Tableau 功能讓使用者可以動態切換不同的視圖或儀表板？
+
+- [x] **Stories**
+- [ ] Dashboards
+- [ ] Workbook
+- [ ] Data sources
+
+**解析：** Story 把多個 story point（可以是工作表或儀表板）串成一系列導覽頁籤，讀者點頁籤就能在不同視圖之間切換，形成有敘事順序的簡報。
+
+<sub>Part 6　·　[影片 11:31](https://youtu.be/xy1RoS0HRWc?t=691)</sub>
+
+
+## 權限與訂閱　（2 題）
+
+### 250. Which feature in Tableau provides the ability to automate report distribution via Emails?
+
+> 哪個功能可以自動以 email 寄送報表？
+
+- [ ] Job alerts
+- [x] **Subscriptions**
+- [ ] Email scheduling
+- [ ] Filter Actions
+
+**解析：** Subscription（訂閱）讓使用者依排程自動收到視圖或儀表板的快照 email。Job alert 是管理員收到的工作失敗通知；Email scheduling 不是 Tableau 的功能名稱。
+
+<sub>Part 14　·　[影片 11:04](https://youtu.be/ITywjhHzhNk?t=664)</sub>
+
+### 251. What advantage does 'Subscription' provide in Tableau Server?
+
+> Tableau Server 的「Subscription（訂閱）」有什麼好處？
+
+- [x] **Automated report delivery**
+- [ ] Real-time data update
+- [ ] Enhanced security features
+- [ ] Automated License Renewals
+
+**解析：** 訂閱讓使用者依排程自動收到視圖或儀表板的快照 email（PNG／PDF），不必主動登入查看。它不會讓資料變即時，也與安全性或授權無關。
+
+<sub>Part 18　·　[影片 9:13](https://youtu.be/GjrnbInnBaI?t=553)</sub>
+
+
+---
+
+# Tableau 概念　<small>Understanding Tableau Concepts　權重 15%</small>
+
+
+## 離散 vs 連續　（14 題）
+
+### 252. What is created by a dimension that is placed in a view?
+
+> 把維度放進視圖會產生什麼？
+
+- [ ] An Axis
+- [ ] A filter
+- [x] **A label/Header**
+- [ ] A field
+
+**解析：** 離散的維度產生的是「標題（header）」——一格一格的標籤。只有連續欄位才會產生座標軸。
+
+<sub>AllAboutDATA P10　·　[影片 9:40](https://youtu.be/lsiczrhapcs?t=580)</sub>
+
+### 253. What is created by a measure that is placed in a view?
+
+> 把度量放進視圖會產生什麼？
+
+- [ ] A filter with a range of values
+- [ ] A field with headers
+- [ ] A label with names of fields
+- [x] **An axis with range of values**
+
+**解析：** 度量預設是連續的，放進視圖會產生一條有數值範圍的座標軸。
+
+<sub>AllAboutDATA P10　·　[影片 10:20](https://youtu.be/lsiczrhapcs?t=620)</sub>
+
+### 254. Which two types of fields appear blue? (Choose two.)　**（複選）**
+
+> 哪兩種欄位會顯示為藍色？（複選）
+
+- [ ] Continuous measures
+- [x] **Discrete dimensions**
+- [x] **Discrete measures**
+- [ ] Continuous dimensions
+
+**解析：** 藍色代表「離散」，與維度或度量無關。所以離散維度與離散度量都是藍色。
+
+<sub>AllAboutDATA P10　·　[影片 14:20](https://youtu.be/lsiczrhapcs?t=860)</sub>
+
+### 255. Which two types of fields appear green? (Choose two.)　**（複選）**
+
+> 哪兩種欄位會顯示為綠色？（複選）
+
+- [x] **Continuous measures**
+- [ ] Discrete dimensions
+- [ ] Discrete measures
+- [x] **Continuous dimensions**
+
+**解析：** 綠色代表「連續」，所以連續度量與連續維度都是綠色。
+
+<sub>AllAboutDATA P10　·　[影片 14:40](https://youtu.be/lsiczrhapcs?t=880)</sub>
+
+### 256. From the below mentioned values select the Discrete Date Part
+
+> 下列哪一個是「離散」的日期部分（date part）？
+
+- [ ] 4 Nov 22
+- [x] **2019**
+- [ ] 2022 Q4
+- [ ] May 2021
+
+**解析：** Date part 只取日期的某一個部分，例如年份「2019」。其餘三個都是完整或組合的日期值（date value），屬於連續日期。
+
+<sub>AllAboutDATA P10　·　[影片 16:56](https://youtu.be/lsiczrhapcs?t=1016)</sub>
+
+### 257. In Tableau, dates can be used in two ways as Discrete & Continuous
+
+> 是非題：在 Tableau 中，日期可以用離散與連續兩種方式呈現。
+
+- [x] **True**
+- [ ] False
+
+**解析：** True。離散日期（date part）產生一格一格的標題，連續日期（date value）產生連續的時間軸，兩者可在欄位下拉選單自由切換。
+
+<sub>AllAboutDATA P10　·　[影片 19:00](https://youtu.be/lsiczrhapcs?t=1140)</sub>
+
+### 258. What does the field SUM(Profit) shown as a green pill represent?
+
+> 畫面上顯示為綠色的 SUM(Profit) 代表什麼？
+
+- [x] **Continuous measures**
+- [ ] Discrete dimensions
+- [ ] Discrete measures
+- [ ] Continuous dimensions
+
+**解析：** 綠色＝連續，SUM() 代表已被彙總的度量，合起來就是「連續度量」。
+
+<sub>AllAboutDATA P10　·　[影片 23:00](https://youtu.be/lsiczrhapcs?t=1380)</sub>
+
+### 259. True or False: A Continuous measure can be identified by a blue pill
+
+> 是非題：連續的度量可以用藍色欄位（pill）來辨識。
+
+- [ ] true
+- [x] **false**
+
+**解析：** false。連續一律是「綠色」欄位，藍色代表離散。度量預設是連續（綠色），但也可以轉成離散變藍色——所以用顏色判斷的是離散／連續，不是維度／度量。
+
+<sub>Part 10　·　[影片 11:51](https://youtu.be/dlLVylmVvXo?t=711)</sub>
+
+### 260. True or False: In Tableau, you can convert a discrete date part into a continuous date part.
+
+> 是非題：在 Tableau 中，可以把離散的日期部分轉成連續的日期。
+
+- [x] **true**
+- [ ] false
+
+**解析：** true。在欄位（pill）上按右鍵即可在 Discrete 與 Continuous 之間切換，也可以在下拉選單中選 Year／Quarter 的離散版本或「綠色」的連續日期版本，兩者可自由互換。
+
+<sub>Part 11　·　[影片 11:10](https://youtu.be/yvlR98Sxc-w?t=670)</sub>
+
+### 261. True or False: Dragging a discrete dimension to Color on the Marks card will result in a gradient color palette based on the underlying values
+
+> 是非題：把離散維度拖到 Marks card 的 Color 上，會產生依數值變化的漸層色盤。
+
+- [ ] true
+- [x] **false**
+
+**解析：** false。離散（藍色）欄位得到的是「類別色盤」——每個成員一個不同顏色。漸層（sequential／diverging）色盤只有把連續（綠色）欄位放到 Color 時才會出現。
+
+<sub>Part 12　·　[影片 14:18](https://youtu.be/1y2xUj7SzDQ?t=858)</sub>
+
+### 262. What does a blue pill always represent?
+
+> 藍色的欄位（pill）一定代表什麼？
+
+- [ ] A dimension
+- [ ] A measure value
+- [x] **A discrete field**
+- [ ] A continuous field
+
+**解析：** 顏色代表的是「離散 vs 連續」，不是「維度 vs 度量」。藍色＝離散（產生標題 headers），綠色＝連續（產生軸 axis）。維度通常是藍色但也可以是連續（例如連續日期），度量也可以被轉成離散，所以「藍色＝維度」是錯的。
+
+<sub>Part 13　·　[影片 2:33](https://youtu.be/aUds-njz53o?t=153)</sub>
+
+### 263. _____ fields always result in a blue pill
+
+> ＿＿＿ 類型的欄位一定會呈現為藍色欄位（pill）。
+
+- [ ] dimensions
+- [ ] measures
+- [x] **discrete**
+- [ ] continuous
+
+**解析：** 藍色＝離散（discrete），綠色＝連續（continuous）。維度多半是離散但也可以是連續（連續日期），度量多半是連續但也能轉成離散，所以只有「離散」是永遠對應藍色的。
+
+<sub>Part 20　·　[影片 10:31](https://youtu.be/pNl1hF8ha48?t=631)</sub>
+
+### 264. Dragging a _____ field to the color on the marks card will result in a color gradient while a _____ field will result in distinct colors based on a color palette
+
+> 把 ＿＿ 欄位拖到 Marks card 的 Color 會得到漸層色，而 ＿＿ 欄位會得到色盤上的不同色塊。
+
+- [ ] Discrete, infinite
+- [ ] Continuous, fixed
+- [x] **Continuous, Discrete**
+- [ ] Discrete, Continuous
+
+**解析：** 連續（綠色）欄位 → 依數值大小的漸層色階；離散（藍色）欄位 → 每個成員一個獨立顏色的類別色盤。這是判斷色彩圖例長相的關鍵。
+
+<sub>Part 23　·　[影片 11:47](https://youtu.be/yg16dP_X0-A?t=707)</sub>
+
+### 265. True or False: A discrete date pill on the rows shelf will generate an axis in the Viz.
+
+> 是非題：把「離散」的日期欄位放到 Rows shelf 會產生一條座標軸。
+
+- [ ] true
+- [x] **false**
+
+**解析：** false。離散（藍色）欄位產生的是「標題（headers）」——一格一格的標籤；只有連續（綠色）欄位才會產生座標軸（axis）。這是離散 vs 連續最常考的分辨點。
+
+<sub>Part 6　·　[影片 3:00](https://youtu.be/xy1RoS0HRWc?t=180)</sub>
+
+
+## 介面與名詞　（11 題）
+
+### 266. The Start page in Tableau Desktop includes which three main areas?
+
+> Tableau Desktop 的開始頁包含哪三個主要區塊？
+
+- [x] **Connect, Open, and Discover**
+- [ ] Connect, Resources, and Discover
+- [ ] Explore, Resources, and Recommendations
+- [ ] Connect, Explore, and Recommendations
+
+**解析：** 開始頁分三欄：左側 Connect（連接資料）、中間 Open（最近開啟與範例活頁簿）、右側 Discover（訓練影片、部落格、Viz of the Day）。
+
+<sub>AllAboutDATA P2　·　[影片 17:20](https://youtu.be/TtChR0LBQtQ?t=1040)</sub>
+
+### 267. What is the difference between a workbook and a worksheet in Tableau?
+
+> 活頁簿（workbook）與工作表（worksheet）的差別是什麼？
+
+- [x] **A workbook contains multiple worksheets, while a worksheet contains a single visualization.**
+- [ ] A workbook is used to create visualizations, while a worksheet is used to connect to data sources.
+- [ ] A workbook contains data sources, while a worksheet contains visualizations.
+- [ ] A workbook is used to publish visualizations, while a worksheet is used to edit them.
+
+**解析：** 活頁簿是整份檔案，裡面可以有多張工作表、儀表板與故事；每張工作表就是一個視覺化。
+
+<sub>AllAboutDATA P7　·　[影片 19:40](https://youtu.be/MJ36LDTBQ2Y?t=1180)</sub>
+
+### 268. How many auto generated fields are added in dimensions?
+
+> 資料窗格的維度區會自動產生幾個欄位？
+
+- [ ] 2
+- [ ] 3
+- [ ] 4
+- [x] **1**
+
+**解析：** 維度區只會自動多出一個 Measure Names。（度量區則會有 Measure Values，地理資料另外會產生 Latitude／Longitude。）
+
+<sub>AllAboutDATA P10　·　[影片 9:00](https://youtu.be/lsiczrhapcs?t=540)</sub>
+
+### 269. With respect to the placement of pills in a shelf, which of the below statements are true?
+
+> 關於欄位（pill）在架上的擺放位置，哪個敘述正確？
+
+- [ ] We cannot drop a dimension in front/left or behind/right of another dimension
+- [ ] We cannot drop a dimension in front/left of a measure
+- [x] **We cannot drop a measure in front/left of a dimension**
+- [ ] We cannot drop a measure in front/left or behind/right of another measure
+
+**解析：** 同一個架上，度量必須放在維度後面——維度負責切分、度量負責產生軸，所以無法把度量插到維度前面。維度彼此之間則可以任意調換順序。
+
+<sub>AllAboutDATA P10　·　[影片 22:40](https://youtu.be/lsiczrhapcs?t=1360)</sub>
+
+### 270. True or False: Tableau Desktop supports scripting with JavaScript.
+
+> 是非題：Tableau Desktop 支援用 JavaScript 撰寫腳本。
+
+- [ ] true
+- [x] **false**
+
+**解析：** false。Tableau Desktop 的外部腳本整合是 Python（TabPy）與 R（Rserve）。JavaScript API 是給網頁開發者用來嵌入並控制已發佈視圖的，不是 Desktop 內的腳本語言。
+
+<sub>Part 10　·　[影片 8:38](https://youtu.be/dlLVylmVvXo?t=518)</sub>
+
+### 271. This icon best describes which component in the Data Pane? (圖示為一個由上層方塊往下分支到兩個方塊的樹狀結構圖示)
+
+> 影片畫面上的圖示（樹狀分支結構）代表資料窗格中的哪個元件？
+
+- [ ] Left Join
+- [ ] Sets
+- [ ] Location
+- [x] **Hierarchy**
+
+**解析：** 樹狀分支的圖示代表 Hierarchy（階層）。在資料窗格中，Set 是兩個交疊的圓、Group 是迴紋針、地理欄位是地球儀，階層則是這個由上往下分支的樹狀圖示。
+
+<sub>Part 17　·　[影片 15:29](https://youtu.be/BRUG1D3Q0LA?t=929)</sub>
+
+### 272. Which Tableau Desktop functionality allows you to recover back to your last saved changes?
+
+> Tableau Desktop 的哪個功能可以還原到上次儲存的狀態？
+
+- [ ] Roll back
+- [ ] Version history
+- [x] **Revert**
+- [ ] Restore
+
+**解析：** File ▸ Revert to Saved 會把活頁簿還原成上次存檔的樣子，丟棄之後所有未儲存的變更。Roll back 是資料庫術語；Server 上的版本功能叫 Revision History，不是 Version history，而且那是 Server 端不是 Desktop。
+
+<sub>Part 18　·　[影片 9:11](https://youtu.be/GjrnbInnBaI?t=551)　·　答案來自口述</sub>
+
+### 273. What does the following icon do? (畫面圖示為兩排小方塊搭配一組彎曲交換箭頭)
+
+> 畫面上這個圖示（兩排方塊加上交換箭頭）的功能是什麼？
+
+- [ ] Union data
+- [ ] Pivot data
+- [ ] Rearrange containers
+- [x] **Swap column and row pills**
+
+**解析：** 工具列上這個帶交換箭頭的圖示是 Swap Rows and Columns，把 Columns 與 Rows shelf 上的欄位對調（快捷鍵 Ctrl+W／⌘+W），一鍵把直條圖變橫條圖。
+
+<sub>Part 20　·　[影片 3:08](https://youtu.be/pNl1hF8ha48?t=188)</sub>
+
+### 274. What does the following icon represent in Tableau? (畫面圖示為一個迴紋針)
+
+> 畫面上這個迴紋針圖示在 Tableau 中代表什麼？
+
+- [ ] Set
+- [x] **Group**
+- [ ] Bin
+- [ ] Attachment
+
+**解析：** 迴紋針（paperclip）圖示代表 Group——把多個成員「夾」在一起。Set 是兩個交疊的圓、Bin 是類似長條圖的圖示。
+
+<sub>Part 21　·　[影片 8:45](https://youtu.be/M8KSQg1illA?t=525)</sub>
+
+### 275. Which of the following describes the image below? (畫面顯示左側欄位清單：Sample - Superstore、搜尋列、Tables、Orders 與其下的 Customer Name / Location / Order Date 等欄位)
+
+> 畫面顯示的是 Tableau 介面的哪一部分？（欄位清單，含搜尋列與 Orders 資料表下的欄位）
+
+- [ ] Data Sources tab
+- [x] **Data Pane**
+- [ ] Table Preview
+- [ ] Analytics Pane
+
+**解析：** 這是工作表左側的 Data Pane（資料窗格），列出目前資料來源的所有欄位，並以圖示標示資料型別與角色（Abc 字串、日曆 日期、樹狀 階層等）。
+
+<sub>Part 22　·　[影片 7:03](https://youtu.be/c_4BgvRwX_k?t=423)</sub>
+
+### 276. True or False: You can use Python scripts in Tableau calculations through the TabPy server.
+
+> 是非題：可以透過 TabPy 伺服器在 Tableau 的計算中使用 Python 腳本。
+
+- [x] **true**
+- [ ] false
+
+**解析：** true。TabPy（Tableau Python Server）是官方的外部服務整合，設定連線後即可在計算欄位中用 SCRIPT_REAL、SCRIPT_STR 等函數呼叫 Python。R 也有對應的 Rserve 整合。
+
+<sub>Part 7　·　[影片 11:20](https://youtu.be/Dh5A77lHet4?t=680)</sub>
+
+
+## 彙總與細分層級　（11 題）
+
+### 277. COUNTD considers the NULL values as zero
+
+> 是非題：COUNTD 會把 NULL 當成 0 來計算。
+
+- [ ] True
+- [x] **False**
+
+**解析：** False。COUNTD 計算的是相異的非 NULL 值，NULL 直接被忽略而不是當成一個值或 0。
+
+<sub>AllAboutDATA P6　·　[影片 5:20](https://youtu.be/iWdxDSnmi90?t=320)</sub>
+
+### 278. Which two types of aggregations can be applied to string fields? (Choose two.)　**（複選）**
+
+> 哪兩種彙總可以套用在字串欄位上？（複選）
+
+- [x] **Minimum**
+- [ ] Sum
+- [ ] Average
+- [x] **Count Distinct**
+
+**解析：** MIN／MAX 對字串是取字母順序的最前／最後，COUNT 與 COUNTD 則是計數，這些都適用字串。SUM 與 AVG 需要數值，傳字串會直接報錯。
+
+<sub>AllAboutDATA P6　·　[影片 6:00](https://youtu.be/iWdxDSnmi90?t=360)</sub>
+
+### 279. What aggregations are possible for measures? (Select all apply)　**（複選）**
+
+> 度量可以套用哪些彙總方式？（複選）
+
+- [x] **Sum**
+- [ ] Percentage
+- [x] **CountD**
+- [x] **Max**
+
+**解析：** Measure 選單提供 Sum、Average、Median、Count、Count Distinct、Minimum、Maximum、Std. Dev、Variance 等。Percentage 不是彙總方式，而是表計算或「百分比」顯示設定。
+
+<sub>AllAboutDATA P10　·　[影片 12:21](https://youtu.be/lsiczrhapcs?t=741)</sub>
+
+### 280. By default, is aggregation possible for both dimensions and measures?
+
+> 是非題：預設情況下維度與度量都會被彙總。
+
+- [ ] True
+- [x] **False**
+
+**解析：** False。只有度量拖進視圖時會自動被彙總（SUM）；維度不會，它是用來分組的。
+
+<sub>AllAboutDATA P10　·　[影片 12:50](https://youtu.be/lsiczrhapcs?t=770)</sub>
+
+### 281. Can we use multiple aggregation for the same measure field?
+
+> 同一個度量欄位可以同時套用多種彙總嗎？
+
+- [ ] Yes
+- [x] **No**
+
+**解析：** 依影片答案為 No——同一個欄位（pill）一次只能有一種彙總。（不過同一個度量可以重複拖進視圖多次，每一份各自設定不同的彙總，所以實務上是做得到的，這題問法偏向「單一 pill」。）
+
+<sub>AllAboutDATA P10　·　[影片 13:50](https://youtu.be/lsiczrhapcs?t=830)</sub>
+
+### 282. From where can we change the default aggregation for a measure?
+
+> 要更改度量的預設彙總方式，從哪裡設定？
+
+- [x] **Data pane > Measure Field > Default Properties > Aggregation**
+- [ ] Rows Shelf > Measure Field > Measure (Sum)
+- [ ] Data Grid in Data Source Page > Measure Field > Default Properties > Aggregation
+- [ ] Metadata Grid in Data Source Page > Measure Field > Default Properties > Aggregation
+
+**解析：** 在資料窗格的度量上按右鍵 ▸ Default Properties ▸ Aggregation，改的是「預設值」，之後每次拖進視圖都套用。在 Rows 上改只影響那一個 pill。
+
+<sub>AllAboutDATA P10　·　[影片 17:36](https://youtu.be/lsiczrhapcs?t=1056)</sub>
+
+### 283. What is the default type of aggregation applied to measures?
+
+> 度量預設套用哪一種彙總？
+
+- [x] **Sum**
+- [ ] Avg
+- [ ] ATTR
+- [ ] Min
+
+**解析：** 預設是 SUM，所以拖進視圖的度量會顯示成 SUM(欄位名)。
+
+<sub>AllAboutDATA P10　·　[影片 18:40](https://youtu.be/lsiczrhapcs?t=1120)</sub>
+
+### 284. We need to change a measure such that it automatically aggregates as a Count instead of a Sum. Select the best option
+
+> 要讓某個度量預設以 Count 而非 Sum 彙總，最好的做法是？
+
+- [ ] Right-click the measure in the Data pane, Select Change Data Type
+- [ ] Drag and drop the measure in the Rows/Columns shelf. Right-click the measure, Select the desired Aggregation
+- [x] **Right-click the measure in the Data pane, Select Default Properties**
+- [ ] Drag and drop the measure into the view. Right-click the measure and select Format to change the required Aggregation
+
+**解析：** 關鍵字是「自動」——要改預設行為就得設 Default Properties ▸ Aggregation。在 Rows 上改只對當下那一個 pill 生效，不是預設值。
+
+<sub>AllAboutDATA P10　·　[影片 22:13](https://youtu.be/lsiczrhapcs?t=1333)</sub>
+
+### 285. Which option leads to adjusting the granularity of data in Tableau?
+
+> 哪一個選項會改變資料的細分程度（granularity）？
+
+- [x] **Aggregate**
+- [ ] Group by
+- [ ] Grouped Fields
+- [ ] Extract
+
+**解析：** 彙總（aggregate）與細分度是一體兩面：彙總得越多，粒度越粗；視圖裡的維度越細，粒度越細。Group 是把成員合併成新成員、Extract 是儲存方式，都不是在調整粒度的概念。
+
+<sub>AllAboutDATA P1　·　[影片 8:15](https://youtu.be/VF8HTkcnq7o?t=495)</sub>
+
+### 286. Which aggregation functions can operate on both numeric and non-numeric fields?
+
+> 哪些聚合函數可同時用於數值與非數值欄位？
+
+- [ ] COUNT, AVG
+- [ ] SUM, MEDIAN
+- [x] **COUNT, COUNTD**
+- [ ] CONCAT
+
+**解析：** COUNT 與 COUNTD（Count Distinct）對數值與字串都可用。AVG、SUM、MEDIAN 傳入字串會直接報錯。CONCAT 在 Tableau 中根本不存在（那是 Excel 的函數），純粹是干擾選項。
+
+<sub>Part 1　·　[影片 2:21](https://youtu.be/bF4sNorB0Uo?t=141)</sub>
+
+### 287. What is the default aggregation applied to a measure when it is first dragged onto a Tableau view?
+
+> 把度量第一次拖進視圖時，預設會套用哪一種彙總？
+
+- [ ] AVG
+- [ ] COUNT
+- [x] **SUM**
+- [ ] CONTINUOUS
+
+**解析：** 度量拖進視圖預設彙總為 SUM（欄位會顯示成 SUM(Sales)）。可以在欄位右鍵 ▸ Measure 改成 Average、Median 等。CONTINUOUS 是欄位型態，不是彙總方式。
+
+<sub>Part 14　·　[影片 8:41](https://youtu.be/ITywjhHzhNk?t=521)</sub>
+
+
+## 檔案格式與產品線　（9 題）
+
+### 288. We need to share the workbook with anyone who does not have access to the data source and the external files associated with that workbook. The workbook has to be shared in what format?
+
+> 對方沒有資料來源與相關外部檔案的存取權，活頁簿要用什麼格式分享？
+
+- [ ] .twb
+- [x] **.twbx**
+- [ ] .tde
+- [ ] All of the above
+
+**解析：** .twbx 是封裝活頁簿，把資料擷取、背景圖片、自訂圖形等一起打包，對方不需要連到原始資料就能開啟。.twb 只有活頁簿本身，開啟時仍需要原始連線。
+
+<sub>AllAboutDATA P9　·　[影片 8:02](https://youtu.be/5sQje-6Bf34?t=482)</sub>
+
+### 289. Which three elements are included in a packaged workbook (.twbx)? (Choose three.)　**（複選）**
+
+> .twbx 封裝活頁簿包含哪三種元素？（複選）
+
+- [x] **Background images**
+- [ ] A PDF copy of the workbook
+- [x] **Custom shapes**
+- [ ] Tableau Datasource Customization (TDC) files
+- [x] **Extract files**
+
+**解析：** .twbx 打包的是活頁簿執行所需的本機資源：背景圖片、自訂圖形、以及資料擷取檔。它不會附上 PDF，TDC 檔屬於連接器層級的設定也不在其中。
+
+<sub>AllAboutDATA P9　·　[影片 10:00](https://youtu.be/5sQje-6Bf34?t=600)</sub>
+
+### 290. What is a .TBM file?
+
+> .tbm 是什麼檔案？
+
+- [ ] Table bookmark
+- [x] **Tableau bookmark**
+- [ ] Tableau bin mark
+- [ ] Tableau data extract
+
+**解析：** .tbm 是 Tableau Bookmark（書籤），保存單一工作表以便在其他活頁簿重複使用。
+
+<sub>AllAboutDATA P9　·　[影片 10:40](https://youtu.be/5sQje-6Bf34?t=640)</sub>
+
+### 291. Does a .TDSX file contain data and workbook?
+
+> 是非題：.tdsx 檔包含資料與活頁簿。
+
+- [ ] True
+- [x] **False**
+
+**解析：** False。.tdsx 是封裝「資料來源」——連線資訊加上本機資料檔或擷取，但不含活頁簿（視覺化）。含活頁簿的是 .twbx。
+
+<sub>AllAboutDATA P9　·　[影片 11:40](https://youtu.be/5sQje-6Bf34?t=700)</sub>
+
+### 292. What is a .TDE file?
+
+> .tde 是什麼檔案？
+
+- [ ] Tableau Workbook
+- [x] **Tableau data extract**
+- [ ] Tableau data source
+- [ ] None of the above
+
+**解析：** .tde 是舊版的 Tableau Data Extract 格式，2018.1 之後已由 .hyper 取代。
+
+<sub>AllAboutDATA P9　·　[影片 12:40](https://youtu.be/5sQje-6Bf34?t=760)</sub>
+
+### 293. Data source file has ______ extension.
+
+> 資料來源檔的副檔名是什麼？
+
+- [ ] .tde
+- [x] **.tds**
+- [ ] .tdsx
+- [ ] .twbx
+
+**解析：** .tds 是 Tableau Data Source，只存連線資訊與中繼設定；封裝版本（連資料一起打包）是 .tdsx。
+
+<sub>AllAboutDATA P9　·　[影片 13:37](https://youtu.be/5sQje-6Bf34?t=817)</sub>
+
+### 294. Which file format is used to save Tableau Workbook files?
+
+> Tableau 活頁簿檔案用哪一種副檔名儲存？
+
+- [ ] .tdsx
+- [x] **.twbx**
+- [ ] .hyper
+- [ ] .tableau
+
+**解析：** .twbx 是封裝活頁簿（Packaged Workbook），把活頁簿與資料一起打包，可直接寄給別人用 Tableau Reader 開啟。.twb 只有活頁簿本身、.tdsx 是封裝資料來源、.hyper 是擷取檔。
+
+<sub>Part 19　·　[影片 6:55](https://youtu.be/ILR4SFuWdsg?t=415)</sub>
+
+### 295. Why would you use a .twbx file over a .twb file?
+
+> 為什麼要用 .twbx 而不是 .twb？
+
+- [ ] To reduce the file size
+- [x] **To include data extracts and resources within the file**
+- [ ] To remove excess data from the file
+- [ ] To enable real-time data updates
+
+**解析：** .twbx（Packaged Workbook）把活頁簿、資料擷取、背景圖片、自訂圖形等資源全部打包成一個檔案，對方不需要原始資料連線就能開啟。代價是檔案更大，不是更小。
+
+<sub>Part 25　·　[影片 2:56](https://youtu.be/3Pmo6cngxRE?t=176)</sub>
+
+### 296. Which option is NOT a current, valid a Tableau file type?
+
+> 下列哪一個「不是」目前有效的 Tableau 檔案類型？
+
+- [ ] .twbx
+- [ ] .twb
+- [ ] .hyper
+- [x] **.tde**
+- [ ] .tbm
+
+**解析：** .tde（Tableau Data Extract）是舊版擷取格式，自 2018.1 起已被 .hyper 取代並淘汰。.twb 是活頁簿、.twbx 是封裝活頁簿、.hyper 是現行擷取格式、.tbm 是書籤檔。
+
+<sub>Part 8　·　[影片 11:56](https://youtu.be/IPHdPbrkbDY?t=716)</sub>
+
+
+## 維度 vs 度量　（6 題）
+
+### 297. What is created by a calculated field that has a formula of SUM(Sales) / SUM(Profit)?
+
+> 公式為 SUM(Sales) / SUM(Profit) 的計算欄位會產生什麼？
+
+- [x] **A measure**
+- [ ] A dimension
+- [ ] A set
+- [ ] A parameter
+
+**解析：** 結果是彙總後的數值，Tableau 會把它歸類成度量（綠色）。這種比率型計算欄位（例如 Profit Ratio）是最常見的計算度量。
+
+<sub>AllAboutDATA P6　·　[影片 8:00](https://youtu.be/iWdxDSnmi90?t=480)</sub>
+
+### 298. Which three statements accurately describe dimensions?　**（複選）**
+
+> 哪三個敘述正確描述了「維度」？（複選）
+
+- [x] **Contain qualitative values**
+- [x] **Affect the level of detail in the view**
+- [ ] Affect the formatting options in the view
+- [x] **Can be continuous or discrete**
+- [ ] Contain numeric, quantitative values
+
+**解析：** 維度存的是質化資料（名稱、類別、日期），會決定視圖的細分層級，而且可以是離散或連續（例如連續日期）。數值型的量化資料是度量的特徵。
+
+<sub>AllAboutDATA P10　·　[影片 6:52](https://youtu.be/lsiczrhapcs?t=412)</sub>
+
+### 299. Which statements accurately describe measures? (Select all apply)　**（複選）**
+
+> 哪些敘述正確描述了「度量」？（複選）
+
+- [x] **Measures are aggregated by default when dragged into views**
+- [ ] Affect the level of detail in the view
+- [ ] Affect the formatting options in the view
+- [x] **Can be continuous or discrete**
+- [x] **Contain numeric, quantitative values**
+
+**解析：** 度量拖進視圖時預設會被彙總（SUM）、內容是數值型的量化資料、而且也能在連續與離散之間切換。改變視圖細分層級的是維度而不是度量。
+
+<sub>AllAboutDATA P10　·　[影片 7:10](https://youtu.be/lsiczrhapcs?t=430)</sub>
+
+### 300. Which statements are correct?　**（複選）**
+
+> 下列哪些敘述正確？（複選）
+
+- [x] **Measure can be discrete or Continuous**
+- [ ] Dimensions are Numeric & Qualitative
+- [x] **measures are numeric & Quantitative**
+- [ ] Dimensions can be only discrete
+
+**解析：** 度量可以是離散或連續，內容是數值型的量化資料。維度是質化的（不必然是數值），而且也能是連續，所以另外兩句都不對。
+
+<sub>AllAboutDATA P10　·　[影片 7:40](https://youtu.be/lsiczrhapcs?t=460)</sub>
+
+### 301. In Tableau, what are the ways that Dimensions and Measures are different? (Select all apply)　**（複選）**
+
+> 維度與度量有哪些不同？（複選）
+
+- [x] **When brought into a view Measures are aggregated by default whereas dimensions are not**
+- [x] **Dimensions affect the level of detail of a view whereas Measures do not**
+- [ ] Measures can be used as a Filter whereas Dimensions cannot
+- [ ] Dimensions can be used in Calculated Fields whereas Measures cannot
+
+**解析：** 兩個關鍵差別：度量預設被彙總、維度不會；維度決定視圖的細分層級、度量不會。維度與度量都能當篩選器，也都能用在計算欄位裡。
+
+<sub>AllAboutDATA P10　·　[影片 8:20](https://youtu.be/lsiczrhapcs?t=500)</sub>
+
+### 302. From the below field types select the ones that will be represented as measures in Tableau (Select two options)　**（複選）**
+
+> 下列哪兩個欄位在 Tableau 中會被歸類為度量？（複選）
+
+- [ ] Shipping Date
+- [x] **Discount**
+- [ ] Region
+- [x] **Profit**
+
+**解析：** Discount 與 Profit 是數值，會被放進度量區。Shipping Date 是日期、Region 是文字，兩者都會被歸為維度。
+
+<sub>AllAboutDATA P10　·　[影片 18:20](https://youtu.be/lsiczrhapcs?t=1100)</sub>
+
+
+## 效能最佳化　（3 題）
+
+### 303. What type of chart has the slowest processing time?
+
+> 哪一種圖表的處理速度最慢？
+
+- [x] **CrossTab**
+- [ ] Line Chart
+- [ ] Bar Chart
+- [ ] TreeMap
+
+**解析：** 交叉表（文字表）要為每一格產生一個標記，資料一多標記數量就爆增，是所有圖表中渲染最慢的。這也是效能最佳化建議少用大型交叉表的原因。
+
+<sub>AllAboutDATA P3　·　[影片 16:56](https://youtu.be/XSkPENGfpUs?t=1016)</sub>
+
+### 304. Which component is not typically used to improve dashboard performance in Tableau?
+
+> 哪一個元件通常「不是」用來改善儀表板效能的？
+
+- [ ] Data extracts
+- [x] **Live connections**
+- [ ] Aggregated extracts
+- [ ] Filters
+- [ ] Calculated fields
+
+**解析：** 注意題目問的是「不是」。Extract 把資料存在本地、Aggregated extract 再進一步縮小資料量、Filters 限制資料筆數、Calculated field 用得好（例如以 CASE 取代多層巢狀 IF）也能優化。只有 Live connection 每次操作都即時查詢資料庫，反而拖慢效能。
+
+<sub>Part 1　·　[影片 18:33](https://youtu.be/bF4sNorB0Uo?t=1113)</sub>
+
+### 305. Which method is NOT a way to enhance dashboard performance in Tableau?
+
+> 下列哪一種做法「不是」提升儀表板效能的方法？
+
+- [ ] Using higher level of detail
+- [ ] Reducing the use of filters
+- [x] **Increasing the use of complex calculations**
+- [ ] Simplifying visualizations
+
+**解析：** 複雜計算（多層巢狀 IF、大量表計算、字串運算）會讓每次查詢都變慢，是效能殺手。提高彙總層級（少一點細節）、減少篩選器數量、簡化視圖都能加快渲染。
+
+<sub>Part 8　·　[影片 4:04](https://youtu.be/IPHdPbrkbDY?t=244)</sub>

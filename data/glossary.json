@@ -1,0 +1,581 @@
+{
+ "groups": [
+  {
+   "k": "core",
+   "zh": "核心概念",
+   "note": "這六組分不清楚，後面全部會卡住"
+  },
+  {
+   "k": "data",
+   "zh": "連接與準備資料"
+  },
+  {
+   "k": "view",
+   "zh": "視圖與圖表"
+  },
+  {
+   "k": "organize",
+   "zh": "整理與篩選"
+  },
+  {
+   "k": "analyze",
+   "zh": "分析功能"
+  },
+  {
+   "k": "share",
+   "zh": "儀表板與分享"
+  },
+  {
+   "k": "file",
+   "zh": "檔案格式與產品"
+  }
+ ],
+ "terms": [
+  {
+   "g": "core",
+   "en": "Dimension",
+   "zh": "維度",
+   "note": "質化資料（名稱、類別、日期）。它負責「切分」——把資料分成一組一組。預設放在資料窗格上半部。"
+  },
+  {
+   "g": "core",
+   "en": "Measure",
+   "zh": "度量",
+   "note": "量化資料（數值）。它負責「計算」——拖進視圖時會自動被彙總成 SUM。"
+  },
+  {
+   "g": "core",
+   "en": "Discrete",
+   "zh": "離散",
+   "note": "藍色欄位，產生一格一格的「標題（header）」。注意：離散不等於維度，度量也可以轉成離散。"
+  },
+  {
+   "g": "core",
+   "en": "Continuous",
+   "zh": "連續",
+   "note": "綠色欄位，產生一條有範圍的「座標軸（axis）」。同樣地，連續不等於度量，日期就常是連續維度。"
+  },
+  {
+   "g": "core",
+   "en": "Aggregation",
+   "zh": "彙總",
+   "note": "把多列壓成一個值：SUM、AVG、MIN、MAX、COUNT、COUNTD 等。度量預設 SUM。"
+  },
+  {
+   "g": "core",
+   "en": "Granularity / Level of Detail",
+   "zh": "細分層級（粒度）",
+   "note": "視圖裡每個標記代表多細的資料。維度放越多、粒度越細；彙總越多、粒度越粗。兩者是反向關係。"
+  },
+  {
+   "g": "core",
+   "en": "Mark",
+   "zh": "標記",
+   "note": "視圖中的一個資料點（一根長條、一個圓點、一格方塊）。左下角會顯示目前有幾個標記。"
+  },
+  {
+   "g": "core",
+   "en": "Row-level vs Aggregate calculation",
+   "zh": "列層級 vs 彙總計算",
+   "note": "[Sales]-[Cost] 是逐列算再彙總；SUM([Sales])-SUM([Cost]) 是先彙總再相減。遇到比率類計算兩者結果會不同。"
+  },
+  {
+   "g": "data",
+   "en": "Data Source",
+   "zh": "資料來源",
+   "note": "一組連線設定加上你對它做的所有中繼調整（改名、計算欄位、預設屬性）。"
+  },
+  {
+   "g": "data",
+   "en": "Live Connection",
+   "zh": "即時連線",
+   "note": "每次操作都直接查來源，資料永遠最新，但速度取決於來源。"
+  },
+  {
+   "g": "data",
+   "en": "Extract",
+   "zh": "擷取",
+   "note": "把資料存成本地 .hyper 快照。優點是快、可離線、資料量大也撐得住；缺點是需要排程更新。"
+  },
+  {
+   "g": "data",
+   "en": "Incremental Refresh",
+   "zh": "增量更新",
+   "note": "只把比上次更新更新的列加進擷取檔，不重載全部（那是 Full Refresh）。"
+  },
+  {
+   "g": "data",
+   "en": "Join",
+   "zh": "結合",
+   "note": "在「實體層」把兩張表接寬——欄位變多。要指定型別：inner／left／right／full outer 四種。"
+  },
+  {
+   "g": "data",
+   "en": "Union",
+   "zh": "聯集",
+   "note": "把結構相同的表往下疊——列變多。欄位型別要一致，只能在同一個連線內做。"
+  },
+  {
+   "g": "data",
+   "en": "Relationship",
+   "zh": "關聯",
+   "note": "「邏輯層」的麵條線。不必指定 join 型別，Tableau 依視圖用到的欄位自動決定查詢，還會保留各表原本的粒度。"
+  },
+  {
+   "g": "data",
+   "en": "Data Blending",
+   "zh": "資料混合",
+   "note": "跨「不同資料來源」在視圖層級合併，行為等同 left join。主要來源藍勾、次要來源橘勾。是最後手段，不是首選。"
+  },
+  {
+   "g": "data",
+   "en": "Logical / Physical Layer",
+   "zh": "邏輯層／實體層",
+   "note": "Relationship 在邏輯層，Join 與 Union 在實體層。雙擊邏輯表就進到實體層。"
+  },
+  {
+   "g": "data",
+   "en": "Pivot",
+   "zh": "欄轉列",
+   "note": "把多個欄位轉成「欄位名／值」兩欄的直式結構，常用在把年度分欄的寬表整理成長表。"
+  },
+  {
+   "g": "data",
+   "en": "Split / Custom Split",
+   "zh": "分割",
+   "note": "用分隔符號把一欄拆成多欄。Custom Split 可以指定分隔符號與要取第幾欄（從左或從右數）。"
+  },
+  {
+   "g": "data",
+   "en": "Alias",
+   "zh": "別名",
+   "note": "改成員的「顯示名稱」，不動底層資料。只有離散維度可以設，度量、日期、連續欄位都不行。"
+  },
+  {
+   "g": "data",
+   "en": "Data Interpreter",
+   "zh": "資料解譯器",
+   "note": "自動清掉試算表的裝飾標題、空白列、合併儲存格。只對檔案類來源有效，連 SQL 資料庫時不會出現。"
+  },
+  {
+   "g": "data",
+   "en": "Custom SQL",
+   "zh": "自訂 SQL",
+   "note": "直接寫 SQL 定義資料來源。彈性大但可能影響效能。"
+  },
+  {
+   "g": "data",
+   "en": "Metadata Grid",
+   "zh": "中繼資料格線",
+   "note": "資料來源頁的欄位清單檢視，可看隱藏欄位、來源原始欄位名、欄位屬於哪張表。"
+  },
+  {
+   "g": "data",
+   "en": "Default Properties",
+   "zh": "預設屬性",
+   "note": "欄位層級的預設設定：數值格式、預設彙總、顏色、排序、註解。改一次全活頁簿適用。"
+  },
+  {
+   "g": "data",
+   "en": "Replace References",
+   "zh": "取代參照",
+   "note": "欄位改名或換資料來源後，把所有用到舊欄位的地方一次指向新欄位。"
+  },
+  {
+   "g": "data",
+   "en": "Data Source Filter",
+   "zh": "資料來源篩選器",
+   "note": "在資料來源層級就先濾掉資料，所有工作表都套用，執行順序排在最前面。"
+  },
+  {
+   "g": "data",
+   "en": "Web Data Connector (WDC)",
+   "zh": "網頁資料連接器",
+   "note": "連接 REST API、JSON、XML 等網路資料來源的機制。"
+  },
+  {
+   "g": "view",
+   "en": "Worksheet",
+   "zh": "工作表",
+   "note": "一張視覺化。多張工作表組成活頁簿。"
+  },
+  {
+   "g": "view",
+   "en": "Shelf",
+   "zh": "架",
+   "note": "Columns、Rows、Filters、Pages 這些放欄位的區域。"
+  },
+  {
+   "g": "view",
+   "en": "Marks Card",
+   "zh": "標記卡",
+   "note": "決定資料怎麼被「視覺編碼」：Color、Size、Label／Text、Detail、Tooltip、Shape、Path，以及標記類型本身。"
+  },
+  {
+   "g": "view",
+   "en": "Detail",
+   "zh": "細節",
+   "note": "Marks 卡上的屬性。放欄位進去會把標記切更細，但不改變視圖結構——用來提高粒度而不加座標軸。"
+  },
+  {
+   "g": "view",
+   "en": "Pages Shelf",
+   "zh": "頁面架",
+   "note": "把欄位拖進去會產生播放控制器，可逐頁前進或自動播放，形成動畫。與篩選器不同，它是「一次看一頁」。"
+  },
+  {
+   "g": "view",
+   "en": "Show Me",
+   "zh": "顯示方式",
+   "note": "右上角的圖表建議面板，會依你選的欄位亮出可用圖表，並標示各圖表需要幾個維度／度量。"
+  },
+  {
+   "g": "view",
+   "en": "Axis vs Header",
+   "zh": "座標軸 vs 標題",
+   "note": "連續欄位產生軸（有刻度範圍），離散欄位產生標題（一格一格的標籤）。這是判斷藍綠的最快方式。"
+  },
+  {
+   "g": "view",
+   "en": "Dual Axis",
+   "zh": "雙軸",
+   "note": "把第二個度量以獨立的軸疊在同一窗格。兩個度量各有自己的 Marks 卡，可分別設定顏色與標記類型。刻度要對齊再選 Synchronize Axis。"
+  },
+  {
+   "g": "view",
+   "en": "Crosstab / Text Table",
+   "zh": "交叉表",
+   "note": "純文字的表格。每格一個標記，資料一多渲染最慢，是效能最差的圖表。"
+  },
+  {
+   "g": "view",
+   "en": "Highlight Table",
+   "zh": "強調表",
+   "note": "交叉表加上顏色深淺。標記類型是 Square，只用 Color。"
+  },
+  {
+   "g": "view",
+   "en": "Heat Map",
+   "zh": "熱圖",
+   "note": "用 Size ＋ Color 兩個屬性呈現，預設形狀是正方形。與只用顏色的 Highlight Table 不同。"
+  },
+  {
+   "g": "view",
+   "en": "Treemap",
+   "zh": "樹狀圖",
+   "note": "巢狀長方形，面積代表大小。適合呈現階層與占比。"
+  },
+  {
+   "g": "view",
+   "en": "Packed Bubbles",
+   "zh": "打包泡泡圖",
+   "note": "以圓的大小比較各類別的量體差異。"
+  },
+  {
+   "g": "view",
+   "en": "Histogram",
+   "zh": "直方圖",
+   "note": "看單一度量的分布。只需要一個度量，Tableau 會自動產生 bin 欄位。"
+  },
+  {
+   "g": "view",
+   "en": "Scatter Plot",
+   "zh": "散佈圖",
+   "note": "兩個度量各占一軸，看兩者的關係。需要兩個度量。"
+  },
+  {
+   "g": "view",
+   "en": "Box-and-Whisker Plot",
+   "zh": "盒鬚圖",
+   "note": "呈現分布：盒子是四分位距（IQR），中線是中位數，鬚線外是離群值。"
+  },
+  {
+   "g": "view",
+   "en": "Gantt Chart",
+   "zh": "甘特圖",
+   "note": "用長條長度表示「持續時間」，沿時間軸排列。適合追蹤期間與進度。"
+  },
+  {
+   "g": "view",
+   "en": "Symbol Map / Filled Map",
+   "zh": "符號地圖／填色地圖",
+   "note": "前者在地圖上放標記（大小顏色編碼），後者把區域整塊填色。"
+  },
+  {
+   "g": "view",
+   "en": "Geographic Role",
+   "zh": "地理角色",
+   "note": "指派欄位為 City／State／Country 等，Tableau 會自動產生 Latitude／Longitude (generated) 兩個度量。"
+  },
+  {
+   "g": "organize",
+   "en": "Filter",
+   "zh": "篩選器",
+   "note": "把資料從視圖中移除。離散欄位有 General／Wildcard／Condition／Top 四個頁籤；連續欄位是範圍式的。"
+  },
+  {
+   "g": "organize",
+   "en": "Context Filter",
+   "zh": "內容篩選器",
+   "note": "先執行並產生暫存子集，之後的篩選與 Top N 都以這個子集為母體。在架上顯示為灰色。只有 Top N、占比、FIXED LOD 這類「需要看全體」的計算才會受影響。"
+  },
+  {
+   "g": "organize",
+   "en": "Order of Operations",
+   "zh": "執行順序",
+   "note": "Extract → Data source → Context → Dimension → Measure → Table calc。記住這串就能解釋大部分「篩選結果跟預期不一樣」。"
+  },
+  {
+   "g": "organize",
+   "en": "Group",
+   "zh": "群組",
+   "note": "把同一維度的多個成員合併成一個新成員（圖示是迴紋針）。用於合併相似類別或修正拼寫不一致。"
+  },
+  {
+   "g": "organize",
+   "en": "Set",
+   "zh": "集合",
+   "note": "維度成員的子集，分 In／Out 兩邊（圖示是兩個交疊的圓）。可用 Top N 條件並綁定參數做成動態集合。"
+  },
+  {
+   "g": "organize",
+   "en": "Bin",
+   "zh": "組距",
+   "note": "把連續數值切成等距區間。只有數值欄位能建立，是直方圖的基礎。"
+  },
+  {
+   "g": "organize",
+   "en": "Hierarchy",
+   "zh": "階層",
+   "note": "把相關維度依層級組織（如 Category ▸ Sub-Category），視圖上會出現 +／− 可逐層鑽取。圖示是樹狀分支。"
+  },
+  {
+   "g": "organize",
+   "en": "Sort",
+   "zh": "排序",
+   "note": "依 Data Source Order／Alphabetic／Field／Manual 排序。入口有座標軸、欄位標籤、標題三處。"
+  },
+  {
+   "g": "organize",
+   "en": "Parameter",
+   "zh": "參數",
+   "note": "使用者可調整的「單一值」變數。允許值有 All／List／Range 三種，不能多選。常搭配計算欄位驅動篩選、Top N、參考線。"
+  },
+  {
+   "g": "organize",
+   "en": "Highlight",
+   "zh": "強調",
+   "note": "讓相關標記保持原色、其餘變淡。注意資料仍然全部都在——這是它與 Filter 最大的差別。"
+  },
+  {
+   "g": "analyze",
+   "en": "Calculated Field",
+   "zh": "計算欄位",
+   "note": "你自己寫公式產生的新欄位。編輯器裡函數藍色、欄位橘色、參數紫色。"
+  },
+  {
+   "g": "analyze",
+   "en": "Table Calculation",
+   "zh": "表計算",
+   "note": "在「視圖已彙總的結果」上再算一次：Running Total、Percent of Total、Rank、Moving Average、YOY Growth 等。範圍分 Table／Pane／Cell。"
+  },
+  {
+   "g": "analyze",
+   "en": "LOD Expression",
+   "zh": "細分層級運算式",
+   "note": "{FIXED 維度 : 彙總}。讓計算跳脫視圖的粒度。FIXED 完全忽略視圖、INCLUDE 加入更細的維度、EXCLUDE 移除視圖中的維度。"
+  },
+  {
+   "g": "analyze",
+   "en": "Reference Line / Band",
+   "zh": "參考線／參考區間",
+   "note": "在軸上畫一條線或一個區間（常數、平均、中位數、參數驅動）。範圍可設 Table／Pane／Cell。"
+  },
+  {
+   "g": "analyze",
+   "en": "Trend Line",
+   "zh": "趨勢線",
+   "note": "模型有 Linear、Logarithmic、Exponential、Power、Polynomial 五種。沒有 Table／Pane／Cell 的範圍選擇。"
+  },
+  {
+   "g": "analyze",
+   "en": "Forecast",
+   "zh": "預測",
+   "note": "以指數平滑法往未來延伸並給信賴區間。需要一個日期加至少一個度量。"
+  },
+  {
+   "g": "analyze",
+   "en": "Cluster",
+   "zh": "分群",
+   "note": "依度量值自動把相近的標記分組，用來從雜亂的散點中找出群體。"
+  },
+  {
+   "g": "analyze",
+   "en": "Totals / Grand Totals",
+   "zh": "總計／小計",
+   "note": "從 Analytics 窗格拖入或 Analysis ▸ Totals 加入。"
+  },
+  {
+   "g": "share",
+   "en": "Dashboard",
+   "zh": "儀表板",
+   "note": "把多張工作表排在同一畫面，加上篩選器、圖例、文字、圖片、網頁等物件並讓它們連動。"
+  },
+  {
+   "g": "share",
+   "en": "Story",
+   "zh": "故事",
+   "note": "把工作表或儀表板依序串成敘事頁籤（story point）。一個 story point 只能放一張工作表或一個儀表板。"
+  },
+  {
+   "g": "share",
+   "en": "Dashboard Action",
+   "zh": "儀表板動作",
+   "note": "類型：Filter、Highlight、Go to URL、Go to Sheet、Change Parameter、Change Set Values。觸發方式：Hover、Select、Menu。"
+  },
+  {
+   "g": "share",
+   "en": "Tooltip",
+   "zh": "提示框",
+   "note": "滑鼠停在標記上顯示的補充資訊。"
+  },
+  {
+   "g": "share",
+   "en": "Viz in Tooltip",
+   "zh": "提示框內嵌圖表",
+   "note": "把另一張工作表嵌進提示框，會自動以該標記為條件篩選。"
+  },
+  {
+   "g": "share",
+   "en": "Tiled vs Floating",
+   "zh": "並排 vs 浮動",
+   "note": "Tiled 物件自動排開不重疊；Floating 可自由擺放並疊在其他物件上。"
+  },
+  {
+   "g": "share",
+   "en": "Container",
+   "zh": "容器",
+   "note": "Horizontal／Vertical 容器，把多個物件收在一起，就能一次控制它們的大小與位置。"
+  },
+  {
+   "g": "share",
+   "en": "Device Preview",
+   "zh": "裝置預覽",
+   "note": "為 Default／Desktop／Tablet／Phone 各自設計版面。每個版面獨立，改一個不影響其他。"
+  },
+  {
+   "g": "share",
+   "en": "Dashboard Size",
+   "zh": "儀表板尺寸",
+   "note": "Fixed size（固定）、Automatic（隨視窗）、Range（在最小最大之間縮放）三種。"
+  },
+  {
+   "g": "share",
+   "en": "Subscription",
+   "zh": "訂閱",
+   "note": "依排程自動收到視圖的快照 email。是 Server／Cloud 的功能。"
+  },
+  {
+   "g": "share",
+   "en": "Data-Driven Alert",
+   "zh": "資料驅動警示",
+   "note": "數值超過門檻時自動寄信通知。"
+  },
+  {
+   "g": "share",
+   "en": "Revision History",
+   "zh": "修訂歷程",
+   "note": "已發佈活頁簿保留的版本紀錄，可檢視、下載或還原。"
+  },
+  {
+   "g": "share",
+   "en": "Revert to Saved",
+   "zh": "還原成已儲存",
+   "note": "Desktop 的 File 選單功能，丟棄未儲存的變更回到上次存檔狀態。"
+  },
+  {
+   "g": "share",
+   "en": "Animations",
+   "zh": "動畫",
+   "note": "Format ▸ Animations 設定。型態分 Simultaneous（同時）與 Sequential（循序），預設時長 0.3 秒。"
+  },
+  {
+   "g": "file",
+   "en": ".twb",
+   "zh": "活頁簿",
+   "note": "只有視覺化與設定，不含資料。開啟時仍需要原始資料連線。"
+  },
+  {
+   "g": "file",
+   "en": ".twbx",
+   "zh": "封裝活頁簿",
+   "note": "活頁簿 ＋ 擷取資料 ＋ 背景圖片、自訂圖形等資源，打包成一個檔。對方沒有資料來源也能開。"
+  },
+  {
+   "g": "file",
+   "en": ".tds",
+   "zh": "資料來源",
+   "note": "只有連線資訊與中繼設定（計算欄位、群組、預設屬性），不含資料。"
+  },
+  {
+   "g": "file",
+   "en": ".tdsx",
+   "zh": "封裝資料來源",
+   "note": ".tds ＋ 本機資料檔或擷取。注意：不含活頁簿。"
+  },
+  {
+   "g": "file",
+   "en": ".hyper",
+   "zh": "擷取檔",
+   "note": "現行的資料擷取格式，2018.1 起取代 .tde。"
+  },
+  {
+   "g": "file",
+   "en": ".tde",
+   "zh": "舊版擷取檔",
+   "note": "已淘汰的擷取格式，考題常拿來當「不是現行格式」的答案。"
+  },
+  {
+   "g": "file",
+   "en": ".tbm",
+   "zh": "書籤",
+   "note": "保存單一工作表，方便在其他活頁簿重複使用。"
+  },
+  {
+   "g": "file",
+   "en": "Tableau Desktop",
+   "zh": "Desktop",
+   "note": "製作分析與視覺化的主力工具。"
+  },
+  {
+   "g": "file",
+   "en": "Tableau Prep Builder",
+   "zh": "Prep Builder",
+   "note": "視覺化的資料清理／整形工具。Desktop 只做得到基本整理，真正的 ETL 在這裡。"
+  },
+  {
+   "g": "file",
+   "en": "Tableau Server / Cloud",
+   "zh": "Server／Cloud",
+   "note": "發佈目的地。Server 自行架設、Cloud 由 Tableau 託管。訂閱、權限、版本歷程都在這一層。"
+  },
+  {
+   "g": "file",
+   "en": "Tableau Reader",
+   "zh": "Reader",
+   "note": "免費桌面程式，開啟 .twbx 並保留互動，不需連線。無法編輯。"
+  },
+  {
+   "g": "file",
+   "en": "Tableau Public",
+   "zh": "Public",
+   "note": "免費雲端服務，只要 Desktop 就能發佈分享——但內容一律公開，且有資料列數上限。"
+  },
+  {
+   "g": "file",
+   "en": "TabPy / Rserve",
+   "zh": "Python／R 整合",
+   "note": "外部服務整合，讓計算欄位能呼叫 Python（TabPy）或 R（Rserve）腳本。"
+  }
+ ]
+}

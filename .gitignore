@@ -1,0 +1,12 @@
+# This repo is public. The working material it was built from is not:
+# real-exam screenshots, video frames, transcripts and the per-video source
+# JSON all stay in ../tableau-exam-bank and must never land here.
+_work/
+screenshots/
+qjson/
+transcript-*.txt
+*.ttc
+
+.DS_Store
+__pycache__/
+*.pyc
